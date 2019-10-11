@@ -193,3 +193,14 @@ jQuery(function($) {
 		}
 	});
 });
+
+
+$( "#btn-register" ).click(function() {
+  // alert( "register" );
+    $('#myModalRegister').modal('show');
+});
+
+$( "#btn-login" ).click(function() {
+  // alert( "login" );
+   $('#myModalLogin').modal('show');
+});
