@@ -25,13 +25,18 @@ function talon_posted_on() {
 		esc_html( get_the_modified_date() )
 	);
 	
-	$byline =  '<span class="author vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a></span>';
-	echo '<span class="byline">' . $byline . '<span class="meta-dash">&ndash;</span></span>';		
+	// $byline =  '<span class="author vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a></span>';
+	// echo '<span class="byline">' . $byline . '<span class="meta-dash">&ndash;</span></span>';		
 	$categories_list = get_the_category_list( esc_html__( ', ', 'talon' ) );
-	if ( $categories_list ) {
-		printf( '<span class="cat-links">' . esc_html__( '%1$s', 'talon' ) . '</span>', $categories_list );
-	}
-	echo '<span class="meta-dash">&ndash;</span><span class="posted-on">' . $time_string . '</span>'; 
+	// if ( $categories_list ) {
+	// 	printf( '<span class="cat-links">' . esc_html__( '%1$s', 'talon' ) . '</span>', $categories_list );
+	// } 
+	$categories = get_the_category();
+		if ( ! empty( $categories ) ) {
+		    echo '<a href="'.home_url().'/seminar'.'" class="post-category">' . esc_html( $categories[0]->name ) . '</a>';
+		}
+	
+	echo '<br><span class="posted-on">Published On : ' . $time_string . '</span>'; 
 
 }
 endif;

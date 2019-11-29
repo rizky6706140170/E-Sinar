@@ -31,6 +31,18 @@ body {
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 }
+
+@font-face {
+    font-family: 'Font Awesome 5 Brands';
+    font-style: normal;
+    font-weight: normal;
+  	src: url("../font-awesome/webfonts/fa-brands-400.eot");
+    src: url("../font-awesome/webfonts/fa-brands-400.eot?#iefix") format("embedded-opentype"),
+    url("../font-awesome/webfonts/fa-brands-400.woff2") format("woff2"), 
+    url("../font-awesome/webfonts/fa-brands-400.woff") format("woff"),
+    url("../font-awesome/webfonts/fa-brands-400.ttf") format("truetype"),
+    url("../font-awesome/webfonts/fa-brands-400.svg#fontawesome") format("svg"); 
+}
 h1,
 h2,
 h3,
@@ -2497,7 +2509,7 @@ img {
 /*--------------------------------------------------------------
 ## Responsive
 --------------------------------------------------------------*/
-@media (max-width: 1199px) {
+@media (max-width: 1039px) {
 	.menu-btn-toggle {display: block;}
 	.menu-container{display: none;}
 	.logo-container {width: 100%;}
@@ -2878,6 +2890,7 @@ opacity: .25;
  #ls-sm-home .rpwe-thumb
  {
  	border: 0px !important;
+ 	padding: 0 !important;
  } 
 
  #ls-sm-home.rpwe-block h3.rpwe-title-item-promo{
@@ -2938,8 +2951,10 @@ margin-bottom: 20px;
 /*padding-bottom: 10px;*/
 list-style-type: none;
 /*//background-color: white;*/
-border: 1px solid darkgray;
-/*border-bottom: 0px;*/
+border: 2px solid #a7a9b5;
+    /* border-bottom: 0px; */
+border-radius: 10px;
+padding-top: 0 !important;
 }
 
 #ls-sm-home.rpwe-block a{
@@ -3036,8 +3051,8 @@ border: 0px solid #eee !important;
 	/*margin-top: -21px;*/
 	height: 100%;
 	width: 100%;
-/*	border-top-left-radius: 3px;
-	border-top-right-radius:3px;*/
+	border-top-left-radius: 7px;
+	border-top-right-radius:7px;
 	margin:0px auto;
 }
 
@@ -3050,8 +3065,9 @@ border: 0px solid #eee !important;
 .row-btn-reglog
 {
 	margin-bottom: 3%;
-    margin-top: 3%;
-    text-align: right;
+    margin-top: 25%;
+   /* text-align: right;*/
+   width: 100%;
 }
 
 .site-content .container
@@ -3061,10 +3077,137 @@ border: 0px solid #eee !important;
     width: 90% !important;
 }
 
-#btn-login , #btn-register
+#btn-register
 {
 	color: #fff;
-    background-color: #536880 !important;
-    border-color: #007bff;
+    background-color: #3859e8 !important;
+    border-color: #607e9e;
     text-transform: unset;
+    padding-right: 22px;
+    padding-left: 22px;
+    border-radius: 10px;
+}
+#btn-login
+{
+	color: #fff;
+    background-color: #3859e8 !important;
+    border-color: #607e9e;
+    text-transform: unset;
+    padding-right: 22px;
+    padding-left: 22px;
+    border-radius: 10px;
+}
+
+.col-row-seminar
+{
+	padding: 0;
+}
+
+.fv-form-bootstrap .help-block
+{
+	color: red;
+}
+
+.main-navigation .current_page_item
+{
+	border-bottom: 1px solid #a0a0d6;
+}
+
+.header-image
+{
+	display: none;
+}
+.row-left
+{
+	-webkit-box-shadow: 10px 13px 8px -5px rgba(173,173,173,1);
+-moz-box-shadow: 10px 13px 8px -5px rgba(173,173,173,1);
+box-shadow: 10px 13px 8px -5px rgba(173,173,173,1);
+}
+
+.tempat-lokasi
+{
+	margin-left: 7px;
+	display: inline-block;
+}
+.date_sm span
+{
+	margin-left: 7px;
+	display: inline-block;
+}
+.waktu_sm span
+{
+	margin-left: 7px;
+	display: inline-block;
+}
+.footer-1
+{
+	text-align: center;
+    color: #f3f3cf;
+}
+.garis
+{
+	width: 50%;
+    border-color:#f3f3cf;
+    margin-top: 1rem;
+    margin-bottom: -1rem;
+}
+.footer-2
+{
+	text-align: center;
+}
+.footer-2 span
+{
+	font-size: 5vw;
+	color: #f3f3cf;
+}
+.footer-3
+{
+	text-align: center;
+    color: #f3f3cf;
+}
+.modal-header
+{
+	padding: 10px !important;
+}
+
+.modal-content
+{
+	background-color: rgba(19, 35, 47, 0.9);
+    color: white;
+}
+
+.btn-reg
+{
+	background-color: #179b77;
+	border-color: #179b77;
+}
+
+.btn-login
+{
+	background-color: #179b77;
+	border-color: #179b77;
+}
+#btnForgotPassword
+{
+	display: none;
+}
+.all-seminar
+{
+    padding: 15px;
+    background-color: white;
+    border: 2px solid #a7a9b5 !important;
+    border-radius: 15px;
+    color: #191a21 !important;
+}
+.post-navigation
+{
+	display: none;
+}
+.comments-area
+{
+	display: none;
+}
+.single-thumb img
+{
+	width: 100%;
 }

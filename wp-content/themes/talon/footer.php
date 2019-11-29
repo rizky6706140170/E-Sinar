@@ -17,8 +17,31 @@
 	<footer id="colophon" class="site-footer" role="contentinfo">
 		<div class="container">
 			<div class="row">	
-			
+			   <div class="col-md-12 footer-1">
+            <span>Information E-SINAR : </span><br>
+            <span>+62 - 82211993471</span><br>
+            <span>JL. Bomber No A-8 Halim P.K Jakarta Timur</span> 
+            <hr class="garis">          
+         </div>
 			</div>
+      <div class="row">
+        <div class="col-md-12 footer-2">
+          <span>
+            <i class="fab fa-facebook"></i>
+          </span>
+           <span>
+            <i class="fab fa-instagram"></i>
+          </span>
+           <span>
+            <i class="fas fa-at"></i>
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 footer-3"> 
+          <span>&copy; <?php echo date('Y'); ?> E-Sinar</span>
+        </div>
+      </div>
 		</div>
 	</footer><!-- #colophon -->
 </div><!-- #page -->
@@ -28,15 +51,15 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Register</h5>
+        <span>Register Akun E-Sinar</span>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+          <span aria-hidden="true" style="color: whitesmoke;">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <span>Form register</span>
+        <?php echo do_shortcode('[wpcrl_register_form]');?>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" style="border-top:0;">
       
       </div>
     </div>
@@ -48,16 +71,16 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+       <span>Login</span>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+          <span aria-hidden="true" style="color: whitesmoke;">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <span>Form login</span>
+        <?php echo do_shortcode('[wpcrl_login_form]');?>
       </div>
-      <div class="modal-footer">
-
+      <div class="modal-footer" style="border-top:0;">
+      
       </div>
     </div>
   </div>

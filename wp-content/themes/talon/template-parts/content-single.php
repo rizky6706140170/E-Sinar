@@ -22,26 +22,49 @@
 		endif; ?>
 	</header><!-- .entry-header -->
 
-	<?php if ( has_post_thumbnail() && ( get_theme_mod( 'hide_featured_singles' ) != 1 ) ) : ?>
-	<div class="single-thumb">
-		<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_post_thumbnail('talon-blog-image'); ?></a>
+	<div class="row">
+		<div class="col-md-3">
+			<?php if ( has_post_thumbnail() && ( get_theme_mod( 'hide_featured_singles' ) != 1 ) ) : ?>
+			<div class="single-thumb">
+				<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_post_thumbnail('talon-blog-image'); ?></a>
+			</div>
+			<?php endif; ?>
+			<div class="detail-post" style="margin-bottom: 5px;">
+				<div class="blok-tempat">
+					<span class="tempat-lokasi"><i class="fas fa-map-marker-alt"> <?php echo get_field('tempat') ?></i></span>
+				</div>
+				<div class="date_sm">
+					<span><i class="far fa-calendar-alt"> <?php echo get_field('date') ?></i></span>
+				</div>
+				<div class="waktu_sm">
+					<span><i class="far fa-clock"> <?php echo get_field('waktu_mulai') .'-'.get_field('waktu_selesai') ?></i></span>
+				</div>
+			</div>
+			<div class="daftar-seminar" style="text-align: center;">
+				<button class="">Daftar Seminar</button>
+			</div>	
+		</div>
+		<div class="col-md-9">
+			
+			<div class="entry-content">
+				<?php
+					the_content( sprintf(
+						/* translators: %s: Name of current post. */
+						wp_kses( __( 'Continue reading %s <span class="meta-nav">&rarr;</span>', 'talon' ), array( 'span' => array( 'class' => array() ) ) ),
+						the_title( '<span class="screen-reader-text">"', '"</span>', false )
+					) );
+
+					wp_link_pages( array(
+						'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'talon' ),
+						'after'  => '</div>',
+					) );
+				?>
+			</div><!-- .entry-content -->
+		</div>
 	</div>
-	<?php endif; ?>	
 
-	<div class="entry-content">
-		<?php
-			the_content( sprintf(
-				/* translators: %s: Name of current post. */
-				wp_kses( __( 'Continue reading %s <span class="meta-nav">&rarr;</span>', 'talon' ), array( 'span' => array( 'class' => array() ) ) ),
-				the_title( '<span class="screen-reader-text">"', '"</span>', false )
-			) );
 
-			wp_link_pages( array(
-				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'talon' ),
-				'after'  => '</div>',
-			) );
-		?>
-	</div><!-- .entry-content -->
+
 
 	<footer class="entry-footer">
 		<?php talon_entry_footer(); ?>

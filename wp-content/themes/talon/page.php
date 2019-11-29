@@ -11,8 +11,8 @@
  *
  * @package Talon
  */
-
 get_header(); ?>
+
 <div class="row">
 	<!-- <div id="primary" class="content-area col-md-8"> -->
 	<div id="primary" class="content-area">
@@ -37,6 +37,8 @@ get_header(); ?>
 		<?php if(is_page("seminar")): ?>
 			<?php echo do_shortcode( ' [seminar_render] ' ); ?>
 		<?php endif; ?> 
+
+		
 	</div><!-- #primary -->
 
 <?php get_sidebar(); ?>
