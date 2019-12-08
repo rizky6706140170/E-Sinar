@@ -204,3 +204,7 @@ $( "#btn-login" ).click(function() {
   // alert( "login" );
    $('#myModalLogin').modal('show');
 });
+
+$(".daftar-seminar-nonlogin").click(function(){
+	$('#myModalLogin').modal('show');
+});

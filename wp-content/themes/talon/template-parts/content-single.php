@@ -40,9 +40,33 @@
 					<span><i class="far fa-clock"> <?php echo get_field('waktu_mulai') .'-'.get_field('waktu_selesai') ?></i></span>
 				</div>
 			</div>
-			<div class="daftar-seminar" style="text-align: center;">
-				<button class="">Daftar Seminar</button>
-			</div>	
+			<?php 
+				global $current_user;
+				global $wpdb;
+				get_currentuserinfo();
+				$id_user = $current_user->id;
+				$id_author = get_the_author_ID();
+				$id_post = get_the_ID();
+
+				$query_cek = "SELECT * FROM seminar where id_user ='$id_user' and id_post = '$id_post'";
+				$cek =  $wpdb->get_results($query_cek);
+			?>
+
+			<?php if(!is_user_logged_in()): ?>
+			<div class="daftar-seminar-nonlogin alert alert-danger" style="text-align: center;">
+				<span>Silahkan login terlebih dahulu untuk bisa mendaftar ke seminar ini</span>
+			</div>
+			<?php else: ?>
+				<?php if(empty($cek)): ?>	
+				<div class="daftar-seminar" style="text-align: center;">
+					<a href="<?php echo home_url().'/daftar?'.'id_user='.$id_user.'&id_post='.$id_post.'&id_author='.$id_author; ?>" class="btn btn-success">Daftar Seminar</a>
+				</div>
+				<?php else: ?>
+					<div class="alert alert-danger" style="text-align: center;">
+						<span>Anda Sudah Mendaftar Seminar ini</span>
+					</div>
+				<?php endif; ?>
+			<?php endif; ?>	
 		</div>
 		<div class="col-md-9">
 			

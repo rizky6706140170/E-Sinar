@@ -38,7 +38,14 @@ get_header(); ?>
 			<?php echo do_shortcode( ' [seminar_render] ' ); ?>
 		<?php endif; ?> 
 
-		
+		<?php if(is_page("daftar")): ?>
+			<style type="text/css">
+				.entry-header
+				{
+					display: none;
+				}
+			</style>
+		<?php endif; ?> 
 	</div><!-- #primary -->
 
 <?php get_sidebar(); ?>

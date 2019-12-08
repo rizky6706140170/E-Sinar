@@ -345,3 +345,10 @@ function talon_register_required_plugins() {
 	tgmpa( $plugins, $config );
 }
 add_action( 'tgmpa_register', 'talon_register_required_plugins' );
+add_action('after_setup_theme', 'remove_admin_bar');
+ 
+function remove_admin_bar() {
+if (!current_user_can('administrator') && !is_admin()) {
+  show_admin_bar(false);
+}
+}
