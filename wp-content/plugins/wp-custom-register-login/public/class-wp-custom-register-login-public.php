@@ -277,6 +277,8 @@ class Wp_Custom_Register_Login_Public extends Wp_Custom_Register_Login_Generic_P
                 // 'role' => 'Author',
                 'user_registered' => date('Y-m-d H:i:s')
             );
+            // print_r($userdata);
+            // exit();
 
             // creating new user
             $user_id = wp_insert_user($userdata);

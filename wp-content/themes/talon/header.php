@@ -41,7 +41,7 @@
      			$ceknama=$wpdb->get_var("SELECT user_nicename from wp_users where id='$current_user->id'");
      			$namauser = $ceknama;
 			?>
-	<div class="row-btn-login" style="width: 100%;display: inline-block;">
+	<div class="row-btn-login" style="">
 				<div class="row-left" style="width: 59%;float: left;">
 					<img src=" <?php echo get_template_directory_uri().'/images/images.jpg'; ?>" style="width: 100%;">
 				</div>
@@ -53,6 +53,7 @@
 								global $current_user;
 		     					get_currentuserinfo();
 		     					$current_user = wp_get_current_user();
+		     					$id_user = $current_user->id;
 		                		$logout_redirect = (empty($wpcrl_redirect_settings['wpcrl_logout_redirect']) || $wpcrl_redirect_settings['wpcrl_logout_redirect'] == '-1') ? '' : $wpcrl_redirect_settings['wpcrl_logout_redirect'];
 		     					if($current_user->ID == 1):
 		     				?>
@@ -60,7 +61,15 @@
 		     					<?php else : ?>
 		     					<span> hello  <?php echo ucfirst($namauser); ?></span> <br>
 		     					<div>
-		     						<span><a href="<?php echo wp_logout_url(get_permalink($logout_redirect)) ?>">Logout</a></span>
+		     						<span><a href="<?php echo wp_logout_url(get_permalink($logout_redirect)) ?>" style="color: red;">Logout</a></span>
+		     					</div>
+		     					<div class="row" style="margin-top: 20px;">
+		     						<div class="col-md-6" style="text-align: right;">
+		     							<a href="<?php echo home_url().'/profile?'.'id_user='.$id_user?>" class="button" style="background: #0733f3;">Lihat Profil</a>
+		     						</div>
+		     						<div class="col-md-6" style="text-align: left;">
+		     							<a href="<?php echo home_url().'/history?'.'id_user='.$id_user?>" class="button" style="background: #0733f3;">History Seminar</a>
+		     						</div>
 		     					</div>
 		     					<?php endif;?>
 		     			<?php else : ?>

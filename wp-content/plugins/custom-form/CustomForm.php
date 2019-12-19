@@ -16,7 +16,7 @@
 // session_start();
 date_default_timezone_set('Asia/Jakarta');
 // require('../../../../wp-load.php');
-
+session_start();
 class CustomForm
 {
     protected $error = array();
@@ -76,9 +76,25 @@ class CustomForm
                 die('You are not authorized to perform this action.');
             } else
             {
-                if ($_POST['idForm'] == 21)
+                if ($_POST['idForm'] == 1)
                 {
-                    $this->registerSeminar($_POST);
+                    $this->daftarSeminar($_POST);
+                }
+                if ($_POST['idForm'] == 2)
+                {
+                    $this->fotoProfile($_POST);
+                }
+                if ($_POST['idForm'] == 7)
+                {
+                    $this->editfotoProfile($_POST);
+                }
+                if ($_POST['idForm'] == 23)
+                {
+                    $this->editProfile($_POST);
+                }
+                if ($_POST['idForm'] == 24)
+                {
+                    $this->editBukti($_POST);
                 }
 
             
@@ -92,11 +108,61 @@ class CustomForm
     function shortcode_handler($atts)
     {
         
-        if ($atts['id'] == 21) {
+        if ($atts['id'] == 1) {
+            $msg = $this->error;
+           
+            ob_start();
+            include 'template/daftar_seminar.php';
+
+            $template = ob_get_clean();
+
+            return $template;
+        }
+        if ($atts['id'] == 22) {
             $msg = $this->error;
 
             ob_start();
-            include 'template/daftar_seminar.php';
+            include 'template/history.php';
+
+            $template = ob_get_clean();
+
+            return $template;
+        }
+        if ($atts['id'] == 23) {
+            $msg = $this->error;
+
+            ob_start();
+            include 'template/profile.php';
+
+            $template = ob_get_clean();
+
+            return $template;
+        }
+         if ($atts['id'] == 24) {
+            $msg = $this->error;
+
+            ob_start();
+            include 'template/edit_bukti.php';
+
+            $template = ob_get_clean();
+
+            return $template;
+        }
+        if ($atts['id'] == 2) {
+            $msg = $this->error;
+
+            ob_start();
+            include 'template/foto_profile.php';
+
+            $template = ob_get_clean();
+
+            return $template;
+        }
+        if ($atts['id'] == 7) {
+            $msg = $this->error;
+
+            ob_start();
+            include 'template/edit_foto_profile.php';
 
             $template = ob_get_clean();
 
@@ -124,14 +190,15 @@ class CustomForm
 
 
 
-function registerSeminar()
+function daftarSeminar()
 {
     global $wpdb;
     $tgl = date("Y-m-d H:i:s");
+    $date = $_POST['date'];
     $id_user = $_POST['id_user'];
     $id_author = $_POST['id_author'];
     $id_post = $_POST['id_post'];
-    $email = $_POST['email'];
+    // $email = $_POST['email'];
     $nama_seminar = $_POST['nama_seminar'];
     $nama_pendaftar = $_POST['name'];
     $handphone = $_POST['handphone'];
@@ -144,6 +211,7 @@ function registerSeminar()
 
     $query_cek = "SELECT * FROM seminar where id_user ='$id_user' and id_post = '$id_post'";
     $cek =  $wpdb->get_results($query_cek);
+    $r = wp_redirect( get_home_url().'/daftar_sm/?id_user='.$id_user.'&id_post='.$id_post.'&id_author='.$id_author.'&tgl_sm='.$date);
 
     // echo $tes;
     if($size < 1044070)
@@ -154,20 +222,22 @@ function registerSeminar()
         {
             if(!empty($cek))
             {
-                echo "anda telah mendaftar seminar ini";
-                exit();
+               // $this->error[] = new WP_Error('empty_error', __('Anda Telah Mendaftar Seminar Ini'));
+                 wp_redirect( get_home_url().'/gagal');
+                 exit();
             }
             else
             {
                 $insert_sm = $wpdb->insert('seminar',  array(
                     'id_user' => $id_user,
-                    'email'=> $email,
+                    // 'email'=> $email,
                     'nama_seminar' => $nama_seminar,
                     'nama_pendaftar' => $nama_pendaftar,
                     'handphone' => $handphone,
                     'file_foto' => $newfilename,
                     'id_author' => $id_author,
                     'id_post' => $id_post,
+                    'date' => $date,
                     'status' => 0,
                     'created_at' => $tgl
                 ));
@@ -178,7 +248,7 @@ function registerSeminar()
                     }
                     else
                     {
-                        echo "gagal insert";
+                        wp_redirect( get_home_url().'/gagal');
                         exit();
                     }
             }
@@ -188,13 +258,160 @@ function registerSeminar()
     }
     else
     {
-          echo "gagal,file yang di upload terlalu besar";
-          exit();
+         wp_redirect( get_home_url().'/gagal');
+         exit();
     }
    
+}
 
- 
+function editProfile($dataEdit=array())
+{
+     global $wpdb;
+     $id_user = $_POST['id'];
+     $display_name = $_POST['display_name'];
+     $user_email = $_POST['user_email'];
 
+     $cek_email = "SELECT user_email from wp_users where user_email = '$user_email' and id != $id_user";
+     $row = $wpdb->get_row($cek_email);
+    if(empty($row))
+        {
+            $wpdb->update('wp_users', array(
+            'display_name' => $display_name,
+            'user_email' => $user_email,
+            ),array(
+                'id' => $id_user,
+            ));
+            wp_redirect( get_home_url().'/profile/?id_user='.$id_user);
+            exit();
+        }
+    else
+        {
+            $this->error[] = new WP_Error('empty_error', __('Email Baru yang anda masukan sudah terdaftar'));
+        } 
+
+}
+
+function editBukti()
+{
+    global $wpdb;
+
+    $tgl = date("Y-m-d H:i:s");
+    $id_user = $_POST['id_user'];
+    $id_post = $_POST['id_post'];
+    $filename = $_FILES['foto_edit']['name'];
+    $file_tmp = $_FILES['foto_edit']['tmp_name'];
+    $size = $_FILES['foto_edit']['size'];
+    $nama_pendaftar = $wpdb->get_var("SELECT nama_pendaftar from seminar where id_user = '$id_user' and id_post ='$id_post' ");
+     $nama_gambar = $wpdb->get_var("SELECT file_foto from seminar where id_user = '$id_user' and id_post ='$id_post' ");
+    $temp = explode(".", $filename);
+    $newfilename = $nama_pendaftar.'-'.$id_post.'-'.$id_user . '.' . end($temp);
+    $link = WP_CONTENT_DIR.'/uploads/bukti/'.$nama_gambar;
+    // echo $filename;
+    // exit();
+    if($size < 1044070)
+    {
+       unlink($link);
+       $upload = move_uploaded_file($file_tmp,WP_CONTENT_DIR .'/uploads/bukti/'.$newfilename);
+       if($upload)
+       {
+          $wpdb->update('seminar', array(
+            'file_foto' => $newfilename,
+            // 'user_email' => $user_email,
+            ),array(
+                'id_user' => $id_user,
+                'id_post' => $id_post
+            ));
+            wp_redirect( get_home_url().'/history/?id_user='.$id_user);
+            exit();
+       }
+       else
+        {
+            $this->error[] = new WP_Error('empty_error', __('Gagal Mengupload Foto'));
+        }
+    }
+    else
+    {
+        $this->error[] = new WP_Error('empty_error', __('Upload Foto Harus di bawah 1 MB'));
+    }
+}
+
+function fotoProfile()
+{
+    global $wpdb;
+    $id_user = $_POST['id_user'];
+    $filename = $_FILES['foto_profile']['name'];
+    $file_tmp = $_FILES['foto_profile']['tmp_name'];
+    $size = $_FILES['foto_profile']['size'];
+    // $link = content_url().'/'.$filename;
+    $temp = explode(".", $filename);
+    $newfilename = $id_user . '.' . end($temp);
+    if($size < 1044070)
+    {
+        $upload = move_uploaded_file($file_tmp,WP_CONTENT_DIR .'/uploads/profile/'.$newfilename);
+        if($upload)
+        {
+             $insert_pp = $wpdb->insert('profile',  array(
+                    'id_user' => $id_user,
+                    'file_foto' => $newfilename,
+                ));
+                    if($insert_pp)
+                    {
+                       wp_redirect( get_home_url().'/profile/?id_user='.$id_user);
+                        exit();
+                    }
+                    else
+                    {
+                       $this->error[] = new WP_Error('empty_error', __('Gagal Mengupload Foto'));
+                       
+                    }
+        }
+        else
+        {
+             $this->error[] = new WP_Error('empty_error', __('Gagal Mengupload Foto'));
+        }
+    }
+    else
+    {
+         $this->error[] = new WP_Error('empty_error', __('Upload Foto Harus di bawah 1 MB'));
+    }
+}
+
+function editfotoProfile()
+{
+    global $wpdb;
+    $id_user = $_POST['id_user'];
+    $filename = $_FILES['foto_edit_p']['name'];
+    $file_tmp = $_FILES['foto_edit_p']['tmp_name'];
+    $size = $_FILES['foto_edit_p']['size'];
+
+    $nama_profile = $wpdb->get_var("SELECT file_foto from profile where id_user = '$id_user'");
+    $temp = explode(".", $filename);
+    $newfilename = $id_user . '.' . end($temp);
+    $linked = WP_CONTENT_DIR.'/uploads/bukti/'.$nama_profile;
+    if($size < 1044070)
+    {
+        unlink($linked);
+         $uploadss = move_uploaded_file($file_tmp,WP_CONTENT_DIR .'/uploads/profile/'.$newfilename);
+        if($uploadss)
+        {
+             $wpdb->update('profile', array(
+            'file_foto' => $newfilename,
+            // 'user_email' => $user_email,
+            ),array(
+                'id_user' => $id_user
+            ));
+            wp_redirect( get_home_url().'/profile/?id_user='.$id_user);
+            exit();
+        }
+        else
+        {
+            $this->error[] = new WP_Error('empty_error', __('Gagal Mengupload Foto'));
+        }
+    }
+    else
+    {
+         $this->error[] = new WP_Error('empty_error', __('Upload Foto Harus di bawah 1 MB'));
+    }
 }
 
 

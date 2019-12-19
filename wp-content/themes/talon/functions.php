@@ -15,6 +15,90 @@ if ( ! function_exists( 'talon_setup' ) ) :
  * runs before the init hook. The init hook is too late for some features, such
  * as indicating support for post thumbnails.
  */
+function datatables_min_admin_head() {
+	echo '<script type="text/javascript" src="'.home_url().'/wp-content/themes/talon/datatables/jquery.dataTables.min.js"></script>';
+}
+add_action( 'admin_head', 'datatables_min_admin_head' );
+
+function datatables_buttons_admin_head() {
+	echo '<script type="text/javascript" src="'.home_url().'/wp-content/themes/talon/datatables/dataTables.buttons.min.js"></script>';
+}
+add_action( 'admin_head', 'datatables_buttons_admin_head' );
+
+function datatables_flash_admin_head() {
+	echo '<script type="text/javascript" src="'.home_url().'/wp-content/themes/talon/datatables/buttons.flash.min.js"></script>';
+}
+add_action( 'admin_head', 'datatables_flash_admin_head' );
+
+function jszip_admin_head() {
+	echo '<script type="text/javascript" src="'.home_url().'/wp-content/themes/talon/datatables/jszip.min.js"></script>';
+}
+add_action( 'admin_head', 'jszip_admin_head' );
+
+function pdfmake_admin_head() {
+	echo '<script type="text/javascript" src="'.home_url().'/wp-content/themes/talon/datatables/pdfmake.min.js"></script>';
+}
+add_action( 'admin_head', 'pdfmake_admin_head' );
+
+function vfs_fonts_admin_head() {
+	echo '<script type="text/javascript" src="'.home_url().'/wp-content/themes/talon/datatables/vfs_fonts.js"></script>';
+}
+add_action( 'admin_head', 'vfs_fonts_admin_head' );
+
+function buttons_html5_admin_head() {
+	echo '<script type="text/javascript" src="'.home_url().'/wp-content/themes/talon/datatables/buttons.html5.min.js"></script>';
+}
+add_action( 'admin_head', 'buttons_html5_admin_head' );
+
+function buttons_print_admin_head() {
+	echo '<script type="text/javascript" src="'.home_url().'/wp-content/themes/talon/datatables/buttons.print.min.js"></script>';
+}
+add_action( 'admin_head', 'buttons_print_admin_head' );
+
+function datatables_css_admin_head() {
+	echo '<link rel="stylesheet" type="text/css" href="'.home_url().'/wp-content/themes/talon/datatables/jquery.dataTables.min.css"/>';
+}
+add_action( 'admin_head', 'datatables_css_admin_head' );
+
+function datatables_buttons_css_admin_head() {
+	echo '<link rel="stylesheet" type="text/css" href="'.home_url().'/wp-content/themes/talon/datatables/buttons.dataTables.min.css"/>';
+}
+add_action( 'admin_head', 'datatables_buttons_css_admin_head' );
+
+function custom_css_admin_head() {
+	echo '<link rel="stylesheet" type="text/css" href="'.home_url().'/wp-content/themes/talon/css/style-admin.css"/>';
+}
+add_action( 'admin_head', 'custom_css_admin_head' );
+
+function bootstrap_css_admin_head() {
+	echo '<link rel="stylesheet" type="text/css" href="'.home_url().'/wp-content/themes/talon/bootstrap/bootstrap.min.css"/>';
+}
+add_action( 'admin_head', 'bootstrap_css_admin_head' );
+
+function bootstrap_min_admin_head() {
+	echo '<script type="text/javascript" src="'.home_url().'/wp-content/themes/talon/bootstrap/js/bootstrap.js"></script>';
+}
+add_action( 'admin_head', 'bootstrap_min_admin_head' );
+
+function daterangepicker_css_admin_head() {
+	echo '<link rel="stylesheet" type="text/css" href="'.home_url().'/wp-content/themes/talon/bootstrap-daterangepicker/css/bootstrap-daterangepicker.css"/>';
+}
+add_action( 'admin_head', 'daterangepicker_css_admin_head' );
+
+function daterangepicker_moment_admin_head() {
+	echo '<script type="text/javascript" src="'.home_url().'/wp-content/themes/talon/bootstrap-daterangepicker/js/moment.min.js"></script>';
+}
+add_action( 'admin_head', 'daterangepicker_moment_admin_head' );
+
+function daterangepicker_admin_head() {
+	echo '<script type="text/javascript" src="'.home_url().'/wp-content/themes/talon/bootstrap-daterangepicker/js/bootstrap.daterangepicker.js"></script>';
+}
+add_action( 'admin_head', 'daterangepicker_admin_head' );
+
+function validate_admin_head() {
+	echo '<script type="text/javascript" src="'.home_url().'/wp-content/themes/talon/js/jquery.validate.js"></script>';
+}
+add_action( 'admin_head', 'validate_admin_head' );
 function talon_setup() {
 	/*
 	 * Make theme available for translation.
@@ -307,6 +391,10 @@ require_once dirname( __FILE__ ) . '/inc/demo-content/setup.php';
  */
 require get_template_directory() . '/inc/class-tgm-plugin-activation.php';
 
+// load library pdf
+require_once dirname( __FILE__ ) .'/lib/dompdf/autoload.inc.php';
+use Dompdf\Dompdf;
+
 function talon_register_required_plugins() {
 
 	$plugins = array(
@@ -352,3 +440,112 @@ if (!current_user_can('administrator') && !is_admin()) {
   show_admin_bar(false);
 }
 }
+
+
+function getPdf($dataPdf = array())
+    {
+        // instantiate and use the dompdf class
+        date_default_timezone_set('Australia/Sydney');
+        $dompdf = new Dompdf();
+        $header = WP_CONTENT_DIR .'/uploads/logo-esinar.jpg';
+        $img_footer = WP_CONTENT_DIR .'/uploads/logo-esinar.jpg';
+        //$bonus = implode(' ', $dataMail['bonus_v']);
+        $expired = date('Y-m-t');
+            $html_pdf = '
+            <html>
+            <head>
+                <meta http-equiv="Content-Type" content="charset=utf-8" />
+               <!--  <style type="text/css">
+                    @page {
+                        margin: 0;
+                    }
+                    * { padding: 0; margin: 0; }
+
+                    body{
+                        font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+                        color: #333;
+                        background-color: #fff;
+                        height:100%;
+                    }
+                    body b, table th{
+                        font-weight: normal;
+                        font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+                    }
+                    footer { position: fixed; bottom: -70px; left: 0px; right: 0px; height: 160px; }
+                    table td, table th{
+                        vertical-align: top;
+                    }
+                </style> -->
+            </head>
+            <body>
+            <img src="'.$header.'" style="width:100%;height:300px;top: 0;">
+            <table width="100%" >
+            
+            <tr>
+            <td style="padding:20px 70px 0 60px;margin:0">
+            <p style="font-size: 18px;">Pembayaran Anda Sudah Kami Verifikasi , dengan data sebagai berikut :</p>
+            <br/>
+
+            <table border="1" width="100%">
+                <tr>
+                    <td width="50%">Nama Pendaftar</td>
+                    <td width="50%">'.$dataPdf['nama_pendaftar'].'</td>
+                </tr>
+                <tr>                    
+                    <td width="50%">Email</td>
+                    <td width="50%">'.$dataPdf['email'].'</td>
+                </tr>
+                <tr>                    
+                    <td width="50%">Nama Seminar</td>
+                    <td width="50%">'.$dataPdf['nama_seminar'].'</td>
+                </tr>
+                <tr>                    
+                    <td width="50%">No Handphone</td>
+                    <td width="50%">'.$dataPdf['handphone'].'</td>
+                </tr>
+                <tr>                    
+                    <td width="50%">Tanggal Seminar</td>
+                    <td width="50%">'.$dataPdf['date'].'</td>
+                </tr>
+                <tr>                    
+                    <td width="50%">Status</td>
+                    <td width="50%">Di Verifikasi</td>
+                </tr>
+
+            </table>
+            <p>Cara Mengikuti Seminar</p>
+            <ul>
+                <li>Datang Ke Seminar sesuai dengan tempat dan waktu.</li>
+                <li>Tunjukan file pdf ini kepada panitia seminar</li>
+            </ul>
+            </td>
+            </tr>
+            </table>
+
+            <div style="text-align: right;">
+                <img src="'.$img_footer.'" style="width:150px;height:150px;top: 0;">
+            </div>
+
+           
+
+            
+            </body>
+            </html>
+
+
+            ';
+
+            $dompdf->loadHtml($html_pdf, 'UTF-8');
+
+            // (Optional) Setup the paper size and orientation
+            $dompdf->setPaper('A4');
+            $dompdf->render();
+            $output = $dompdf->output();
+            
+            // $file_name_pdf = $_SESSION['participant']['id'].'_'.$_SESSION['participant']['unique_code'].'_'.$row_claim['id'].'_'.time().'.pdf';
+           // $file_name_pdf = 'Tetley Reward_'.$row_claim['venue_name'].'_'.$_SESSION['participant']['first_name'].' '.$_SESSION['participant']['last_name'].'_'.$_SESSION['participant']['unique_code'].'_'.current_time('dmy').'.pdf';
+            //$_SESSION['claim']['file_name_pdf'] = $file_name_pdf;
+            $file_name_pdf = $dataPdf['id_user'].$dataPdf['id_post'].'_verifikasi'.'.pdf';
+            file_put_contents(WP_CONTENT_DIR .'/uploads/pdf/'.$file_name_pdf, $output);
+            //$attachments = get_site_url().'/public/pdf/'.$file_name_pdf;
+    }

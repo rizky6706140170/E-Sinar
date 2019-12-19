@@ -23,7 +23,7 @@
 	</header><!-- .entry-header -->
 
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-md-4">
 			<?php if ( has_post_thumbnail() && ( get_theme_mod( 'hide_featured_singles' ) != 1 ) ) : ?>
 			<div class="single-thumb">
 				<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_post_thumbnail('talon-blog-image'); ?></a>
@@ -47,6 +47,7 @@
 				$id_user = $current_user->id;
 				$id_author = get_the_author_ID();
 				$id_post = get_the_ID();
+				$tgl_sm = get_field('date');
 
 				$query_cek = "SELECT * FROM seminar where id_user ='$id_user' and id_post = '$id_post'";
 				$cek =  $wpdb->get_results($query_cek);
@@ -59,7 +60,7 @@
 			<?php else: ?>
 				<?php if(empty($cek)): ?>	
 				<div class="daftar-seminar" style="text-align: center;">
-					<a href="<?php echo home_url().'/daftar?'.'id_user='.$id_user.'&id_post='.$id_post.'&id_author='.$id_author; ?>" class="btn btn-success">Daftar Seminar</a>
+					<a href="<?php echo home_url().'/daftar_sm?'.'id_user='.$id_user.'&id_post='.$id_post.'&id_author='.$id_author.'&tgl_sm='.$tgl_sm; ?>" target="_blank" class="btn btn-success" style="background: #0733f3;">Daftar Seminar</a>
 				</div>
 				<?php else: ?>
 					<div class="alert alert-danger" style="text-align: center;">
@@ -68,7 +69,7 @@
 				<?php endif; ?>
 			<?php endif; ?>	
 		</div>
-		<div class="col-md-9">
+		<div class="col-md-8">
 			
 			<div class="entry-content">
 				<?php
