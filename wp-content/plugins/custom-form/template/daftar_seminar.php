@@ -40,11 +40,13 @@
 global $wpdb;
  $id_user      = $_GET['id_user'];
  $id_post      = $_GET['id_post'];
- $id_author    = $_GET['id_author'];
- $tgl_sm	   = $_GET['tgl_sm'];
+ // $id_author    = $_GET['id_author'];
+ // $tgl_sm	   = $_GET['tgl_sm'];
 
  $namaseminar=$wpdb->get_var("SELECT post_title from wp_posts where id='$id_post'");
  $email_user=$wpdb->get_var("SELECT user_email from wp_users where id='$id_user'");
+ $tgl_sm=$wpdb->get_var("SELECT meta_value from wp_postmeta where post_id='$id_post' and meta_key = 'date'");
+ $nama_pendaftar =$wpdb->get_var("SELECT display_name from wp_users where id='$id_user'");
 
 ?>
 
@@ -58,8 +60,9 @@ global $wpdb;
 			<input type="hidden" name="id_post"  value="<?php echo $id_post; ?>">
 			<input type="hidden" name="nama_seminar"  value="<?php echo $namaseminar; ?>">
 			<input type="hidden" name="id_user" value="<?php echo $id_user; ?>">
-			<input type="hidden" name="id_author" value="<?php echo $id_author; ?>">
-			<input type="hidden" name="date" value="<?php echo $tgl_sm; ?>">
+			<input type="hidden" name="nama_pendaftar" value="<?php echo $nama_pendaftar; ?>">
+<!-- 			<input type="hidden" name="id_author" value="<?php echo $id_author; ?>">
+			<input type="hidden" name="date" value="<?php echo $tgl_sm; ?>"> -->
 			<div class="col-md-12">
 				<div class="form-group">
                     <center>
@@ -86,7 +89,7 @@ global $wpdb;
                     <center>
                         <label style="font-weight:bold;margin-bottom:5px;">Nama Pendaftar</label>
                     </center>
-                    <input class="form-control" data-bvalidator="required" data-bvalidator-msg="Isi Nama Anda" name='name' type='text' value='' style="width:100%;text-align: center;" placeholder="Nama Anda" />
+                    <input class="form-control"  data-bvalidator="required" type='text' value='<?php echo $nama_pendaftar; ?>' style="width:100%;text-align: center;" disabled />
                     
                 </div>
 

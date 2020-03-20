@@ -274,7 +274,7 @@ class Wp_Custom_Register_Login_Public extends Wp_Custom_Register_Login_Generic_P
                 'first_name' => apply_filters('pre_user_first_name', trim($_POST['wpcrl_fname'])),
                 'last_name' => apply_filters('pre_user_last_name', trim($_POST['wpcrl_lname'])),
                 'role' => get_option('default_role'),
-                // 'role' => 'Author',
+                // 'role' => update_option('default_role','author'),
                 'user_registered' => date('Y-m-d H:i:s')
             );
             // print_r($userdata);
@@ -282,21 +282,31 @@ class Wp_Custom_Register_Login_Public extends Wp_Custom_Register_Login_Generic_P
 
             // creating new user
             $user_id = wp_insert_user($userdata);
+            // wp_update_user(array('ID' => $user_id, 'role' => 'author'));
 
             // checking for errors while user registration
             if (is_wp_error($user_id)) {
                 $response['error'] = $user_id->get_error_message();
             } else {
                 // add data to table
-               
+               // $user_id->set_role('author');
                 $new_user['user_login'] =  trim($_POST['wpcrl_username']);
                 $new_user['firstname']= trim($_POST['wpcrl_fname']);
                 $new_user['lastname']= trim($_POST['wpcrl_lname']);
-                $new_user['status']= 'subscriber';
+                $new_user['status']= $_POST['status'];
                 $new_user['user_id']= $user_id;
                 $new_user['created_at'] =  date('Y-m-d H:i:s');
-            
-                $insert_new_user = $wpdb->insert('user_esinar', $new_user);
+                
+                if($new_user['status'] == 'subcriber')
+                {
+                    $insert_new_user = $wpdb->insert('user_esinar', $new_user);
+                }
+                else
+                {
+                    wp_update_user(array('ID' => $user_id, 'role' => 'author'));
+                    $insert_new_user = $wpdb->insert('user_esinar', $new_user);
+                }
+               
                 //adding current url in user data
 
                 $userdata['current_url'] = $_POST['wpcrl_current_url'];
@@ -323,6 +333,7 @@ class Wp_Custom_Register_Login_Public extends Wp_Custom_Register_Login_Generic_P
                 // }
 
                 $response['redirection_url'] = $_POST['redirection_url'];
+
                 // $response['mail_status'] = $mail_status
             }
             // sending back the response in right header

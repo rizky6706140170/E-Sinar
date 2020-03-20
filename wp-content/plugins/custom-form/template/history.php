@@ -2,7 +2,7 @@
 <?php
 global $wpdb;
 $id_user      = $_GET['id_user'];
-$query_seminar_h = $wpdb->get_results("SELECT * FROM seminar where id_user = '$id_user'");
+$query_seminar_h = $wpdb->get_results("SELECT * FROM daftar_seminar where id_user = '$id_user'");
 ?>
 <div class="row" >
 	<div class="col-md-12" style="text-align: center;">
@@ -32,9 +32,17 @@ $query_seminar_h = $wpdb->get_results("SELECT * FROM seminar where id_user = '$i
             			<td class="manage-column ss-list-width text-center"><?php echo $value->nama_pendaftar; ?></td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->handphone; ?></td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->nama_seminar; ?></td>
-            			<td class="manage-column ss-list-width text-center"><a href="<?php echo content_url().'/uploads/bukti/'.$value->file_foto; ?>" target="_blank">bukti bayar</a></td>
             			<td class="manage-column ss-list-width text-center">
-                            <?php if($value->status == 0) : ?>
+                            <?php
+                                $file_foto = $wpdb->get_var("SELECT file_foto FROM file_verifikasi where id_daftar = '$value->id;'");
+                            ?>
+                            <a href="<?php echo content_url().'/uploads/bukti/'.$file_foto; ?>" target="_blank">bukti bayar</a>
+                        </td>
+            			<td class="manage-column ss-list-width text-center">
+                            <?php
+                                $status_history = $wpdb->get_var("SELECT status FROM file_verifikasi where id_daftar = '$value->id;'");
+                            ?>
+                            <?php if($status_history == 0) : ?>
                                 <span>Belum Diverfikasi</span>
                             
                             <?php else : ?>
@@ -44,7 +52,7 @@ $query_seminar_h = $wpdb->get_results("SELECT * FROM seminar where id_user = '$i
                             <?php endif; ?>       
                         </td>
                         <td class="manage-column ss-list-width text-center">
-                            <?php if($value->status == 1) : ?>
+                            <?php if($status_history == 1) : ?>
                             
                             <?php else : ?>
                                  <a href="<?php echo home_url().'/editbukti?'.'id_user='.$value->id_user.'&id_post='.$value->id_post;?>" class="btn btn-success" style="background: #0733f3;">Edit Bukti Bayar</a>

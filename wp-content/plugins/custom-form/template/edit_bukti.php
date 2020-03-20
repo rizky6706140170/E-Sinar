@@ -34,7 +34,7 @@
 
 	$id_user      = $_GET['id_user'];
 	$id_post      = $_GET['id_post'];
-	$query_edit = $wpdb->get_results("SELECT * FROM seminar where id_user = '$id_user' and id_post = '$id_post'");
+	$query_edit = $wpdb->get_results("SELECT * FROM daftar_seminar where id_user = '$id_user' and id_post = '$id_post'");
 ?>
 <div class="row">
 	

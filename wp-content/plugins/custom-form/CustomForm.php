@@ -194,14 +194,22 @@ function daftarSeminar()
 {
     global $wpdb;
     $tgl = date("Y-m-d H:i:s");
-    $date = $_POST['date'];
+    // $date = $_POST['date'];
     $id_user = $_POST['id_user'];
-    $id_author = $_POST['id_author'];
     $id_post = $_POST['id_post'];
-    // $email = $_POST['email'];
     $nama_seminar = $_POST['nama_seminar'];
-    $nama_pendaftar = $_POST['name'];
+    $nama_pendaftar = $_POST['nama_pendaftar'];
     $handphone = $_POST['handphone'];
+    $id_author =$wpdb->get_var("SELECT post_author from wp_posts where id='$id_post'");
+    $tgl_sm=$wpdb->get_var("SELECT meta_value from wp_postmeta where post_id='$id_post' and meta_key = 'date'");
+
+    $tanggal = substr($tgl_sm, 6);
+    $bulan = substr($tgl_sm, 4,-2);
+    $tahun = substr($tgl_sm, 0,4);
+    $tanggal_seminar = $tanggal .'/'. $bulan .'/'. $tahun;
+
+    // echo $tanggal_seminar;
+    // exit();
     $filename = $_FILES['foto']['name'];
     $file_tmp = $_FILES['foto']['tmp_name'];
     $size = $_FILES['foto']['size'];
@@ -209,9 +217,9 @@ function daftarSeminar()
     $temp = explode(".", $filename);
     $newfilename = $nama_pendaftar.'-'.$id_post.'-'.$id_user . '.' . end($temp);
 
-    $query_cek = "SELECT * FROM seminar where id_user ='$id_user' and id_post = '$id_post'";
+    $query_cek = "SELECT * FROM daftar_seminar where id_user ='$id_user' and id_post = '$id_post'";
     $cek =  $wpdb->get_results($query_cek);
-    $r = wp_redirect( get_home_url().'/daftar_sm/?id_user='.$id_user.'&id_post='.$id_post.'&id_author='.$id_author.'&tgl_sm='.$date);
+    // $r = wp_redirect( get_home_url().'/daftar_sm/?id_user='.$id_user.'&id_post='.$id_post.'&id_author='.$id_author.'&tgl_sm='.$date);
 
     // echo $tes;
     if($size < 1044070)
@@ -228,21 +236,29 @@ function daftarSeminar()
             }
             else
             {
-                $insert_sm = $wpdb->insert('seminar',  array(
+                $insert_sm = $wpdb->insert('daftar_seminar',  array(
                     'id_user' => $id_user,
                     // 'email'=> $email,
                     'nama_seminar' => $nama_seminar,
                     'nama_pendaftar' => $nama_pendaftar,
                     'handphone' => $handphone,
-                    'file_foto' => $newfilename,
-                    'id_author' => $id_author,
+                    // 'file_foto' => $newfilename,
                     'id_post' => $id_post,
-                    'date' => $date,
-                    'status' => 0,
+                    'id_author' =>$id_author,
+                    'tgl_seminar' => $tanggal_seminar,
                     'created_at' => $tgl
                 ));
                     if($insert_sm)
                     {
+                        $id_daftar =$wpdb->get_var("SELECT id from daftar_seminar where id_user='$id_user' and id_post = '$id_post'");
+                        $insert_foto = $wpdb->insert('file_verifikasi', array(
+                            // 'id_user' => $id_user,
+                            'id_daftar' => $id_daftar,
+                            'id_author' =>$id_author,
+                            'id_post' => $id_post,
+                            'file_foto' => $newfilename,
+                            'status' => 0,
+                        ));
                         wp_redirect( get_home_url().'/sukses_daftar');
                         exit();
                     }
@@ -301,8 +317,9 @@ function editBukti()
     $filename = $_FILES['foto_edit']['name'];
     $file_tmp = $_FILES['foto_edit']['tmp_name'];
     $size = $_FILES['foto_edit']['size'];
-    $nama_pendaftar = $wpdb->get_var("SELECT nama_pendaftar from seminar where id_user = '$id_user' and id_post ='$id_post' ");
-     $nama_gambar = $wpdb->get_var("SELECT file_foto from seminar where id_user = '$id_user' and id_post ='$id_post' ");
+    $nama_pendaftar = $wpdb->get_var("SELECT nama_pendaftar from daftar_seminar where id_user = '$id_user' and id_post ='$id_post' ");
+    $id_daftar = $wpdb->get_var("SELECT id from daftar_seminar where id_user = '$id_user' and id_post ='$id_post' ");
+     $nama_gambar = $wpdb->get_var("SELECT file_foto from file_verifikasi where id_daftar = '$id_daftar'");
     $temp = explode(".", $filename);
     $newfilename = $nama_pendaftar.'-'.$id_post.'-'.$id_user . '.' . end($temp);
     $link = WP_CONTENT_DIR.'/uploads/bukti/'.$nama_gambar;
@@ -314,12 +331,11 @@ function editBukti()
        $upload = move_uploaded_file($file_tmp,WP_CONTENT_DIR .'/uploads/bukti/'.$newfilename);
        if($upload)
        {
-          $wpdb->update('seminar', array(
+          $wpdb->update('file_verifikasi', array(
             'file_foto' => $newfilename,
             // 'user_email' => $user_email,
             ),array(
-                'id_user' => $id_user,
-                'id_post' => $id_post
+                'id_daftar' => $id_daftar
             ));
             wp_redirect( get_home_url().'/history/?id_user='.$id_user);
             exit();

@@ -64,6 +64,13 @@
                         <sup class="wpcrl-required-asterisk">*</sup>
                         <input type="text" class="form-control" name="wpcrl_email" id="wpcrl_email" placeholder="Email">
                     </div>
+                    <div>
+                        <label>Status : </label>
+                        <select id="Status" name="status">
+                          <option value="subcriber">Subcriber</option>
+                          <option value="author">Author</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="password"><?php _e('Password', $this->plugin_name); ?></label>
                         <sup class="wpcrl-required-asterisk">*</sup>

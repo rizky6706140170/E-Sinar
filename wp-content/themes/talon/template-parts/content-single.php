@@ -60,7 +60,7 @@
 			<?php else: ?>
 				<?php if(empty($cek)): ?>	
 				<div class="daftar-seminar" style="text-align: center;">
-					<a href="<?php echo home_url().'/daftar_sm?'.'id_user='.$id_user.'&id_post='.$id_post.'&id_author='.$id_author.'&tgl_sm='.$tgl_sm; ?>" target="_blank" class="btn btn-success" style="background: #0733f3;">Daftar Seminar</a>
+					<a href="<?php echo home_url().'/daftar_sm?'.'id_user='.$id_user.'&id_post='.$id_post; ?>" target="_blank" class="btn btn-success" style="background: #0733f3;">Daftar Seminar</a>
 				</div>
 				<?php else: ?>
 					<div class="alert alert-danger" style="text-align: center;">
