@@ -597,3 +597,93 @@ function getPdf($dataPdf = array())
         }
         
 }
+
+ function send_maildaftarSeminar($to='' ,$subject='', $dataSeminar=array(), $filename=false)
+    {
+        global $phpmailer;
+
+        $msg = '';
+        $content = '';
+
+        $file = 'images/'; //phpmailer will load this file
+        $uid = 'header-img-uid'; //will map it to this UID
+        $filename = 'banner_email.png';
+        // $file_name_pdf = $dataMail['name'].$dataMail['unique_code'].'_reward voucher car wash'.'.pdf';
+        // Make sure the PHPMailer class has been instantiated
+        // (copied verbatim from wp-includes/pluggable.php)
+        // (Re)create it, if it's gone missing.
+        if ( ! is_object( $phpmailer ) || ! is_a( $phpmailer, 'PHPMailer' ) ) {
+            require_once ABSPATH . WPINC . '/class-phpmailer.php';
+            $phpmailer = new PHPMailer( true );
+        }
+        try {
+            // $headers  = "From: My site<noreply@example.com>\r\n"; 
+            // $headers .= "Reply-To: info@example.com\r\n"; 
+            // $headers .= "Return-Path: info@example.com\r\n"; 
+           
+            //$attachments = '/wp-content/uploads/test.pdf';
+            $headers = "X-Mailer: Drupal\n"; 
+            $headers .= 'MIME-Version: 1.0' . "\n"; 
+            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+            $path="images/";
+            // $filepath = dirname(__FILE__)."/images/banner_email.png";
+            $filepath = ABSPATH.$file.$filename;
+            // echo $filepath;
+            add_action( 'phpmailer_init', function(&$phpmailer)use($filepath,$uid,$filename){
+                // $phpmailer->SMTPKeepAlive = true;
+                $phpmailer->AddEmbeddedImage($filepath, $uid, $filename);
+            });
+
+            
+            
+                 $content = "
+                            Hai <b>".$dataSeminar['nama_pendaftar']."</b> <br><br>
+                            
+        					selamat kamu telah berhasil daftar di seminar : <br><br>
+        					".$dataSeminar['nama_seminar']." <br>
+        					setelah ini data kamu akan segera di verifikasi , terimakasih :)
+
+
+
+                        ";
+                    $msg = "
+                        <table>
+                            <tr>
+                                <td><img src='cid:header-img-uid'></td>
+                            </tr>
+
+                            <tr>
+                                <td>".$content."</td>
+                            </tr>
+                            <tr>
+                                
+                            </tr>
+                            
+                        </table>
+                    ";   
+            
+
+           
+            //$attach = array();
+            //$attach = get_site_url().'/public/pdf/'.$file_name_pdf;
+
+            // $attachments = array();
+            // array_push($attachments, WP_CONTENT_DIR .'/uploads/pdf/'.$file_name_pdf );
+
+            $phpmailer->SMTPDebug = apply_filters( 'wp_mail_smtp_admin_test_email_smtp_debug', 0 );
+            
+            // $result = wp_mail($to, $subject, $msg, $headers, $attachments);
+            $result = wp_mail($to, $subject, $msg, $headers);
+        }catch (phpmailerException $e) {
+            echo $e->errorMessage(); //Pretty error messages from PHPMailer
+        } catch (Exception $e) {
+            echo $e->getMessage(); //Boring error messages from anything else!
+        }
+        /*echo "<pre>";
+        print_r( $phpmailer );
+        die();*/
+        unset( $phpmailer );
+
+        // usleep(1500);
+    }

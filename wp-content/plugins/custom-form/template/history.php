@@ -1,9 +1,20 @@
 <input type="hidden" name="idForm" id="idForm" value="22">
 <?php
 global $wpdb;
-$id_user      = $_GET['id_user'];
+session_start();
+// $id_user      = $_GET['id_user'];
+$id_user = $_SESSION['login'];
+$cek_sesion = $_GET['id_user']; //keamanan jika ada yang akses lewat link
+
+// echo $cek_sesion;
+// echo $id_user;
 $query_seminar_h = $wpdb->get_results("SELECT * FROM daftar_seminar where id_user = '$id_user'");
 ?>
+<?php if($cek_sesion && $cek_sesion != $id_user) : ?>
+<div>
+    <h1>anda tidak bisa akses kesini</h1>
+</div>
+<?php  elseif (empty($cek_sesion) && !empty($id_user) || $cek_sesion && $cek_sesion == $id_user) :?>
 <div class="row" >
 	<div class="col-md-12" style="text-align: center;">
 		<h3>History Pendaftaran Seminar</h3>
@@ -29,7 +40,12 @@ $query_seminar_h = $wpdb->get_results("SELECT * FROM daftar_seminar where id_use
             	<?php $no = 0; foreach ($query_seminar_h as $key => $value): $no++; ?>
             		<tr>
                         <td class="manage-column ss-list-width text-center"><?php echo $no; ?></td>
-            			<td class="manage-column ss-list-width text-center"><?php echo $value->nama_pendaftar; ?></td>
+            			<td class="manage-column ss-list-width text-center">
+                            <?php
+                                $nama_pendaftar = $wpdb->get_var("SELECT display_name from wp_users where id ='$value->id_user'");
+                                echo $nama_pendaftar;
+                            ?>         
+                        </td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->handphone; ?></td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->nama_seminar; ?></td>
             			<td class="manage-column ss-list-width text-center">
@@ -66,7 +82,7 @@ $query_seminar_h = $wpdb->get_results("SELECT * FROM daftar_seminar where id_use
 	</div>
 	
 </div>
-
+<?php endif; ?>
 <script type="text/javascript">
 	  jQuery(document).ready(function($) {
             $('#table-data').DataTable({

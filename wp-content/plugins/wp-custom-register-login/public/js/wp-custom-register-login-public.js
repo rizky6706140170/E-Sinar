@@ -161,6 +161,13 @@
                         }
                     }
                 },
+                wpcrl_status: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The status is required'
+                        }
+                    }
+                },
                 wpcrl_password: {
                     validators: {
                         notEmpty: {

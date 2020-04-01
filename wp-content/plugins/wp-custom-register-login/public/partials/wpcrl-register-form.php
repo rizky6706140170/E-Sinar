@@ -64,11 +64,12 @@
                         <sup class="wpcrl-required-asterisk">*</sup>
                         <input type="text" class="form-control" name="wpcrl_email" id="wpcrl_email" placeholder="Email">
                     </div>
-                    <div>
-                        <label>Status : </label>
-                        <select id="Status" name="status">
-                          <option value="subcriber">Subcriber</option>
-                          <option value="author">Author</option>
+                    <div class="form-group">
+                        <label>Status Daftar: </label>
+                        <select id="wpcrl_status" name="wpcrl_status" class="form-control">
+                          <option value="">--Pilih Status Daftar--</option>
+                          <option value="subscriber">Pendaftar Seminar</option>
+                          <option value="author">Pemilik Seminar</option>
                         </select>
                     </div>
                     <div class="form-group">

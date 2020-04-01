@@ -194,6 +194,7 @@ function daftarSeminar()
 {
     global $wpdb;
     $tgl = date("Y-m-d H:i:s");
+    $tgl_skrg = date('d/m/Y');
     // $date = $_POST['date'];
     $id_user = $_POST['id_user'];
     $id_post = $_POST['id_post'];
@@ -202,13 +203,25 @@ function daftarSeminar()
     $handphone = $_POST['handphone'];
     $id_author =$wpdb->get_var("SELECT post_author from wp_posts where id='$id_post'");
     $tgl_sm=$wpdb->get_var("SELECT meta_value from wp_postmeta where post_id='$id_post' and meta_key = 'date'");
+    $to_email = $wpdb->get_var("SELECT user_email from wp_users where id='$id_user'");
 
     $tanggal = substr($tgl_sm, 6);
     $bulan = substr($tgl_sm, 4,-2);
     $tahun = substr($tgl_sm, 0,4);
     $tanggal_seminar = $tanggal .'/'. $bulan .'/'. $tahun;
 
-    // echo $tanggal_seminar;
+    $time = strtotime($tanggal_seminar);
+    // $newformat = date('d/m/Y',$time);
+
+    // echo $newformat .'|'.$tgl_skrg.'|'.$time;
+    // if($time >= strtotime('now'))
+    // {
+    //     echo "masih bisa daftar";
+    // }
+    // else
+    // {
+    //     echo "ga bisa daftar";
+    // }
     // exit();
     $filename = $_FILES['foto']['name'];
     $file_tmp = $_FILES['foto']['tmp_name'];
@@ -222,61 +235,74 @@ function daftarSeminar()
     // $r = wp_redirect( get_home_url().'/daftar_sm/?id_user='.$id_user.'&id_post='.$id_post.'&id_author='.$id_author.'&tgl_sm='.$date);
 
     // echo $tes;
-    if($size < 1044070)
+    $dataSeminar['nama_pendaftar'] = $nama_pendaftar;
+    $dataSeminar['nama_seminar'] = $nama_seminar;
+    if($time >= strtotime('now'))
     {
-        $upload = move_uploaded_file($file_tmp,WP_CONTENT_DIR .'/uploads/bukti/'.$newfilename);
-        // print_r($data_regis);
-        if($upload)
-        {
-            if(!empty($cek))
+        if($size < 1044070)
             {
-               // $this->error[] = new WP_Error('empty_error', __('Anda Telah Mendaftar Seminar Ini'));
-                 wp_redirect( get_home_url().'/gagal');
-                 exit();
-            }
-            else
-            {
-                $insert_sm = $wpdb->insert('daftar_seminar',  array(
-                    'id_user' => $id_user,
-                    // 'email'=> $email,
-                    'nama_seminar' => $nama_seminar,
-                    'nama_pendaftar' => $nama_pendaftar,
-                    'handphone' => $handphone,
-                    // 'file_foto' => $newfilename,
-                    'id_post' => $id_post,
-                    'id_author' =>$id_author,
-                    'tgl_seminar' => $tanggal_seminar,
-                    'created_at' => $tgl
-                ));
-                    if($insert_sm)
+                $upload = move_uploaded_file($file_tmp,WP_CONTENT_DIR .'/uploads/bukti/'.$newfilename);
+                // print_r($data_regis);
+                if($upload)
+                {
+                    if(!empty($cek))
                     {
-                        $id_daftar =$wpdb->get_var("SELECT id from daftar_seminar where id_user='$id_user' and id_post = '$id_post'");
-                        $insert_foto = $wpdb->insert('file_verifikasi', array(
-                            // 'id_user' => $id_user,
-                            'id_daftar' => $id_daftar,
-                            'id_author' =>$id_author,
-                            'id_post' => $id_post,
-                            'file_foto' => $newfilename,
-                            'status' => 0,
-                        ));
-                        wp_redirect( get_home_url().'/sukses_daftar');
-                        exit();
+                       // $this->error[] = new WP_Error('empty_error', __('Anda Telah Mendaftar Seminar Ini'));
+                         wp_redirect( get_home_url().'/gagal');
+                         exit();
                     }
                     else
                     {
-                        wp_redirect( get_home_url().'/gagal');
-                        exit();
+                        $insert_sm = $wpdb->insert('daftar_seminar',  array(
+                            'id_user' => $id_user,
+                            // 'email'=> $email,
+                            'nama_seminar' => $nama_seminar,
+                            // 'nama_pendaftar' => $nama_pendaftar,
+                            'handphone' => $handphone,
+                            // 'file_foto' => $newfilename,
+                            'id_post' => $id_post,
+                            'id_author' =>$id_author,
+                            'tgl_seminar' => $tanggal_seminar,
+                            'created_at' => $tgl
+                        ));
+                            if($insert_sm)
+                            {
+                                $id_daftar =$wpdb->get_var("SELECT id from daftar_seminar where id_user='$id_user' and id_post = '$id_post'");
+                                $insert_foto = $wpdb->insert('file_verifikasi', array(
+                                    // 'id_user' => $id_user,
+                                    'id_daftar' => $id_daftar,
+                                    'id_author' =>$id_author,
+                                    'id_post' => $id_post,
+                                    'file_foto' => $newfilename,
+                                    'status' => 0,
+                                ));
+                                send_maildaftarSeminar($to_email,"Pendaftaran Seminar (E-sinar)",$dataSeminar,false);
+                                wp_redirect( get_home_url().'/sukses_daftar');
+                                exit();
+                            }
+                            else
+                            {
+                                wp_redirect( get_home_url().'/gagal');
+                                exit();
+                            }
                     }
-            }
 
-           
-        }
+                   
+                }
+            }
+            else
+            {
+                // $this->error[] = new WP_Error('empty_error', __('foto terlalu besar'));
+                 wp_redirect( get_home_url().'/gagal');
+                 exit();
+            }
     }
     else
     {
          wp_redirect( get_home_url().'/gagal');
          exit();
     }
+
    
 }
 
@@ -284,25 +310,38 @@ function editProfile($dataEdit=array())
 {
      global $wpdb;
      $id_user = $_POST['id'];
+     // echo $id_user;
+     // exit();
      $display_name = $_POST['display_name'];
      $user_email = $_POST['user_email'];
+     $bank = $_POST['bank'];
+     $rekening = $_POST['rekening'];
 
      $cek_email = "SELECT user_email from wp_users where user_email = '$user_email' and id != $id_user";
      $row = $wpdb->get_row($cek_email);
     if(empty($row))
         {
-            $wpdb->update('wp_users', array(
+            $update_profil = $wpdb->update('wp_users', array(
             'display_name' => $display_name,
             'user_email' => $user_email,
             ),array(
                 'id' => $id_user,
             ));
-            wp_redirect( get_home_url().'/profile/?id_user='.$id_user);
+
+            $update_rekening = $wpdb->update('rekening_pemilik', array(
+            'bank' => $bank,
+            'rekening' => $rekening,
+            ),array(
+                'id_user' => $id_user,
+            ));
+                
+            wp_redirect( get_home_url().'/profile/');
             exit();
+                
         }
     else
         {
-            $this->error[] = new WP_Error('empty_error', __('Email Baru yang anda masukan sudah terdaftar'));
+            $this->error[] = new WP_Error('empty_error', __('Email Baru yang anda masukan sudah terdaftar atau session anda telah habis , silahkan login kembali'));
         } 
 
 }
@@ -372,7 +411,7 @@ function fotoProfile()
                 ));
                     if($insert_pp)
                     {
-                       wp_redirect( get_home_url().'/profile/?id_user='.$id_user);
+                       wp_redirect( get_home_url().'/profile/');
                         exit();
                     }
                     else
@@ -416,7 +455,7 @@ function editfotoProfile()
             ),array(
                 'id_user' => $id_user
             ));
-            wp_redirect( get_home_url().'/profile/?id_user='.$id_user);
+            wp_redirect( get_home_url().'/profile/');
             exit();
         }
         else

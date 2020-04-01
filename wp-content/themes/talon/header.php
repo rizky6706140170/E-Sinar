@@ -29,7 +29,9 @@
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'talon' ); ?></a>
 
 	<?php //Used for talon_header_bar() 
-	do_action('talon_header'); ?>
+	do_action('talon_header');
+	session_start();
+	 ?>
 	
 	<?php //Used for talon_header_hero() 
 	do_action('talon_after_header'); ?>
@@ -54,7 +56,12 @@
 		     					get_currentuserinfo();
 		     					$current_user = wp_get_current_user();
 		     					$id_user = $current_user->id;
+		     					$_SESSION['login'] = $id_user;
 		                		$logout_redirect = (empty($wpcrl_redirect_settings['wpcrl_logout_redirect']) || $wpcrl_redirect_settings['wpcrl_logout_redirect'] == '-1') ? '' : $wpcrl_redirect_settings['wpcrl_logout_redirect'];
+		                		if($logout_redirect)
+		                		{
+		                			unset($_SESSION['login']);
+		                		}
 		     					if($current_user->ID == 1):
 		     				?>
 		     					<span> hello <?php echo ucfirst($current_user->user_login); ?></span>
@@ -65,10 +72,10 @@
 		     					</div>
 		     					<div class="row" style="margin-top: 20px;">
 		     						<div class="col-md-6" style="text-align: right;">
-		     							<a href="<?php echo home_url().'/profile?'.'id_user='.$id_user?>" class="button" style="background: #0733f3;">Lihat Profil</a>
+		     							<a href="<?php echo home_url().'/profile'?>" class="button" style="background: #0733f3;">Lihat Profil</a>
 		     						</div>
 		     						<div class="col-md-6" style="text-align: left;">
-		     							<a href="<?php echo home_url().'/history?'.'id_user='.$id_user?>" class="button" style="background: #0733f3;">History Seminar</a>
+		     							<a href="<?php echo home_url().'/history'?>" class="button" style="background: #0733f3;">History Seminar</a>
 		     						</div>
 		     					</div>
 		     					<?php endif;?>

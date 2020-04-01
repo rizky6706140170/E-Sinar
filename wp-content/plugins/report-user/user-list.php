@@ -9,7 +9,8 @@ function User_list() {
 
     <?php
       global $wpdb;
-      $query_user = $wpdb->get_results("SELECT *,a.user_login as username,b.status as statuses FROM wp_users a left join user_esinar b on a.ID = b.user_id");
+      // $query_user = $wpdb->get_results("SELECT *,a.user_login as username,b.status as statuses FROM wp_users a left join user_esinar b on a.ID = b.user_id");
+      $query_user = $wpdb->get_results("SELECT * FROM wp_users where role_user IS NULL");
     ?>
     <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" style="display: inline-block;">
         <table id="table-data" class='wp-list-table widefat fixed striped' style="width: 100%;">
@@ -28,11 +29,11 @@ function User_list() {
             	<?php $no = 0; foreach ($query_user as $key => $value): $no++; ?>
             		<tr>
             			<td class="manage-column ss-list-width text-center"><?php echo $no; ?></td>
-            			<td class="manage-column ss-list-width text-center"><?php echo $value->username; ?></td>
+            			<td class="manage-column ss-list-width text-center"><?php echo $value->user_login; ?></td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->display_name; ?></td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->user_email; ?></td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->user_registered; ?></td>
-            			<td class="manage-column ss-list-width text-center"><?php echo $value->statuses; ?></td>
+            			<td class="manage-column ss-list-width text-center"><?php echo $value->role_user; ?></td>
             			<td class="manage-column ss-list-width text-center"></td>
             		</tr>
             	<?php endforeach; ?>

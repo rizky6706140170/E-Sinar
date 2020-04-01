@@ -293,18 +293,36 @@ class Wp_Custom_Register_Login_Public extends Wp_Custom_Register_Login_Generic_P
                 $new_user['user_login'] =  trim($_POST['wpcrl_username']);
                 $new_user['firstname']= trim($_POST['wpcrl_fname']);
                 $new_user['lastname']= trim($_POST['wpcrl_lname']);
-                $new_user['status']= $_POST['status'];
+                $new_user['status']= $_POST['wpcrl_status'];
                 $new_user['user_id']= $user_id;
                 $new_user['created_at'] =  date('Y-m-d H:i:s');
                 
-                if($new_user['status'] == 'subcriber')
+                if($new_user['status'] == 'subscriber')
                 {
-                    $insert_new_user = $wpdb->insert('user_esinar', $new_user);
+                    // $insert_new_user = $wpdb->insert('user_esinar', $new_user);
+                    $wpdb->update('wp_users', array(
+                        'role_user' => $new_user['status'],
+                        // 'user_email' => $user_email,
+                        ),array(
+                            'id' => $user_id
+                        ));
                 }
                 else
                 {
-                    wp_update_user(array('ID' => $user_id, 'role' => 'author'));
-                    $insert_new_user = $wpdb->insert('user_esinar', $new_user);
+                    $update_role = $wpdb->update('wp_users', array(
+                        'role_user' => $new_user['status'],
+                        // 'user_email' => $user_email,
+                        ),array(
+                            'id' => $user_id
+                        ));
+                    if($update_role)
+                    {
+                        wp_update_user(array('ID' => $user_id, 'role' => 'author'));
+                        $rekening_pm['id_user'] = $user_id;
+                        $wpdb->insert('rekening_pemilik',$rekening_pm);
+                    }
+                    
+                    // $insert_new_user = $wpdb->insert('user_esinar', $new_user);
                 }
                
                 //adding current url in user data

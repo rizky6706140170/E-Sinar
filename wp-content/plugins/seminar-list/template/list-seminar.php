@@ -77,6 +77,9 @@
 											<div class="waktu_sm">
 												<span><i class="far fa-clock"> '.get_field('waktu_mulai').' - '.get_field('waktu_selesai').'</i></span>
 											</div>
+											<div class="harga_sm">
+												<span><i class="fas fa-money-bill-wave-alt"> Rp. '.get_field('harga').'</i></span>
+											</div>
 
 										';
 

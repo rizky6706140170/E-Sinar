@@ -26,7 +26,7 @@ define( 'DB_NAME', 'esinar' );
 define( 'DB_USER', 'root' );
 
 /** MySQL database password */
-define( 'DB_PASSWORD', '' );
+define( 'DB_PASSWORD', 'adminadmin' );
 
 /** MySQL hostname */
 define( 'DB_HOST', 'localhost' );

@@ -31,11 +31,20 @@
 </script>
 <?php
 	global $wpdb;
-
-	$id_user      = $_GET['id_user'];
+	session_start();
+	$id_user = $_SESSION['login'];
+	$cek_sesion = $_GET['id_user']; //keamanan jika ada yang akses lewat link
+	// echo $id_user;
+	// echo $cek_sesion;
+	// $id_user      = $_GET['id_user'];
 	// $id_post      = $_GET['id_post'];
 	// $query_edit = $wpdb->get_results("SELECT * FROM seminar where id_user = '$id_user' and id_post = '$id_post'");
 ?>
+<?php if($cek_sesion && $cek_sesion != $id_user) : ?>
+<div>
+    <h1>anda tidak bisa akses kesini</h1>
+</div>
+<?php  elseif (empty($cek_sesion) && !empty($id_user) || $cek_sesion && $cek_sesion == $id_user) :?>
 <div class="row">
 	
 	<form class="form" method='post' action='' style="width: 50%;margin:0 auto;" enctype="multipart/form-data">
@@ -71,3 +80,4 @@
 	</form>
 	
 </div>
+<?php endif; ?>

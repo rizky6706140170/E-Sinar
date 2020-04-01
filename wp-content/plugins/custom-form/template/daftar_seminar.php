@@ -38,18 +38,41 @@
 </script>
 <?php
 global $wpdb;
- $id_user      = $_GET['id_user'];
- $id_post      = $_GET['id_post'];
+session_start();
+get_currentuserinfo();
+ // $id_user      = $_GET['id_user'];
+ // $id_post      = $_GET['id_post'];
  // $id_author    = $_GET['id_author'];
  // $tgl_sm	   = $_GET['tgl_sm'];
+$cek_sesion = $_GET['id_user']; //keamanan jika ada yang akses lewat link
+$id_user = $_SESSION['login'];
+$id_post = $_SESSION['id_post'];
+
+// echo $id_user;
+
+// echo $cek_sesion;
+// echo $_GET['id_user'];
 
  $namaseminar=$wpdb->get_var("SELECT post_title from wp_posts where id='$id_post'");
  $email_user=$wpdb->get_var("SELECT user_email from wp_users where id='$id_user'");
  $tgl_sm=$wpdb->get_var("SELECT meta_value from wp_postmeta where post_id='$id_post' and meta_key = 'date'");
  $nama_pendaftar =$wpdb->get_var("SELECT display_name from wp_users where id='$id_user'");
 
-?>
+ // if($cek_sesion && $cek_sesion != $id_user)
+ // {
+ // 	echo "ga bisa akses";	
+ // }
+ // elseif (empty($cek_sesion) && !empty($id_user) || $cek_sesion && $cek_sesion == $id_user)
+ // {
+ // 	echo "bisa akses";
+ // }
 
+?>
+<?php if($cek_sesion && $cek_sesion != $id_user) : ?>
+<div>
+	<h1>anda tidak bisa akses kesini</h1>
+</div>
+<?php  elseif (empty($cek_sesion) && !empty($id_user) || $cek_sesion && $cek_sesion == $id_user) :?>
 <div class="container">
 	<div class="row">
 		<?php echo $messagee;?>
@@ -103,7 +126,7 @@ global $wpdb;
                 <div class="form-group">
                 	Upload Bukti Pembayaran: <input type="file" name="foto" data-bvalidator-msg="Upluoad Struk Bukti Pembayaran" style="width: 100%;" accept="image/jpeg, image/png" required>
                 </div>
-                  <?php if(count($msg)):?>
+              	<?php if(count($msg)):?>
 					<?php
 						$msg_code = "";
 						foreach ($msg as $key => $value) :
@@ -128,3 +151,4 @@ global $wpdb;
 
 	</div>
 </div>
+<?php endif; ?>

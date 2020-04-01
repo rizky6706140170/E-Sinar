@@ -39,35 +39,51 @@
 				<div class="waktu_sm">
 					<span><i class="far fa-clock"> <?php echo get_field('waktu_mulai') .'-'.get_field('waktu_selesai') ?></i></span>
 				</div>
+				<div class="harga_sm">
+					<span><i class="fas fa-money-bill-wave-alt"> Rp. <?php echo get_field('harga') ?></i></span>
+				</div>
 			</div>
 			<?php 
 				global $current_user;
 				global $wpdb;
 				get_currentuserinfo();
+				session_start();
 				$id_user = $current_user->id;
 				$id_author = get_the_author_ID();
 				$id_post = get_the_ID();
 				$tgl_sm = get_field('date');
 
-				$query_cek = "SELECT * FROM seminar where id_user ='$id_user' and id_post = '$id_post'";
-				$cek =  $wpdb->get_results($query_cek);
-			?>
+				$_SESSION['login'] = $id_user;
+				$_SESSION['id_post'] = $id_post;
 
-			<?php if(!is_user_logged_in()): ?>
-			<div class="daftar-seminar-nonlogin alert alert-danger" style="text-align: center;">
-				<span>Silahkan login terlebih dahulu untuk bisa mendaftar ke seminar ini</span>
-			</div>
-			<?php else: ?>
-				<?php if(empty($cek)): ?>	
-				<div class="daftar-seminar" style="text-align: center;">
-					<a href="<?php echo home_url().'/daftar_sm?'.'id_user='.$id_user.'&id_post='.$id_post; ?>" target="_blank" class="btn btn-success" style="background: #0733f3;">Daftar Seminar</a>
-				</div>
+				$query_cek = "SELECT * FROM daftar_seminar where id_user ='$id_user' and id_post = '$id_post'";
+				$cek =  $wpdb->get_results($query_cek);
+				$tgl_now = date('d/m/Y');
+				$time = strtotime($tgl_sm);
+			?>
+			<?php if($time >= strtotime('now')) : ?>
+				<?php if(!is_user_logged_in()): ?>
+						<div class="daftar-seminar-nonlogin alert alert-danger" style="text-align: center;">
+							<span>Silahkan login terlebih dahulu untuk bisa mendaftar ke seminar ini</span>
+						</div>
 				<?php else: ?>
-					<div class="alert alert-danger" style="text-align: center;">
-						<span>Anda Sudah Mendaftar Seminar ini</span>
-					</div>
+						<?php if(empty($cek)): ?>	
+						<div class="daftar-seminar" style="text-align: center;">
+							<a href="<?php echo home_url().'/daftar_sm'; ?>" target="_blank" class="btn btn-success" style="background: #0733f3;">Daftar Seminar</a>
+						</div>
+						<?php else: ?>
+							<div class="alert alert-danger" style="text-align: center;">
+								<span>Anda Sudah Mendaftar Seminar ini</span>
+							</div>
+						<?php endif; ?>
 				<?php endif; ?>
-			<?php endif; ?>	
+			<?php else: ?>
+				<div class="alert alert-danger" style="text-align: center;">
+					<span>Tanggal Seminar sudah lewat</span>
+				</div>
+			<?php endif;?>
+			
+						
 		</div>
 		<div class="col-md-8">
 			
