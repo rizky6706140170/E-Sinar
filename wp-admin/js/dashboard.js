@@ -591,3 +591,5 @@ jQuery( function( $ ) {
 		});
 	}
 });
+
+$('#wp-admin-bar-wp-logo').css('display','none !important');

@@ -1298,5 +1298,6 @@
 	};
 
 	$(document).ready(function(){ wpNavMenu.init(); });
+	
 
 })(jQuery);
