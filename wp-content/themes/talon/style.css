@@ -3080,8 +3080,8 @@ border: 0px solid #eee !important;
 #btn-register
 {
 	color: #fff;
-    background-color: #0733f3 !important;
-    border-color: #607e9e;
+    background-color: #56b7ce !important;
+    border-color: #7ba3ce;
     text-transform: unset;
     padding-right: 22px;
     padding-left: 22px;
@@ -3090,8 +3090,8 @@ border: 0px solid #eee !important;
 #btn-login
 {
 	color: #fff;
-    background-color: #0733f3 !important;
-    border-color: #607e9e;
+    background-color: #56b7ce !important;
+    border-color: #7ba3ce;
     text-transform: unset;
     padding-right: 22px;
     padding-left: 22px;
@@ -3177,8 +3177,9 @@ box-shadow: 10px 13px 8px -5px rgba(173,173,173,1);
 
 .modal-content
 {
-	background-color: rgba(0, 4, 49, 0.9);
+	background-color: rgba(112, 169, 163, 0.9);
     color: white;
+    border-radius: 20px !important;
 }
 
 .btn-reg
@@ -3241,7 +3242,8 @@ box-shadow: 10px 13px 8px -5px rgba(173,173,173,1);
 }
 
 .site-header {
-    background-color: #54c4f5 !important;
+    /*background-color: #54c4f5 !important;*/
+    background-color: #7ec4d4 !important;
 }
 
 .main-navigation li a {
@@ -3251,7 +3253,7 @@ box-shadow: 10px 13px 8px -5px rgba(173,173,173,1);
 {
 	background: url(../talon/images/angle-bg.png) no-repeat ;
 	background-size: 100% 100%;
-	background-color: #209cd2 !important; 
+	background-color: #7ec4d4 !important; 
 }
 .btn-reg , .btn-login
 {
@@ -3264,4 +3266,10 @@ box-shadow: 10px 13px 8px -5px rgba(173,173,173,1);
 .my-bvalidator-insert-msg
 {
 	color: red;
+}
+.btn-reg , .btn-login
+{
+	background-color: #08707d !important;
+    border: 1px solid #0e8dd2;
+    border-radius: 10px;
 }
