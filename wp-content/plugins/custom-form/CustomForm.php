@@ -194,7 +194,8 @@ function daftarSeminar()
 {
     global $wpdb;
     $tgl = date("Y-m-d H:i:s");
-    $tgl_skrg = date('d/m/Y');
+    // $date_now = new DateTime();
+    $date_now = date("d-m-Y");
     // $date = $_POST['date'];
     $id_user = $_POST['id_user'];
     $id_post = $_POST['id_post'];
@@ -208,21 +209,24 @@ function daftarSeminar()
     $tanggal = substr($tgl_sm, 6);
     $bulan = substr($tgl_sm, 4,-2);
     $tahun = substr($tgl_sm, 0,4);
-    $tanggal_seminar = $tanggal .'/'. $bulan .'/'. $tahun;
+    $tanggal_seminar = $tanggal .'-'. $bulan .'-'. $tahun;
 
-    $time = strtotime($tanggal_seminar);
-    // $newformat = date('d/m/Y',$time);
+    $time = strtotime('01/04/2020');
 
-    // echo $newformat .'|'.$tgl_skrg.'|'.$time;
-    // if($time >= strtotime('now'))
-    // {
-    //     echo "masih bisa daftar";
-    // }
-    // else
-    // {
-    //     echo "ga bisa daftar";
-    // }
-    // exit();
+    $d=strtotime($tanggal_seminar);
+    $mydate=strtotime('now');
+// echo "Created date is " . date("d-m-Y", $d) ."|" .$date_now;
+// $tes =  date("d-m-Y", $d);
+// if($d >= $mydate)
+// {
+//     echo "string";
+// }
+// else
+// {
+//     echo "string2";
+// }
+
+//     exit();
     $filename = $_FILES['foto']['name'];
     $file_tmp = $_FILES['foto']['tmp_name'];
     $size = $_FILES['foto']['size'];
@@ -237,7 +241,7 @@ function daftarSeminar()
     // echo $tes;
     $dataSeminar['nama_pendaftar'] = $nama_pendaftar;
     $dataSeminar['nama_seminar'] = $nama_seminar;
-    if($time >= strtotime('now'))
+    if($d >= $mydate)
     {
         if($size < 1044070)
             {
@@ -247,9 +251,9 @@ function daftarSeminar()
                 {
                     if(!empty($cek))
                     {
-                       // $this->error[] = new WP_Error('empty_error', __('Anda Telah Mendaftar Seminar Ini'));
-                         wp_redirect( get_home_url().'/gagal');
-                         exit();
+                       $this->error[] = new WP_Error('empty_error', __('Anda Telah Mendaftar Seminar Ini'));
+                         // wp_redirect( get_home_url().'/gagal');
+                         // exit();
                     }
                     else
                     {
@@ -258,7 +262,7 @@ function daftarSeminar()
                             // 'email'=> $email,
                             'nama_seminar' => $nama_seminar,
                             // 'nama_pendaftar' => $nama_pendaftar,
-                            'handphone' => $handphone,
+                            // 'handphone' => $handphone,
                             // 'file_foto' => $newfilename,
                             'id_post' => $id_post,
                             'id_author' =>$id_author,
@@ -274,16 +278,30 @@ function daftarSeminar()
                                     'id_author' =>$id_author,
                                     'id_post' => $id_post,
                                     'file_foto' => $newfilename,
-                                    'status' => 0,
+                                    // 'status' => 0,
                                 ));
-                                send_maildaftarSeminar($to_email,"Pendaftaran Seminar (E-sinar)",$dataSeminar,false);
-                                wp_redirect( get_home_url().'/sukses_daftar');
-                                exit();
+                                    if($insert_foto)
+                                    {
+                                        $id_verifikasi = $wpdb->get_var("SELECT id from file_verifikasi where id_daftar = '$id_daftar'");
+                                        $insert_pdf = $wpdb->insert('pdf_verifikasi_daftar', array(
+                                            'id_verifikasi' => $id_verifikasi,
+                                        ));
+                                        send_maildaftarSeminar($to_email,"Pendaftaran Seminar (E-sinar)",$dataSeminar,false);
+                                        wp_redirect( get_home_url().'/sukses_daftar');
+                                        exit();
+                                    }
+                                    else
+                                    {
+                                         $this->error[] = new WP_Error('empty_error', __('gagal daftar insert foto'));
+                                        // wp_redirect( get_home_url().'/gagal');
+                                        // exit();
+                                    }
                             }
                             else
                             {
-                                wp_redirect( get_home_url().'/gagal');
-                                exit();
+                                 $this->error[] = new WP_Error('empty_error', __('gagal daftar'));
+                                // wp_redirect( get_home_url().'/gagal');
+                                // exit();
                             }
                     }
 
@@ -292,15 +310,16 @@ function daftarSeminar()
             }
             else
             {
-                // $this->error[] = new WP_Error('empty_error', __('foto terlalu besar'));
-                 wp_redirect( get_home_url().'/gagal');
-                 exit();
+                $this->error[] = new WP_Error('empty_error', __('foto terlalu besar'));
+                 // wp_redirect( get_home_url().'/gagal');
+                 // exit();
             }
     }
     else
     {
-         wp_redirect( get_home_url().'/gagal');
-         exit();
+        $this->error[] = new WP_Error('empty_error', __('gagal daftar seminar , tanggal seminar sudah lewat'));
+         // wp_redirect( get_home_url().'/gagal');
+         // exit();
     }
 
    
@@ -356,7 +375,8 @@ function editBukti()
     $filename = $_FILES['foto_edit']['name'];
     $file_tmp = $_FILES['foto_edit']['tmp_name'];
     $size = $_FILES['foto_edit']['size'];
-    $nama_pendaftar = $wpdb->get_var("SELECT nama_pendaftar from daftar_seminar where id_user = '$id_user' and id_post ='$id_post' ");
+
+    $nama_pendaftar = $wpdb->get_var("SELECT display_name from wp_users where id = '$id_user'");
     $id_daftar = $wpdb->get_var("SELECT id from daftar_seminar where id_user = '$id_user' and id_post ='$id_post' ");
      $nama_gambar = $wpdb->get_var("SELECT file_foto from file_verifikasi where id_daftar = '$id_daftar'");
     $temp = explode(".", $filename);
@@ -376,7 +396,7 @@ function editBukti()
             ),array(
                 'id_daftar' => $id_daftar
             ));
-            wp_redirect( get_home_url().'/history/?id_user='.$id_user);
+            wp_redirect( get_home_url().'/history');
             exit();
        }
        else

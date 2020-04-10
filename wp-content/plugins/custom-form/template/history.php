@@ -29,7 +29,6 @@ $query_seminar_h = $wpdb->get_results("SELECT * FROM daftar_seminar where id_use
                 <tr>
                     <th class="manage-column ss-list-width text-center text-bold" style="width: 5%;">No</th>
                     <th class="manage-column ss-list-width text-center text-bold">Nama Pendaftar</th>
-                    <th class="manage-column ss-list-width text-center text-bold">Handphone</th>
                     <th class="manage-column ss-list-width text-center text-bold">Nama Seminar</th>
                     <th class="manage-column ss-list-width text-center text-bold">Foto Pembayaran</th>
                     <th class="manage-column ss-list-width text-center text-bold">Status</th>
@@ -46,7 +45,6 @@ $query_seminar_h = $wpdb->get_results("SELECT * FROM daftar_seminar where id_use
                                 echo $nama_pendaftar;
                             ?>         
                         </td>
-            			<td class="manage-column ss-list-width text-center"><?php echo $value->handphone; ?></td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->nama_seminar; ?></td>
             			<td class="manage-column ss-list-width text-center">
                             <?php
@@ -56,7 +54,7 @@ $query_seminar_h = $wpdb->get_results("SELECT * FROM daftar_seminar where id_use
                         </td>
             			<td class="manage-column ss-list-width text-center">
                             <?php
-                                $status_history = $wpdb->get_var("SELECT status FROM file_verifikasi where id_daftar = '$value->id;'");
+                                $status_history = $wpdb->get_var("SELECT status FROM daftar_seminar where id_user = '$id_user' and id_post = '$value->id_post'");
                             ?>
                             <?php if($status_history == 0) : ?>
                                 <span>Belum Diverfikasi</span>
@@ -71,7 +69,8 @@ $query_seminar_h = $wpdb->get_results("SELECT * FROM daftar_seminar where id_use
                             <?php if($status_history == 1) : ?>
                             
                             <?php else : ?>
-                                 <a href="<?php echo home_url().'/editbukti?'.'id_user='.$value->id_user.'&id_post='.$value->id_post;?>" class="btn btn-success" style="background: #0733f3;">Edit Bukti Bayar</a>
+                                <?php $_SESSION['id_post'] = $value->id_post; ?>
+                                 <a href="<?php echo home_url().'/editbukti'?>" class="btn btn-success" style="background: #0733f3;">Edit Bukti Bayar</a>
                             <?php endif; ?>
                         </td>
             		</tr>

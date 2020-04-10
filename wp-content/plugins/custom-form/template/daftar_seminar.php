@@ -117,14 +117,7 @@ $id_post = $_SESSION['id_post'];
                 </div>
 
                 <div class="form-group">
-                    <center>
-                        <label style="font-weight:bold;margin-bottom:5px;">No Hp</label>
-                    </center>
-                    <input class="form-control" data-bvalidator="required" data-bvalidator-msg="Isi Nomor Hp Anda" name='handphone' type='text' value='' style="width:100%;text-align: center;" placeholder="No Hp Anda" onkeypress="return hanyaAngka(event)"/>
-                    
-                </div>
-                <div class="form-group">
-                	Upload Bukti Pembayaran: <input type="file" name="foto" data-bvalidator-msg="Upluoad Struk Bukti Pembayaran" style="width: 100%;" accept="image/jpeg, image/png" required>
+                	Upload Bukti Pembayaran: (size < 1MB )<input type="file" name="foto" data-bvalidator-msg="Upluoad Struk Bukti Pembayaran" style="width: 100%;" accept="image/jpeg, image/png" required>
                 </div>
               	<?php if(count($msg)):?>
 					<?php

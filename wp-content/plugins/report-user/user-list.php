@@ -21,7 +21,6 @@ function User_list() {
                     <th class="manage-column ss-list-width text-center text-bold">Name</th>
                     <th class="manage-column ss-list-width text-center text-bold">Email</th>
                     <th class="manage-column ss-list-width text-center text-bold">Registered</th>
-                    <th class="manage-column ss-list-width text-center text-bold">Status Akun</th>
                     <th class="manage-column ss-list-width text-center text-bold" style="width: 8%;">Action</th>
                 </tr>
             </thead>
@@ -33,7 +32,6 @@ function User_list() {
             			<td class="manage-column ss-list-width text-center"><?php echo $value->display_name; ?></td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->user_email; ?></td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->user_registered; ?></td>
-            			<td class="manage-column ss-list-width text-center"><?php echo $value->role_user; ?></td>
             			<td class="manage-column ss-list-width text-center"></td>
             		</tr>
             	<?php endforeach; ?>

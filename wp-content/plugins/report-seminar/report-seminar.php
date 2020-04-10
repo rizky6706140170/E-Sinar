@@ -9,7 +9,8 @@ function Seminar_list() {
 
     <?php
       global $wpdb;
-      $query_seminar = $wpdb->get_results("SELECT * FROM seminar order by id desc");
+      // $query_seminar = $wpdb->get_results("SELECT * FROM daftar_seminar left join ");
+      $query_seminar = $wpdb->get_results("SELECT * FROM daftar_seminar a LEFT JOIN file_verifikasi b on a.id = b.id_daftar LEFT JOIN wp_users c ON a.id_user = c.ID")
     ?>
     <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" style="display: inline-block;">
         <table id="table-data" class='wp-list-table widefat fixed striped' style="width: 100%;">
@@ -17,7 +18,6 @@ function Seminar_list() {
                 <tr>
                     <th class="manage-column ss-list-width text-center text-bold" style="width: 5%;">No</th>
                     <th class="manage-column ss-list-width text-center text-bold">Nama Pendaftar</th>
-                    <th class="manage-column ss-list-width text-center text-bold">Handphone</th>
                     <th class="manage-column ss-list-width text-center text-bold">Nama Seminar</th>
                     <th class="manage-column ss-list-width text-center text-bold">Foto Pembayaran</th>
                     <th class="manage-column ss-list-width text-center text-bold">Status</th>
@@ -29,8 +29,7 @@ function Seminar_list() {
             	<?php $no = 0; foreach ($query_seminar as $key => $value): $no++; ?>
             		<tr>
                         <td class="manage-column ss-list-width text-center"><?php echo $no; ?></td>
-            			<td class="manage-column ss-list-width text-center"><?php echo $value->nama_pendaftar; ?></td>
-            			<td class="manage-column ss-list-width text-center"><?php echo $value->handphone; ?></td>
+            			<td class="manage-column ss-list-width text-center"><?php echo $value->display_name; ?></td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->nama_seminar; ?></td>
             			<td class="manage-column ss-list-width text-center"><a href="<?php echo content_url().'/uploads/bukti/'.$value->file_foto; ?>" target="_blank"><?php echo $value->file_foto; ?></a></td>
             			<td class="manage-column ss-list-width text-center">
@@ -72,21 +71,21 @@ function Seminar_list() {
                         extend: 'excel',
                         title: 'Data Pendaftaran Seminar',
                         exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                            columns: [ 0, 1, 2, 3, 4, 5]
                         }
                     },
                     {
                         extend: 'pdf',
                         title: 'Data Pendaftaran Seminar',
                         exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                            columns: [ 0, 1, 2, 3, 4, 5]
                         }
                     },
                     {
                         extend: 'print',
                         title: 'Data Pendaftaran Seminar',
                         exportOptions: {
-                            columns:[ 0, 1, 2, 3, 4, 5, 6, 7 ]
+                            columns:[ 0, 1, 2, 3, 4, 5]
                         }
                     },
                 ],

@@ -10,7 +10,7 @@ function Pemilik_list() {
     <?php
       global $wpdb;
       // $query_user = $wpdb->get_results("SELECT *,a.user_login as username,b.status as statuses FROM wp_users a left join user_esinar b on a.ID = b.user_id");
-      $query_user = $wpdb->get_results("SELECT * FROM wp_users where role_user ='author'");
+      $query_user = $wpdb->get_results("SELECT * FROM wp_users a LEFT JOIN rekening_pemilik b on a.ID = b.id_user where a.role_user ='author'");
     ?>
     <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" style="display: inline-block;">
         <table id="table-data" class='wp-list-table widefat fixed striped' style="width: 100%;">
@@ -20,6 +20,8 @@ function Pemilik_list() {
                     <th class="manage-column ss-list-width text-center text-bold">User Name</th>
                     <th class="manage-column ss-list-width text-center text-bold">Name</th>
                     <th class="manage-column ss-list-width text-center text-bold">Email</th>
+                    <th class="manage-column ss-list-width text-center text-bold">Bank</th>
+                    <th class="manage-column ss-list-width text-center text-bold">No Rekening</th>
                     <th class="manage-column ss-list-width text-center text-bold">Registered</th>
                     <th class="manage-column ss-list-width text-center text-bold">Status Akun</th>
                     <th class="manage-column ss-list-width text-center text-bold" style="width: 8%;">Action</th>
@@ -32,6 +34,8 @@ function Pemilik_list() {
             			<td class="manage-column ss-list-width text-center"><?php echo $value->user_login; ?></td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->display_name; ?></td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->user_email; ?></td>
+                        <td class="manage-column ss-list-width text-center"><?php echo $value->bank; ?></td>
+                        <td class="manage-column ss-list-width text-center"><?php echo $value->rekening; ?></td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->user_registered; ?></td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->role_user; ?></td>
             			<td class="manage-column ss-list-width text-center"></td>
@@ -57,7 +61,7 @@ function Pemilik_list() {
                         extend: 'excel',
                         title: 'Data User E-Sinar',
                         exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4 ]
+                            columns: [ 0, 1, 2, 3, 4 ,5,6,7]
                         }
                     },
                     {

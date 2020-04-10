@@ -500,10 +500,6 @@ function getPdf($dataPdf = array())
                     <td width="50%">'.$dataPdf['nama_seminar'].'</td>
                 </tr>
                 <tr>                    
-                    <td width="50%">No Handphone</td>
-                    <td width="50%">'.$dataPdf['handphone'].'</td>
-                </tr>
-                <tr>                    
                     <td width="50%">Tanggal Seminar</td>
                     <td width="50%">'.$dataPdf['date'].'</td>
                 </tr>
@@ -692,3 +688,90 @@ function getPdf($dataPdf = array())
 function remove_wp_logo( $wp_admin_bar ) {
 	$wp_admin_bar->remove_node( 'wp-logo' );
 }
+
+ function send_mailDaftarPdf($to='' ,$subject='', $dataPdf=array(), $filename=false)
+    {
+        global $phpmailer;
+
+        $msg = '';
+        $content = '';
+
+        $file = 'images/'; //phpmailer will load this file
+        $uid = 'header-img-uid'; //will map it to this UID
+        $filename = 'banner_email.png';
+        // $file_name_pdf = $dataMail['name'].$dataMail['unique_code'].'_reward voucher car wash'.'.pdf';
+        $file_name_pdf = $dataPdf['id_user'].$dataPdf['id_post'].'_verifikasi'.'.pdf';
+        // Make sure the PHPMailer class has been instantiated
+        // (copied verbatim from wp-includes/pluggable.php)
+        // (Re)create it, if it's gone missing.
+        if ( ! is_object( $phpmailer ) || ! is_a( $phpmailer, 'PHPMailer' ) ) {
+            require_once ABSPATH . WPINC . '/class-phpmailer.php';
+            $phpmailer = new PHPMailer( true );
+        }
+        try {
+            // $headers  = "From: My site<noreply@example.com>\r\n"; 
+            // $headers .= "Reply-To: info@example.com\r\n"; 
+            // $headers .= "Return-Path: info@example.com\r\n"; 
+           
+            //$attachments = '/wp-content/uploads/test.pdf';
+            $headers = "X-Mailer: Drupal\n"; 
+            $headers .= 'MIME-Version: 1.0' . "\n"; 
+            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+            $path="images/";
+            // $filepath = dirname(__FILE__)."/images/banner_email.png";
+            $filepath = ABSPATH.$file.$filename;
+            // echo $filepath;
+            add_action( 'phpmailer_init', function(&$phpmailer)use($filepath,$uid,$filename){
+                // $phpmailer->SMTPKeepAlive = true;
+                $phpmailer->AddEmbeddedImage($filepath, $uid, $filename);
+            });
+
+            
+            
+                 $content = "
+                            Dear <b>".$dataPdf['nama_pendaftar']."</b> <br><br>
+                            
+                      		Pembayaran anda pada Seminar ".$dataPdf['nama_seminar']." sudah kami verifikasi<br><br>
+                      		kami lampirkan file pdf tanda anda sudah diverifikasi.
+
+                        ";
+                    $msg = "
+                        <table>
+                            <tr>
+                                <td><img src='cid:header-img-uid'></td>
+                            </tr>
+
+                            <tr>
+                                <td>".$content."</td>
+                            </tr>
+                            <tr>
+                                
+                            </tr>
+                            
+                        </table>
+                    ";   
+            
+
+           
+            //$attach = array();
+            //$attach = get_site_url().'/public/pdf/'.$file_name_pdf;
+            $attachments = array();
+            array_push($attachments, WP_CONTENT_DIR .'/uploads/pdf/'.$file_name_pdf );
+
+            $phpmailer->SMTPDebug = apply_filters( 'wp_mail_smtp_admin_test_email_smtp_debug', 0 );
+            
+            // $result = wp_mail($to, $subject, $msg, $headers, $attachments);
+            $result = wp_mail($to, $subject, $msg, $headers,$attachments);
+        }catch (phpmailerException $e) {
+            echo $e->errorMessage(); //Pretty error messages from PHPMailer
+        } catch (Exception $e) {
+            echo $e->getMessage(); //Boring error messages from anything else!
+        }
+        /*echo "<pre>";
+        print_r( $phpmailer );
+        die();*/
+        unset( $phpmailer );
+
+        // usleep(1500);
+    }
