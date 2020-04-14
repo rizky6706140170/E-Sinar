@@ -32,10 +32,12 @@
 
 <?php
 global $wpdb;
+global $current_user;
 session_start();
 $logout_redirect = (empty($wpcrl_redirect_settings['wpcrl_logout_redirect']) || $wpcrl_redirect_settings['wpcrl_logout_redirect'] == '-1') ? '' : $wpcrl_redirect_settings['wpcrl_logout_redirect'];
 // $id_user      = $_GET['id_user'];
-$id_user = $_SESSION['login'];
+// $id_user = $_SESSION['login'];
+$id_user = $current_user->id;
 $cek_sesion = $_GET['id_user']; //keamanan jika ada yang akses lewat link
 $query_profile = $wpdb->get_results("SELECT * FROM wp_users where id = '$id_user'");
 $query_foto = $wpdb->get_var("SELECT file_foto FROM profile where id_user = '$id_user'");

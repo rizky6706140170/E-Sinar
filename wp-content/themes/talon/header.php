@@ -57,11 +57,8 @@
 		     					$current_user = wp_get_current_user();
 		     					$id_user = $current_user->id;
 		     					$_SESSION['login'] = $id_user;
+		     					// echo $_SESSION['login'];
 		                		$logout_redirect = (empty($wpcrl_redirect_settings['wpcrl_logout_redirect']) || $wpcrl_redirect_settings['wpcrl_logout_redirect'] == '-1') ? '' : $wpcrl_redirect_settings['wpcrl_logout_redirect'];
-		                		if($logout_redirect)
-		                		{
-		                			unset($_SESSION['login']);
-		                		}
 		     					if($current_user->ID == 1):
 		     				?>
 		     					<span> hello <?php echo ucfirst($current_user->user_login); ?></span>

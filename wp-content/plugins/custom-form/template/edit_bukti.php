@@ -34,9 +34,11 @@
 
 	// $id_user      = $_GET['id_user'];
 	session_start();
-	$id_user = $_SESSION['login'];
-	// $id_post      = $_GET['id_post'];
-	$id_post = $_SESSION['id_post'];
+	global $current_user;
+	$id_user = $current_user->id;
+	// $id_user = $_SESSION['login'];
+	$id_post      = $_GET['post'];
+	// $id_post = $_SESSION['id_post'];
 	$cek_sesion = $_GET['id_user'];
 	// echo $id_user;
 	// echo $id_post;

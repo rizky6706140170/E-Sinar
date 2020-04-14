@@ -38,6 +38,7 @@
 </script>
 <?php
 global $wpdb;
+global $current_user;
 session_start();
 get_currentuserinfo();
  // $id_user      = $_GET['id_user'];
@@ -45,10 +46,14 @@ get_currentuserinfo();
  // $id_author    = $_GET['id_author'];
  // $tgl_sm	   = $_GET['tgl_sm'];
 $cek_sesion = $_GET['id_user']; //keamanan jika ada yang akses lewat link
-$id_user = $_SESSION['login'];
-$id_post = $_SESSION['id_post'];
+$id_user = $current_user->id;
+$id_post = $_GET['post'];
 
-// echo $_SESSION['login'] . '-' . $_SESSION['id_post'];
+echo $id_post .'--'. $id_user;
+
+
+
+// echo $_SESSION['login_user'] . '-' . $_SESSION['post_id'];
 
 // echo $cek_sesion;
 // echo $_GET['id_user'];

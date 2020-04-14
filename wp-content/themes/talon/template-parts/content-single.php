@@ -46,17 +46,20 @@
 			<?php 
 				global $current_user;
 				global $wpdb;
-				get_currentuserinfo();
-				session_start();
 				$id_user = $current_user->id;
 				$id_author = get_the_author_ID();
 				$id_post = get_the_ID();
-				// $tgl_sm = get_field('date');
+				get_currentuserinfo();
+				session_start();
+				
+				// unset($_SESSION['login']);
+				// unset($_SESSION['id_post']);
+				// // $tgl_sm = get_field('date');
 
-				$_SESSION['login'] = $id_user;
-				$_SESSION['id_post'] = $id_post;
-
-
+				// $_SESSION['login_user'] = $current_user->id;
+				$_SESSION['id_post'] = get_the_ID();
+				$_SESSION['login'] = $current_user->id;
+				// echo $_SESSION['id_post'] .'-'.$_SESSION['login'];
 				$query_cek = "SELECT * FROM daftar_seminar where id_user ='$id_user' and id_post = '$id_post'";
 				$cek =  $wpdb->get_results($query_cek);
 				$tgl_now = date("d/m/Y");
@@ -80,18 +83,8 @@
 						</div>
 				<?php else: ?>
 						<?php if(empty($cek)): ?>
-						<?php
-							if(isset($_POST['btn-dft']))
-							{					
-								$_SESSION['login'] = $id_user;
-								$_SESSION['id_post'] = $id_post;
-							}
-
-						?>
 						<div class="daftar-seminar" style="text-align: center;">
-							<form action="" method="post">
-							<a href="<?php echo home_url().'/daftar_sm/'; ?>" target="_blank" class="btn btn-success" style="background: #0733f3;" name="btn-dft">Daftar Seminar</a>
-							</form>
+							<a href="<?php echo home_url().'/daftar_sm/?post='.$id_post; ?>" target="_blank" class="btn btn-success" style="background: #0733f3;" name="btn-dft">Daftar Seminar</a>
 						</div>
 						<?php else: ?>
 							<div class="alert alert-danger" style="text-align: center;">

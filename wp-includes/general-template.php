@@ -352,9 +352,12 @@ function wp_loginout( $redirect = '', $echo = true ) {
  * @return string The logout URL. Note: HTML-encoded via esc_html() in wp_nonce_url().
  */
 function wp_logout_url( $redirect = '' ) {
+	session_start();
+	// unset($_SESSION['login']);
 	$args = array( 'action' => 'logout' );
 	if ( ! empty( $redirect ) ) {
 		$args['redirect_to'] = urlencode( $redirect );
+		unset($_SESSION['login']);
 	}
 
 	$logout_url = add_query_arg( $args, site_url( 'wp-login.php', 'login' ) );

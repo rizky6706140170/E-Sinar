@@ -1,11 +1,12 @@
 <input type="hidden" name="idForm" id="idForm" value="22">
 <?php
 global $wpdb;
+global $current_user;
 session_start();
 // $id_user      = $_GET['id_user'];
-$id_user = $_SESSION['login'];
+// $id_user = $_SESSION['login'];
 $cek_sesion = $_GET['id_user']; //keamanan jika ada yang akses lewat link
-
+$id_user = $current_user->id;
 // echo $cek_sesion;
 // echo $id_user;
 $query_seminar_h = $wpdb->get_results("SELECT * FROM daftar_seminar where id_user = '$id_user'");
@@ -70,7 +71,7 @@ $query_seminar_h = $wpdb->get_results("SELECT * FROM daftar_seminar where id_use
                             
                             <?php else : ?>
                                 <?php $_SESSION['id_post'] = $value->id_post; ?>
-                                 <a href="<?php echo home_url().'/editbukti'?>" class="btn btn-success" style="background: #0733f3;">Edit Bukti Bayar</a>
+                                 <a href="<?php echo home_url().'/editbukti/?post='.$value->id_post; ?>" class="btn btn-success" style="background: #0733f3;">Edit Bukti Bayar</a>
                             <?php endif; ?>
                         </td>
             		</tr>

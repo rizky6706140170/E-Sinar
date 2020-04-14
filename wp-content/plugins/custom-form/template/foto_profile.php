@@ -31,8 +31,10 @@
 </script>
 <?php
 	global $wpdb;
+	global $current_user;
 	session_start();
-	$id_user = $_SESSION['login'];
+	// $id_user = $_SESSION['login'];
+	$id_user = $current_user->id;
 	$cek_sesion = $_GET['id_user']; //keamanan jika ada yang akses lewat link
 	// echo $id_user;
 	// echo $cek_sesion;
