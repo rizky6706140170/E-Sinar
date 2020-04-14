@@ -48,7 +48,7 @@ $cek_sesion = $_GET['id_user']; //keamanan jika ada yang akses lewat link
 $id_user = $_SESSION['login'];
 $id_post = $_SESSION['id_post'];
 
-// echo $id_user;
+// echo $_SESSION['login'] . '-' . $_SESSION['id_post'];
 
 // echo $cek_sesion;
 // echo $_GET['id_user'];

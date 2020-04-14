@@ -56,6 +56,7 @@
 				$_SESSION['login'] = $id_user;
 				$_SESSION['id_post'] = $id_post;
 
+
 				$query_cek = "SELECT * FROM daftar_seminar where id_user ='$id_user' and id_post = '$id_post'";
 				$cek =  $wpdb->get_results($query_cek);
 				$tgl_now = date("d/m/Y");
@@ -78,9 +79,19 @@
 							<span>Silahkan login terlebih dahulu untuk bisa mendaftar ke seminar ini</span>
 						</div>
 				<?php else: ?>
-						<?php if(empty($cek)): ?>	
+						<?php if(empty($cek)): ?>
+						<?php
+							if(isset($_POST['btn-dft']))
+							{					
+								$_SESSION['login'] = $id_user;
+								$_SESSION['id_post'] = $id_post;
+							}
+
+						?>
 						<div class="daftar-seminar" style="text-align: center;">
-							<a href="<?php echo home_url().'/daftar_sm'; ?>" target="_blank" class="btn btn-success" style="background: #0733f3;">Daftar Seminar</a>
+							<form action="" method="post">
+							<a href="<?php echo home_url().'/daftar_sm/'; ?>" target="_blank" class="btn btn-success" style="background: #0733f3;" name="btn-dft">Daftar Seminar</a>
+							</form>
 						</div>
 						<?php else: ?>
 							<div class="alert alert-danger" style="text-align: center;">
