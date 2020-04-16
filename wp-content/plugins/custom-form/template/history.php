@@ -59,7 +59,8 @@ $query_seminar_h = $wpdb->get_results("SELECT * FROM daftar_seminar where id_use
                             ?>
                             <?php if($status_history == 0) : ?>
                                 <span>Belum Diverfikasi</span>
-                            
+                            <?php elseif($status_history == 2) : ?>
+                                <span>Belum di verifikasi ( Upload pembayaran salah)</span>
                             <?php else : ?>
                                 <span>Terverifikasi</span><br>
                                  <a href="<?php echo content_url().'/uploads/pdf/'.$value->id_user.$value->id_post.'_verifikasi.pdf'; ?>" target="_blank">Lihat PDF</a>
