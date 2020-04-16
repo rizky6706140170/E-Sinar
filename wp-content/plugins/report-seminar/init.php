@@ -50,10 +50,18 @@ function report_seminar_modifymenu() {
 		'verifikasi_pemby', //menu slug
 		'verifikasi_pemby'
 	);
+	add_submenu_page(null, //parent slug
+		'Salah Pembayaran', //page title
+		'Salah', //menu title
+		'manage_options', //capability
+		'salah_pemby', //menu slug
+		'salah_pemby'
+	);
 }
 
 define('DIRSEMINARL', plugin_dir_path(__FILE__));
 require_once(DIRSEMINARL . 'report-seminar.php');
 require_once(DIRSEMINARL . 'verifikasi.php');
+require_once(DIRSEMINARL . 'salah-bayar.php');
 // require_once(DIRUNIQUECOD . 'unique-code-view.php');
 // require_once(DIRUNIQUECOD . 'unique-code-create.php');

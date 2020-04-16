@@ -9,6 +9,7 @@ function verifikasi_pemby()
 		$id_user = $_GET['id_user'];
 		$id_post = $_GET['id_post'];
 		$data['status'] = 1;
+		$data['update_at'] = date('Y-m-d H:i:s');
 		$dataWhere['id_user'] = $id_user;
 		$dataWhere['id_post'] = $id_post;
 		
