@@ -3,7 +3,7 @@
 Plugin Name: User List
 Description:
 Version: 1
-Author: 
+Author: iky
 Author URI: 
 */			
 

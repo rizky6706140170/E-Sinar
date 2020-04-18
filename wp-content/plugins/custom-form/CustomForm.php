@@ -5,7 +5,7 @@
  * Plugin URI: http://www.scriptbaker.com/
  * Description: Creates a custom form through shortcode and handles the submit event.
  * Version: 1.0
- * Author: Tahir Yasin
+ * Author: iky
  * Author URI: http://www.scriptbaker.com/author/tahir/
  * License: GPL2
  */
