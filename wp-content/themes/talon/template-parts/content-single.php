@@ -74,30 +74,37 @@
 				 $mydate=strtotime('now');
 				$newformat = date("Y/m/d",strtotime("30/04/2020"));
 
+				$cek_author = $wpdb->get_var("SELECT role_user from wp_users where id='$id_user'");
+
 				// echo $tgl_now .'---' .$newformat .'----' . $tanggal_seminar;
 			?>
-			<?php if($time >= $mydate) : ?>
-				<?php if(!is_user_logged_in()): ?>
-						<div class="daftar-seminar-nonlogin alert alert-danger" style="text-align: center;">
-							<span>Silahkan login terlebih dahulu untuk bisa mendaftar ke seminar ini</span>
-						</div>
-				<?php else: ?>
-						<?php if(empty($cek)): ?>
-						<div class="daftar-seminar" style="text-align: center;">
-							<a href="<?php echo home_url().'/daftar_sm/?post='.$id_post; ?>" target="_blank" class="btn btn-success" style="background: #0733f3;" name="btn-dft">Daftar Seminar</a>
-						</div>
-						<?php else: ?>
-							<div class="alert alert-danger" style="text-align: center;">
-								<span>Anda Sudah Mendaftar Seminar ini</span>
-							</div>
-						<?php endif; ?>
-				<?php endif; ?>
+			<?php if($cek_author == "author" || $cek_author == "super_admin"): ?>
+
 			<?php else: ?>
-				<div class="alert alert-danger" style="text-align: center;">
-					<span>Tanggal Seminar sudah lewat</span>
-				</div>
-			<?php endif;?>
-			
+
+				<?php if($time >= $mydate) : ?>
+					<?php if(!is_user_logged_in()): ?>
+							<div class="daftar-seminar-nonlogin alert alert-danger" style="text-align: center;">
+								<span>Silahkan login terlebih dahulu untuk bisa mendaftar ke seminar ini</span>
+							</div>
+					<?php else: ?>
+							<?php if(empty($cek)): ?>
+							<div class="daftar-seminar" style="text-align: center;">
+								<a href="<?php echo home_url().'/daftar_sm/?post='.$id_post; ?>" target="_blank" class="btn btn-success" style="background: #0733f3;" name="btn-dft">Daftar Seminar</a>
+							</div>
+							<?php else: ?>
+								<div class="alert alert-danger" style="text-align: center;">
+									<span>Anda Sudah Mendaftar Seminar ini</span>
+								</div>
+							<?php endif; ?>
+					<?php endif; ?>
+				<?php else: ?>
+					<div class="alert alert-danger" style="text-align: center;">
+						<span>Tanggal Seminar sudah lewat</span>
+					</div>
+				<?php endif;?>
+
+			<?php endif; ?>
 						
 		</div>
 		<div class="col-md-8">

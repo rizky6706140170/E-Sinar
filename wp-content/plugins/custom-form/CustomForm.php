@@ -215,18 +215,19 @@ function daftarSeminar()
 
     $d=strtotime($tanggal_seminar);
     $mydate=strtotime('now');
-// echo "Created date is " . date("d-m-Y", $d) ."|" .$date_now;
-// $tes =  date("d-m-Y", $d);
-// if($d >= $mydate)
-// {
-//     echo "string";
-// }
-// else
-// {
-//     echo "string2";
-// }
 
-//     exit();
+    $cek_author = $wpdb->get_var("SELECT role_user from wp_users where id='$id_user'");
+
+    // if($cek_author == "author")
+    // {
+    //     echo "gagal";
+    // }
+    // else
+    // {
+    //     echo "berhasil";
+    // }
+
+    // exit();
     $filename = $_FILES['foto']['name'];
     $file_tmp = $_FILES['foto']['tmp_name'];
     $size = $_FILES['foto']['size'];
@@ -241,85 +242,92 @@ function daftarSeminar()
     // echo $tes;
     $dataSeminar['nama_pendaftar'] = $nama_pendaftar;
     $dataSeminar['nama_seminar'] = $nama_seminar;
-    if($d >= $mydate)
+    if($cek_author != "author")
     {
-        if($size < 1044070)
-            {
-                $upload = move_uploaded_file($file_tmp,WP_CONTENT_DIR .'/uploads/bukti/'.$newfilename);
-                // print_r($data_regis);
-                if($upload)
+        if($d >= $mydate)
+        {
+            if($size < 1044070)
                 {
-                    if(!empty($cek))
+                    $upload = move_uploaded_file($file_tmp,WP_CONTENT_DIR .'/uploads/bukti/'.$newfilename);
+                    // print_r($data_regis);
+                    if($upload)
                     {
-                       $this->error[] = new WP_Error('empty_error', __('Anda Telah Mendaftar Seminar Ini'));
-                         // wp_redirect( get_home_url().'/gagal');
-                         // exit();
-                    }
-                    else
-                    {
-                        $insert_sm = $wpdb->insert('daftar_seminar',  array(
-                            'id_user' => $id_user,
-                            // 'email'=> $email,
-                            'nama_seminar' => $nama_seminar,
-                            // 'nama_pendaftar' => $nama_pendaftar,
-                            // 'handphone' => $handphone,
-                            // 'file_foto' => $newfilename,
-                            'id_post' => $id_post,
-                            'id_author' =>$id_author,
-                            'tgl_seminar' => $tanggal_seminar,
-                            'created_at' => $tgl
-                        ));
-                            if($insert_sm)
-                            {
-                                $id_daftar =$wpdb->get_var("SELECT id from daftar_seminar where id_user='$id_user' and id_post = '$id_post'");
-                                $insert_foto = $wpdb->insert('file_verifikasi', array(
-                                    // 'id_user' => $id_user,
-                                    'id_daftar' => $id_daftar,
-                                    'id_author' =>$id_author,
-                                    'id_post' => $id_post,
-                                    'file_foto' => $newfilename,
-                                    // 'status' => 0,
-                                ));
-                                    if($insert_foto)
-                                    {
-                                        $id_verifikasi = $wpdb->get_var("SELECT id from file_verifikasi where id_daftar = '$id_daftar'");
-                                        $insert_pdf = $wpdb->insert('pdf_verifikasi_daftar', array(
-                                            'id_verifikasi' => $id_verifikasi,
-                                        ));
-                                        send_maildaftarSeminar($to_email,"Pendaftaran Seminar (E-sinar)",$dataSeminar,false);
-                                        wp_redirect( get_home_url().'/sukses_daftar');
-                                        exit();
-                                    }
-                                    else
-                                    {
-                                         $this->error[] = new WP_Error('empty_error', __('gagal daftar insert foto'));
-                                        // wp_redirect( get_home_url().'/gagal');
-                                        // exit();
-                                    }
-                            }
-                            else
-                            {
-                                 $this->error[] = new WP_Error('empty_error', __('gagal daftar'));
-                                // wp_redirect( get_home_url().'/gagal');
-                                // exit();
-                            }
-                    }
+                        if(!empty($cek))
+                        {
+                           $this->error[] = new WP_Error('empty_error', __('Anda Telah Mendaftar Seminar Ini'));
+                             // wp_redirect( get_home_url().'/gagal');
+                             // exit();
+                        }
+                        else
+                        {
+                            $insert_sm = $wpdb->insert('daftar_seminar',  array(
+                                'id_user' => $id_user,
+                                // 'email'=> $email,
+                                'nama_seminar' => $nama_seminar,
+                                // 'nama_pendaftar' => $nama_pendaftar,
+                                // 'handphone' => $handphone,
+                                // 'file_foto' => $newfilename,
+                                'id_post' => $id_post,
+                                'id_author' =>$id_author,
+                                'tgl_seminar' => $tanggal_seminar,
+                                'created_at' => $tgl
+                            ));
+                                if($insert_sm)
+                                {
+                                    $id_daftar =$wpdb->get_var("SELECT id from daftar_seminar where id_user='$id_user' and id_post = '$id_post'");
+                                    $insert_foto = $wpdb->insert('file_verifikasi', array(
+                                        // 'id_user' => $id_user,
+                                        'id_daftar' => $id_daftar,
+                                        'id_author' =>$id_author,
+                                        'id_post' => $id_post,
+                                        'file_foto' => $newfilename,
+                                        // 'status' => 0,
+                                    ));
+                                        if($insert_foto)
+                                        {
+                                            $id_verifikasi = $wpdb->get_var("SELECT id from file_verifikasi where id_daftar = '$id_daftar'");
+                                            $insert_pdf = $wpdb->insert('pdf_verifikasi_daftar', array(
+                                                'id_verifikasi' => $id_verifikasi,
+                                            ));
+                                            send_maildaftarSeminar($to_email,"Pendaftaran Seminar (E-sinar)",$dataSeminar,false);
+                                            wp_redirect( get_home_url().'/sukses_daftar');
+                                            exit();
+                                        }
+                                        else
+                                        {
+                                             $this->error[] = new WP_Error('empty_error', __('gagal daftar insert foto'));
+                                            // wp_redirect( get_home_url().'/gagal');
+                                            // exit();
+                                        }
+                                }
+                                else
+                                {
+                                     $this->error[] = new WP_Error('empty_error', __('gagal daftar'));
+                                    // wp_redirect( get_home_url().'/gagal');
+                                    // exit();
+                                }
+                        }
 
-                   
+                       
+                    }
                 }
-            }
-            else
-            {
-                $this->error[] = new WP_Error('empty_error', __('foto terlalu besar'));
-                 // wp_redirect( get_home_url().'/gagal');
-                 // exit();
-            }
+                else
+                {
+                    $this->error[] = new WP_Error('empty_error', __('foto terlalu besar'));
+                     // wp_redirect( get_home_url().'/gagal');
+                     // exit();
+                }
+        }
+        else
+        {
+            $this->error[] = new WP_Error('empty_error', __('gagal daftar seminar , tanggal seminar sudah lewat'));
+             // wp_redirect( get_home_url().'/gagal');
+             // exit();
+        }
     }
     else
     {
-        $this->error[] = new WP_Error('empty_error', __('gagal daftar seminar , tanggal seminar sudah lewat'));
-         // wp_redirect( get_home_url().'/gagal');
-         // exit();
+         $this->error[] = new WP_Error('empty_error', __('gagal daftar seminar , silahkan login sebagai user , anda terdaftar sebagai akun pemilik seminar'));
     }
 
    

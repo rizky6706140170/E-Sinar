@@ -35,7 +35,9 @@ class Seminar_list
      {
      	global $wpdb;
         global $wp;
+        global $current_user;
 
+        // echo $current_user->id;
 
         $args = array(
          	"title" => '',
@@ -80,20 +82,43 @@ class Seminar_list
         );
 
      	ob_start();
+        if(current_user_can( 'author' ))
+        {
+            $id_post_author = $current_user->id;
+            $querystr = "
+                SELECT * FROM $wpdb->posts
+                LEFT JOIN $wpdb->postmeta ON($wpdb->posts.ID = $wpdb->postmeta.post_id)
+                LEFT JOIN $wpdb->term_relationships ON($wpdb->posts.ID = $wpdb->term_relationships.object_id)
+                LEFT JOIN $wpdb->term_taxonomy ON($wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id)
+                LEFT JOIN $wpdb->terms ON($wpdb->term_taxonomy.term_id = $wpdb->terms.term_id)
+                WHERE $wpdb->terms.name LIKE '%seminar%'
+                AND $wpdb->term_taxonomy.taxonomy = 'category'
+                AND $wpdb->posts.post_status = 'publish'
+                AND $wpdb->posts.post_type = 'post'
+                AND $wpdb->posts.post_author = '$id_post_author'
+                GROUP BY $wpdb->posts.ID
+                ORDER BY $wpdb->posts.post_date DESC
+            ";
+        }
+        else
+        {
+              $querystr = "
+                SELECT * FROM $wpdb->posts
+                LEFT JOIN $wpdb->postmeta ON($wpdb->posts.ID = $wpdb->postmeta.post_id)
+                LEFT JOIN $wpdb->term_relationships ON($wpdb->posts.ID = $wpdb->term_relationships.object_id)
+                LEFT JOIN $wpdb->term_taxonomy ON($wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id)
+                LEFT JOIN $wpdb->terms ON($wpdb->term_taxonomy.term_id = $wpdb->terms.term_id)
+                WHERE $wpdb->terms.name LIKE '%seminar%'
+                AND $wpdb->term_taxonomy.taxonomy = 'category'
+                AND $wpdb->posts.post_status = 'publish'
+                AND $wpdb->posts.post_type = 'post'
+                -- AND $wpdb->posts.post_author = '$id_post_author'
+                GROUP BY $wpdb->posts.ID
+                ORDER BY $wpdb->posts.post_date DESC
+            ";
+        }
 
-     	$querystr = "
-            SELECT * FROM $wpdb->posts
-            LEFT JOIN $wpdb->postmeta ON($wpdb->posts.ID = $wpdb->postmeta.post_id)
-            LEFT JOIN $wpdb->term_relationships ON($wpdb->posts.ID = $wpdb->term_relationships.object_id)
-            LEFT JOIN $wpdb->term_taxonomy ON($wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id)
-            LEFT JOIN $wpdb->terms ON($wpdb->term_taxonomy.term_id = $wpdb->terms.term_id)
-            WHERE $wpdb->terms.name LIKE '%seminar%'
-            AND $wpdb->term_taxonomy.taxonomy = 'category'
-            AND $wpdb->posts.post_status = 'publish'
-            AND $wpdb->posts.post_type = 'post'
-            GROUP BY $wpdb->posts.ID
-            ORDER BY $wpdb->posts.post_date DESC
-        ";
+
 
 
          $pageposts = $wpdb->get_results($querystr, OBJECT);

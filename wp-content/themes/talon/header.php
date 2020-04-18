@@ -59,9 +59,22 @@
 		     					$_SESSION['login'] = $id_user;
 		     					// echo $_SESSION['login'];
 		                		$logout_redirect = (empty($wpcrl_redirect_settings['wpcrl_logout_redirect']) || $wpcrl_redirect_settings['wpcrl_logout_redirect'] == '-1') ? '' : $wpcrl_redirect_settings['wpcrl_logout_redirect'];
-		     					if($current_user->ID == 1):
 		     				?>
+		     					<?php if(current_user_can( 'administrator' )): ?>
 		     					<span> hello <?php echo ucfirst($current_user->user_login); ?></span>
+		     					<?php elseif(current_user_can( 'author' )) : ?>
+		     						<span> hello  <?php echo ucfirst($namauser); ?></span> <br>
+		     						<div>
+		     							<span><a href="<?php echo wp_logout_url(get_permalink($logout_redirect)) ?>" style="color: red;">Logout</a></span>
+		     						</div>
+		     						<div class="row" style="margin-top: 20px;">
+			     						<div class="col-md-6" style="text-align: right;">
+			     							<a href="<?php echo home_url().'/profile'?>" class="button" style="background: #0733f3;">Lihat Profil</a>
+			     						</div>
+			     						<div class="col-md-6" style="text-align: left;">
+			     							<a href="<?php echo home_url().'/wp-admin'?>" class="button" style="background: #0733f3;">Dashboard Pemilik</a>
+			     						</div>
+		     						</div>
 		     					<?php else : ?>
 		     					<span> hello  <?php echo ucfirst($namauser); ?></span> <br>
 		     					<div>

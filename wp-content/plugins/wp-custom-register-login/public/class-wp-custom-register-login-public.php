@@ -90,6 +90,7 @@ class Wp_Custom_Register_Login_Public extends Wp_Custom_Register_Login_Generic_P
      */
     public function wpcrl_user_login()
     {
+        global $wpdb;
         $wpcrl_email_settings = get_option('wpcrl_email_settings');
         $wpcrl_messages_settings = get_option('wpcrl_display_settings');
         $response = array();
@@ -124,9 +125,20 @@ class Wp_Custom_Register_Login_Public extends Wp_Custom_Register_Login_Generic_P
                 wp_set_current_user($user->data->ID, $user->data->user_login);
                 // Adding hook so that anyone can add action on user login
                 do_action('set_current_user');
+                // $response['userid'] = $user->data->ID;
                 $response['logged_in'] = true;
                 $response['success'] = __($wpcrl_messages_settings['wpcrl_login_success_message'], $this->plugin_name);
-                $response['redirection_url'] = $_POST['redirection_url'];
+                // $cek_author = $wpdb->get_var("SELECT role_user from wp_users where id='$user->data->ID'");
+                // if($cek_author == "author")
+                // {
+                //     $response['author'] = 1;
+                // }
+                // else
+                // {
+                //     $response['author'] = 0;
+                // }
+                 $response['redirection_url'] = $_POST['redirection_url'];
+                
             }
             // sending back the response in right header
             wp_send_json($response);

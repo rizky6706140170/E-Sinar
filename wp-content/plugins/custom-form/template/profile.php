@@ -60,20 +60,25 @@ $query_foto = $wpdb->get_var("SELECT file_foto FROM profile where id_user = '$id
 		  <?php else: ?>
 		  	 <img src="<?php echo content_url(); ?>/uploads/profile/<?php echo $query_foto; ?>" class="card-img-top" alt="..." style="height: 300px;">
 		  <?php endif; ?>
-		  <div class="card-body">
-		    <a href="<?php echo wp_logout_url(get_permalink($logout_redirect)) ?>" class="button" style="background: #0733f3;">Logout</a>
-		    <a href="<?php echo home_url().'/history'?>" class="button" style="background: #0733f3;">History</a>
-		    <div class="row">
-		    	<div class="col-md-12" style="text-align: center;margin-top:2%;">
-		    		<?php if(empty($query_foto)): ?>
-		    		<a href="<?php echo home_url().'/foto_profile'?>" class="button" style="background: #0733f3;">Upload Foto</a>
-		    		<?php else: ?>
-		    			<a href="<?php echo home_url().'/edit_foto_profile'?>" class="button" style="background: #0733f3;">Edit Foto Profile</a>
-		    		<?php endif; ?>
-		    	</div>
-		    	
-		    </div>
-		  </div>
+		  	  <?php $cek_author = $wpdb->get_var("SELECT role_user FROM wp_users where id = '$id_user'"); ?>
+			  <div class="card-body">
+			    <a href="<?php echo wp_logout_url(get_permalink($logout_redirect)) ?>" class="button" style="background: #0733f3;">Logout</a>
+				    <?php if($cek_author == "author") : ?>
+				    	<a href="<?php echo home_url().'/wp-admin'?>" class="button" style="background: #0733f3;">Dashboard</a>
+				    <?php else : ?>
+				    	<a href="<?php echo home_url().'/history'?>" class="button" style="background: #0733f3;">History</a>
+					<?php endif; ?>
+			    <div class="row row-profile">
+			    	<div class="col-md-12" style="text-align: center;margin-top:2%;">
+			    		<?php if(empty($query_foto)): ?>
+			    		<a href="<?php echo home_url().'/foto_profile'?>" class="button" style="background: #0733f3;">Upload Foto</a>
+			    		<?php else: ?>
+			    			<a href="<?php echo home_url().'/edit_foto_profile'?>" class="button" style="background: #0733f3;">Edit Foto Profile</a>
+			    		<?php endif; ?>
+			    	</div>
+			    	
+			    </div>
+			  </div>
 		</div>
 	</div>
 	<div class="col-md-7">

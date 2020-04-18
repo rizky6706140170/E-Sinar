@@ -49,7 +49,7 @@ $cek_sesion = $_GET['id_user']; //keamanan jika ada yang akses lewat link
 $id_user = $current_user->id;
 $id_post = $_GET['post'];
 
-echo $id_post .'--'. $id_user;
+// echo $id_post .'--'. $id_user;
 
 
 

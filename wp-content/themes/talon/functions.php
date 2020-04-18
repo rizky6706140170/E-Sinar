@@ -869,3 +869,76 @@ function send_mailDaftarSalah($to='' ,$subject='', $dataSalah=array(), $filename
 
         // usleep(1500);
     }
+
+
+function remove_menus(){
+
+$author = wp_get_current_user();
+if(isset($author->roles[0])){ 
+    $current_role = $author->roles[0];
+}else{
+    $current_role = 'no_role';
+}
+
+if($current_role == 'author'){  
+  remove_menu_page( 'index.php' );                  //Dashboard
+  // remove_menu_page( 'edit.php' );                   //Posts
+  remove_menu_page( 'upload.php' );                 //Media
+  remove_menu_page( 'tools.php' );                  //Tools
+  remove_menu_page( 'edit-comments.php' );               //Comments
+  remove_menu_page( 'profile.php' );               //Profile
+
+}
+
+}
+add_action( 'admin_menu', 'remove_menus' ); // functions hide menu di dashboard author
+
+
+
+function query_set_only_author( $wp_query ) {
+ global $current_user;
+ if( is_admin() && !current_user_can('edit_others_posts') ) {
+    $wp_query->set( 'author', $current_user->ID );
+    // add_filter('views_edit-post', 'fix_post_counts');
+    // add_filter('views_upload', 'fix_media_counts');
+ }
+} 
+add_action('pre_get_posts', 'query_set_only_author' ); // function untuk menampilkan daftar seminar milik dari authornya saja
+
+function my_login_redirect( $redirect_to, $request, $user ) {
+    //validating user login and roles
+    if (isset($user->roles) && is_array($user->roles)) {
+        //is this a gold plan subscriber?
+        if (in_array('author', $user->roles)) {
+            // redirect them to their special plan page
+            $redirect_to = admin_url().'edit.php';
+        }
+        elseif (in_array('subscriber', $user->roles)) {
+        	# code...
+        	 $redirect_to = home_url();
+        }
+    }
+    return $redirect_to;
+}
+ 
+add_filter( 'login_redirect', 'my_login_redirect', 10, 3 ); // function redirect jika login dari wp-login.php
+
+
+function custom_blockusers_init() {
+  if ( is_user_logged_in() && !current_user_can( 'administrator' ) && !current_user_can( 'author' )) {
+    wp_redirect( home_url() );
+    // exit;
+  }
+}
+add_action( 'init', 'custom_blockusers_init' ); // function block link wp admin jika login sebagai user
+
+
+function redirect_author()
+{
+	global $current_user;
+	if(current_user_can( 'author' ))
+	{
+		wp_redirect(admin_url().'edit.php');
+	}
+}
+add_action( 'init', 'redirect_author' ); // function redirect wp-admin to edit.php jika login sebagai author

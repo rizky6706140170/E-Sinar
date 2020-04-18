@@ -32,7 +32,7 @@
                     
                     
                     <div id="wpcrl-login-loader-info" class="wpcrl-loader" style="display:none;">
-                        <img src="<?php echo plugins_url('images/ajax-loader2.gif', dirname(__FILE__)); ?>"/>
+                        <img src="<?php echo plugins_url('images/unnamed.gif', dirname(__FILE__)); ?>"/ style="width: 30%;height: 40%;">
                         <span><?php _e('Please wait ...', $this->plugin_name); ?></span>
                     </div>
                     <div id="wpcrl-login-alert" class="alert alert-danger" role="alert" style="display:none;"></div>

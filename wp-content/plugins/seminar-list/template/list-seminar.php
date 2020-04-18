@@ -2,7 +2,14 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12 col-row-seminar">
-				<h1>list seminar</h1>
+				<?php 
+					 global $current_user;
+				?>
+				<?php  if(current_user_can( 'author' )) : ?>
+					<h1>list seminar milik anda : </h1>
+				<?php else: ?>
+					<h1>list seminar </h1>
+				<?php endif; ?>
 				<?php if ($pageposts): ?>
 					<?php global $post; ?>
 					<?php 
