@@ -72,7 +72,7 @@
 			     							<a href="<?php echo home_url().'/profile'?>" class="button" style="background: #0733f3;">Lihat Profil</a>
 			     						</div>
 			     						<div class="col-md-6" style="text-align: left;">
-			     							<a href="<?php echo home_url().'/wp-admin'?>" class="button" style="background: #0733f3;">Dashboard Pemilik</a>
+			     							<a href="<?php echo home_url().'/wp-admin/admin.php?page=Data_seminar_list'?>" class="button" style="background: #0733f3;">Dashboard Pemilik</a>
 			     						</div>
 		     						</div>
 		     					<?php else : ?>
