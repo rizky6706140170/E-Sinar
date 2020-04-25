@@ -27,8 +27,9 @@ function Data_seminar_list()
 	                    <th class="manage-column ss-list-width text-center text-bold">Jumlah Pendaftar</th>
 	                    <th class="manage-column ss-list-width text-center text-bold">Terverifikasi</th>
 	                    <th class="manage-column ss-list-width text-center text-bold">Harga Seminar</th>
+                        <th class="manage-column ss-list-width text-center text-bold">Tanggal Seminar</th>
 	                    <th class="manage-column ss-list-width text-center text-bold">Action</th>
-	                    <th class="manage-column ss-list-width text-center text-bold">Bukti Transfer</th>
+	                    <th class="manage-column ss-list-width text-center text-bold">status seminar</th>
 	                </tr>
 	            </thead>
 	            <tbody>
@@ -49,9 +50,26 @@ function Data_seminar_list()
                             ?>  
                         </td>
             			<td class="manage-column ss-list-width text-center">Rp. <?php echo number_format($value->harga,2,',','.'); ?></td>
+                        <td class="manage-column ss-list-width text-center">
+                            <?php   
+                                $tgl_sm=$wpdb->get_var("SELECT meta_value from wp_postmeta where post_id='$value->ID' and meta_key = 'date'");
+                                $tanggal = substr($tgl_sm, 6);
+                                $bulan = substr($tgl_sm, 4,-2);
+                                $tahun = substr($tgl_sm, 0,4);
+                                $tanggal_seminar = $tanggal .'-'. $bulan .'-'. $tahun;
+                                echo $tanggal_seminar;
+                            ?>
+                        </td>
             			<td class="manage-column ss-list-width text-center">
-            				<a href="<?php echo admin_url('admin.php?page=view_ls_sm&type=view&id_user=' . $current_user->id.'&id_post='.$value->ID); ?>" class="button button-danger">View Detail</a>
-            				<a href="" class="button button-warning">selesai</a>
+            				<a href="<?php echo admin_url('admin.php?page=view_ls_sm&type=view&id_user=' . $current_user->id.'&id_post='.$value->ID); ?>" class="button button-danger">View Detail</a> <br>
+                            <?php
+                                  $d=strtotime($tanggal_seminar);
+                                  $mydate=strtotime('now');
+                            ?>
+                            <?php if($d >= $mydate): ?>
+                            <?php else: ?>
+            				    <a href="" class="button button-warning">selesai</a>
+                            <?php endif; ?>
             			</td>
             			<td class="manage-column ss-list-width text-center"></td>
 	            	</tr>
