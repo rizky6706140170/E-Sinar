@@ -40,7 +40,7 @@
 					<span><i class="far fa-clock"> <?php echo get_field('waktu_mulai') .'-'.get_field('waktu_selesai') ?></i></span>
 				</div>
 				<div class="harga_sm">
-					<span><i class="fas fa-money-bill-wave-alt"> Rp. <?php echo get_field('harga') ?></i></span>
+					<span><i class="fas fa-money-bill-wave-alt"> Rp. <?php echo number_format(get_field('harga'), 0, ".", ".") ?></i></span>
 				</div>
 			</div>
 			<?php 

@@ -4,7 +4,7 @@ function Verifikasi_list() {
 
 <div class="wrap">
     <div class="title-border">
-        <h1 class="wp-heading-inline">Seminar List</h1>
+        <h1 class="wp-heading-inline">Pendaftar List Verifikasi :</h1>
     </div></br></br>
 
     <?php
@@ -34,7 +34,7 @@ function Verifikasi_list() {
             			<td class="manage-column ss-list-width text-center"><?php echo $value->nama_seminar; ?></td>
                         <td class="manage-column ss-list-width text-center">
                             <?php  $harga_sm=$wpdb->get_var("SELECT meta_value from wp_postmeta where post_id='$value->post_id' and meta_key = 'harga'");
-                            echo 'Rp '.$harga_sm;
+                            echo 'Rp '.number_format($harga_sm,2,',','.');
                              ?>
                         </td>
             			<td class="manage-column ss-list-width text-center">Terverifikasi     

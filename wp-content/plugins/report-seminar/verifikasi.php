@@ -42,7 +42,7 @@ function verifikasi_pemby()
 		 		getPdf($dataPdf);
 		 		send_mailDaftarPdf($dataPdf['email'],"Verifikasi Pendaftaran Seminar",$dataPdf,false);
 		 		echo '<br/><div class="container"><div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Verifikasi Success</div></div>';
-	         	echo '<br/><a href="'.home_url().'/wp-admin/admin.php?page=Seminar_list" class="button button-primary">Back</a>';
+	         	echo '<br/><a href="'.home_url().'/wp-admin/admin.php?page=Verifikasi_list" class="button button-primary">Lihat Data</a>';
 		 	}
 		 	else
 		 	{

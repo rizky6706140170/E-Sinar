@@ -85,7 +85,7 @@
 												<span><i class="far fa-clock"> '.get_field('waktu_mulai').' - '.get_field('waktu_selesai').'</i></span>
 											</div>
 											<div class="harga_sm">
-												<span><i class="fas fa-money-bill-wave-alt"> Rp. '.get_field('harga').'</i></span>
+												<span><i class="fas fa-money-bill-wave-alt"> Rp. '.number_format(get_field('harga'), 0, ".", ".").'</i></span>
 											</div>
 
 										';
@@ -101,6 +101,16 @@
 				<?php $html .= '</div>';?>
 
 				<?php echo $html;?>
+
+				<?php if (is_page("beranda")) : ?>
+					
+						<div class="row" style="margin-bottom: 5%;">
+							<div class="col-md-12" style="text-align:center;">
+								<a href="<?php echo home_url().'/seminar' ?>" class="all-seminar">Lihat Seminar Lebih Banyak</a>
+							</div>
+						</div>
+						
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>

@@ -62,15 +62,12 @@ $id_post = $_GET['post'];
  $email_user=$wpdb->get_var("SELECT user_email from wp_users where id='$id_user'");
  $tgl_sm=$wpdb->get_var("SELECT meta_value from wp_postmeta where post_id='$id_post' and meta_key = 'date'");
  $nama_pendaftar =$wpdb->get_var("SELECT display_name from wp_users where id='$id_user'");
+ $harga_seminar = $wpdb->get_var("SELECT meta_value from wp_postmeta where post_id='$id_post' and meta_key = 'harga'");
 
- // if($cek_sesion && $cek_sesion != $id_user)
- // {
- // 	echo "ga bisa akses";	
- // }
- // elseif (empty($cek_sesion) && !empty($id_user) || $cek_sesion && $cek_sesion == $id_user)
- // {
- // 	echo "bisa akses";
- // }
+ 	$tanggal = substr($tgl_sm, 6);
+    $bulan = substr($tgl_sm, 4,-2);
+    $tahun = substr($tgl_sm, 0,4);
+    $tanggal_seminar = $tanggal .'-'. $bulan .'-'. $tahun;
 
 ?>
 <?php if($cek_sesion && $cek_sesion != $id_user) : ?>
@@ -103,7 +100,14 @@ $id_post = $_GET['post'];
                     <center>
                         <label style="font-weight:bold;margin-bottom:5px;">Tanggal Seminar</label>
                     </center>
-                    <input class="form-control"  name='' type='text' value='<?php echo $tgl_sm; ?>' style="width:100%;text-align: center;" disabled/>
+                    <input class="form-control"  name='' type='text' value='<?php echo $tanggal_seminar; ?>' style="width:100%;text-align: center;" disabled/>
+                    
+                </div>
+                <div class="form-group">
+                    <center>
+                        <label style="font-weight:bold;margin-bottom:5px;">Harga Seminar</label>
+                    </center>
+                    <input class="form-control"  name='' type='text' value='<?php echo number_format($harga_seminar,2,',','.'); ?>' style="width:100%;text-align: center;" disabled/>
                     
                 </div>
                 <div class="form-group">

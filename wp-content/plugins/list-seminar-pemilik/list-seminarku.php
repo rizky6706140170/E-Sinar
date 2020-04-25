@@ -35,12 +35,22 @@ function Data_seminar_list()
 	            	<?php $no = 0; foreach ($data_seminar as $key => $value): $no++; ?>
 	            	<tr>
 	            		<td class="manage-column ss-list-width text-center"><?php echo $no; ?></td>
-            			<td class="manage-column ss-list-width text-center"><?php echo $value->post_title; ?> <br><a href="<?php echo admin_url('post.php?post='.$value->ID.'&action=edit');?>">edit</a> | <a href="">delete</a> | <a href="<?php echo home_url().'/'.$value->post_name?>" target="_blank">view</a></td>
-            			<td class="manage-column ss-list-width text-center"></td>
-            			<td class="manage-column ss-list-width text-center"></td>
-            			<td class="manage-column ss-list-width text-center">Rp <?php echo $value->harga; ?></td>
+            			<td class="manage-column ss-list-width text-center"><?php echo $value->post_title; ?> <br><a href="<?php echo admin_url('post.php?post='.$value->ID.'&action=edit');?>">edit</a> | <a href="<?php echo admin_url('admin.php?page=delete_post&type=delete&id_user=' .$current_user->id.'&id_post='.$value->ID); ?>">delete</a> | <a href="<?php echo home_url().'/'.$value->post_name?>" target="_blank">view</a></td>
             			<td class="manage-column ss-list-width text-center">
-            				<a href="" class="button button-danger">View Detail</a>
+                            <?php
+                                $jml_dftr = $wpdb->get_var("SELECT count(id) FROM daftar_seminar where id_post = '$value->ID' and id_author = '$current_user->id'");
+                                echo $jml_dftr;
+                            ?>         
+                        </td>
+            			<td class="manage-column ss-list-width text-center">
+                            <?php
+                                $verified = $wpdb->get_var("SELECT count(id) FROM daftar_seminar where id_post = '$value->ID' and id_author = '$current_user->id' and status = 1");
+                                echo $verified;
+                            ?>  
+                        </td>
+            			<td class="manage-column ss-list-width text-center">Rp. <?php echo number_format($value->harga,2,',','.'); ?></td>
+            			<td class="manage-column ss-list-width text-center">
+            				<a href="<?php echo admin_url('admin.php?page=view_ls_sm&type=view&id_user=' . $current_user->id.'&id_post='.$value->ID); ?>" class="button button-danger">View Detail</a>
             				<a href="" class="button button-warning">selesai</a>
             			</td>
             			<td class="manage-column ss-list-width text-center"></td>

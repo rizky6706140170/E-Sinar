@@ -71,12 +71,13 @@ function custom_css_admin_head() {
 add_action( 'admin_head', 'custom_css_admin_head' );
 
 function bootstrap_css_admin_head() {
-	echo '<link rel="stylesheet" type="text/css" href="'.home_url().'/wp-content/themes/talon/bootstrap/bootstrap.min.css"/>';
+	echo '<link rel="stylesheet" type="text/css" href="'.home_url().'/wp-content/themes/talon/css/bootstrap/bootstrap.min.css"/>';
 }
 add_action( 'admin_head', 'bootstrap_css_admin_head' );
 
+
 function bootstrap_min_admin_head() {
-	echo '<script type="text/javascript" src="'.home_url().'/wp-content/themes/talon/bootstrap/js/bootstrap.js"></script>';
+	echo '<script type="text/javascript" src="'.home_url().'/wp-content/themes/talon/js/bootstrap/bootstrap.js"></script>';
 }
 add_action( 'admin_head', 'bootstrap_min_admin_head' );
 
@@ -933,4 +934,9 @@ function custom_blockusers_init() {
 }
 add_action( 'init', 'custom_blockusers_init' ); // function block link wp admin jika login sebagai user
 
-
+add_action('admin_head', function() {
+    if(!current_user_can('manage_options')){
+        remove_action( 'admin_notices', 'update_nag',      3  );
+        remove_action( 'admin_notices', 'maintenance_nag', 10 );
+    }
+}); // menghilangkan notif update

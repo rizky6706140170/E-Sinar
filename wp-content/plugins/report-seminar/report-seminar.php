@@ -36,7 +36,7 @@ function Seminar_list() {
             			<td class="manage-column ss-list-width text-center"><?php echo $value->nama_seminar; ?></td>
                         <td class="manage-column ss-list-width text-center">
                             <?php  $harga_sm=$wpdb->get_var("SELECT meta_value from wp_postmeta where post_id='$value->post_id' and meta_key = 'harga'");
-                            echo 'Rp '.$harga_sm;
+                            echo 'Rp '.number_format($harga_sm,2,',','.');
                              ?>
                         </td>
                         <td class="manage-column ss-list-width text-center"><?php echo $value->tgl_seminar; ?></td>
