@@ -44,6 +44,13 @@ function report_verifikasi_list_seminar_pemilik_modifymenu() {
 		'view_ls_sm'
 	);
 
+	add_submenu_page(null, //parent slug
+		'View Seminar Selesai', //page title
+		'View Seminar Selesai', //menu title
+		'author', //capability
+		'done_sm', //menu slug
+		'done_sm'
+	);
 
 
 }
@@ -52,6 +59,7 @@ define('DIRDATASEM', plugin_dir_path(__FILE__));
 require_once(DIRDATASEM . 'list-seminarku.php');
 require_once(DIRDATASEM . 'dlt-post.php');
 require_once(DIRDATASEM . 'view-list.php');
+require_once(DIRDATASEM . 'done-sm.php');
 // require_once(DIRSEMINARL . 'verifikasi.php');
 // require_once(DIRSEMINARL . 'salah-bayar.php');
 // require_once(DIRUNIQUECOD . 'unique-code-view.php');

@@ -68,10 +68,29 @@ function Data_seminar_list()
                             ?>
                             <?php if($d >= $mydate): ?>
                             <?php else: ?>
-            				    <a href="" class="button button-warning">selesai</a>
+                                <?php
+                                     $cek_status=$wpdb->get_results("SELECT * FROM status_seminar where id_post='$value->ID' and status_sm = 1");
+                                ?>
+                                <?php if(!empty($cek_status)) : ?>
+
+                                <?php else: ?>
+            				        <a href="<?php echo admin_url('admin.php?page=done_sm&type=done&id_user=' . $current_user->id.'&id_post='.$value->ID); ?>" class="button button-warning">selesai</a>
+                                <?php endif; ?>
                             <?php endif; ?>
             			</td>
-            			<td class="manage-column ss-list-width text-center"></td>
+            			<td class="manage-column ss-list-width text-center">
+                            <?php
+                                $cek_status=$wpdb->get_results("SELECT * FROM status_seminar where id_post='$value->ID' and status_sm = 1");
+                                if(!empty($cek_status))
+                                {
+                                    echo "selesai";
+                                }
+                                else
+                                {
+                                    echo "belum selesai";
+                                }
+                            ?>         
+                        </td>
 	            	</tr>
 	            	<?php endforeach; ?>
 	            </tbody>
