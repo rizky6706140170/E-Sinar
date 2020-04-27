@@ -30,6 +30,7 @@ function Data_seminar_list()
                         <th class="manage-column ss-list-width text-center text-bold">Tanggal Seminar</th>
 	                    <th class="manage-column ss-list-width text-center text-bold">Action</th>
 	                    <th class="manage-column ss-list-width text-center text-bold">status seminar</th>
+                        <th class="manage-column ss-list-width text-center text-bold">transfer</th>
 	                </tr>
 	            </thead>
 	            <tbody>
@@ -90,6 +91,20 @@ function Data_seminar_list()
                                     echo "belum selesai";
                                 }
                             ?>         
+                        </td>
+                        <td class="manage-column ss-list-width text-center">
+                            <?php
+                                $cek_tf=$wpdb->get_var("SELECT status_tf FROM seminar_selesai where id_post='$value->ID' and id_author = '$current_user->id'");
+                                if($cek_tf == 1)
+                                {
+                                    echo "sudah di transfer";
+                                }
+                                else
+                                {
+                                    echo "belum di transfer";
+                                }
+
+                            ?>
                         </td>
 	            	</tr>
 	            	<?php endforeach; ?>
