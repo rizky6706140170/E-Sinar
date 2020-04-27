@@ -47,12 +47,15 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12" style="text-align: center;">
-                            <?php
-                            $login_redirect = (empty($wpcrl_redirect_settings['wpcrl_login_redirect']) || $wpcrl_redirect_settings['wpcrl_login_redirect'] == '-1') ? '' : $wpcrl_redirect_settings['wpcrl_login_redirect'];
-                            
-                            ?>
-                            <input type="hidden" name="redirection_url" id="redirection_url" value="<?php echo get_permalink($login_redirect); ?>" />
-
+                             <?php
+                    $login_redirect = (empty($wpcrl_redirect_settings['wpcrl_login_redirect']) || $wpcrl_redirect_settings['wpcrl_login_redirect'] == '-1') ? '' : $wpcrl_redirect_settings['wpcrl_login_redirect'];
+                    
+                    ?>
+                    <?php if(is_page("beranda")): ?> 
+                        <input type="hidden" name="redirection_url" id="redirection_url_login" value="<?php echo home_url(); ?>" />
+                    <?php else: ?>
+                    <input type="hidden" name="redirection_url" id="redirection_url_login" value="<?php echo get_permalink($login_redirect); ?>" />
+                <?php endif; ?>
                             <?php
                             // this prevent automated script for unwanted spam
                             if (function_exists('wp_nonce_field'))

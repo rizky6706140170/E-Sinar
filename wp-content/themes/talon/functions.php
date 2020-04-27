@@ -883,7 +883,7 @@ if(isset($author->roles[0])){
 
 if($current_role == 'author'){  
   remove_menu_page( 'index.php' );                  //Dashboard
-   // remove_menu_page( 'edit.php' );
+   remove_menu_page( 'edit.php' );
   // add_menu_page( 'plugins.php' );                   //Posts
   remove_menu_page( 'upload.php' );                 //Media
   remove_menu_page( 'tools.php' );                  //Tools

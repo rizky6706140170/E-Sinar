@@ -79,16 +79,7 @@
                     $('#wpcrl-login-alert').addClass('alert-success');
                     $('#wpcrl-login-alert').show();
                     $('#wpcrl-login-alert').html(data.success);
-                    // console.log(data.author);
-                    // redirect to redirection url provided
-                    // if(data.author == 1)
-                    // {
-                    //      window.location.href = 'http://' + window.location.hostname + '/seminar'
-                    // }
-                    // else
-                    // {
-                    //      window.location = data.redirection_url;
-                    // }
+        
                     window.location = data.redirection_url;
 
                 } else {
