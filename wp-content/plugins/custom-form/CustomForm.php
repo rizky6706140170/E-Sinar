@@ -377,6 +377,7 @@ function editBukti()
 {
     global $wpdb;
 
+
     $tgl = date("Y-m-d H:i:s");
     $id_user = $_POST['id_user'];
     $id_post = $_POST['id_post'];
@@ -384,11 +385,13 @@ function editBukti()
     $file_tmp = $_FILES['foto_edit']['tmp_name'];
     $size = $_FILES['foto_edit']['size'];
 
+
+    $cek_status_seminar =  $wpdb->get_var("SELECT status from daftar_seminar where id_user = '$id_user' and id_post ='$id_post' ");
     $nama_pendaftar = $wpdb->get_var("SELECT display_name from wp_users where id = '$id_user'");
     $id_daftar = $wpdb->get_var("SELECT id from daftar_seminar where id_user = '$id_user' and id_post ='$id_post' ");
      $nama_gambar = $wpdb->get_var("SELECT file_foto from file_verifikasi where id_daftar = '$id_daftar'");
     $temp = explode(".", $filename);
-    $newfilename = $nama_pendaftar.'-'.$id_post.'-'.$id_user . '.' . end($temp);
+    $newfilename = 'new-'.$nama_pendaftar.'-'.$id_post.'-'.$id_user . '.' . end($temp);
     $link = WP_CONTENT_DIR.'/uploads/bukti/'.$nama_gambar;
     // echo $filename;
     // exit();
@@ -398,14 +401,29 @@ function editBukti()
        $upload = move_uploaded_file($file_tmp,WP_CONTENT_DIR .'/uploads/bukti/'.$newfilename);
        if($upload)
        {
-          $wpdb->update('file_verifikasi', array(
+          $update_file_foto = $wpdb->update('file_verifikasi', array(
             'file_foto' => $newfilename,
             // 'user_email' => $user_email,
             ),array(
                 'id_daftar' => $id_daftar
             ));
-            wp_redirect( get_home_url().'/history');
-            exit();
+            if($update_file_foto)
+            {
+                if($cek_status_seminar == 2)
+                {
+                    $wpdb->update('daftar_seminar', array(
+                    'status' => 3, //status bukti salah bayar berhasil diubah
+                    // 'user_email' => $user_email,
+                    ),array(
+                        'id_user' => $id_user,
+                        'id_post' => $id_post
+                    ));
+                }
+
+                wp_redirect( get_home_url().'/history');
+                exit();
+            }
+          
        }
        else
         {

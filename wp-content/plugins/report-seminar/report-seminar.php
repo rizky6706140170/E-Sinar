@@ -49,6 +49,9 @@ function Seminar_list() {
                             {
                                 echo "Upload bukti salah";
                             }
+                            elseif ($value->status==3) {
+                                echo "bukti baru sudah dikirim";
+                            }
                             else{
                                 echo "Terverifikasi";
                             }  
@@ -57,11 +60,13 @@ function Seminar_list() {
                         <td class="manage-column ss-list-width text-center"><?php echo $value->created_at; ?></td>
                          <td class="manage-column ss-list-width text-center"><?php echo $value->update_at; ?></td>
                         <td class="manage-column ss-list-width text-center">
-                            <?php if($value->status == 0): ?>
+                            <?php if($value->status == 0 || $value->status == 3): ?>
                                 <a href="<?php echo admin_url('admin.php?page=verifikasi_pemby&type=verifikasi&id_user=' . $value->id_user.'&id_post='.$value->id_post); ?>" class="button button-primary">Verifikasi</a> <br><br>
                                  <a href="<?php echo admin_url('admin.php?page=salah_pemby&type=salah&id_user=' . $value->id_user.'&id_post='.$value->id_post); ?>" class="button button-primary">Salah Bukti</a>
-                            <?php else: ?>
+                            <?php elseif($value->status == 1): ?>
                                <a href="<?php echo content_url().'/uploads/pdf/'.$value->id_user.$value->id_post.'_verifikasi.pdf'; ?>" target="_blank">Lihat PDF</a>
+                            <?php elseif($value->status == 2): ?>
+
                             <?php endif; ?>
                         </td>
             		</tr>

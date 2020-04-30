@@ -61,6 +61,8 @@ $query_seminar_h = $wpdb->get_results("SELECT * FROM daftar_seminar where id_use
                                 <span>Belum Diverfikasi</span>
                             <?php elseif($status_history == 2) : ?>
                                 <span>Belum di verifikasi ( Upload pembayaran salah)</span>
+                            <?php elseif($status_history == 3) : ?>
+                                <span>Pembayaran terbaru sudah dikirim (menunggu verifikasi)</span>
                             <?php else : ?>
                                 <span>Terverifikasi</span><br>
                                  <a href="<?php echo content_url().'/uploads/pdf/'.$value->id_user.$value->id_post.'_verifikasi.pdf'; ?>" target="_blank">Lihat PDF</a>
@@ -69,7 +71,7 @@ $query_seminar_h = $wpdb->get_results("SELECT * FROM daftar_seminar where id_use
                         </td>
                         <td class="manage-column ss-list-width text-center">
                             <?php if($status_history == 1) : ?>
-                            
+                            <?php elseif($status_history == 3) : ?>
                             <?php else : ?>
                                 <?php $_SESSION['id_post'] = $value->id_post; ?>
                                  <a href="<?php echo home_url().'/editbukti/?post='.$value->id_post; ?>" class="btn btn-success" style="background: #0733f3;">Edit Bukti Bayar</a>

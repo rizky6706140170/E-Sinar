@@ -604,7 +604,7 @@ function getPdf($dataPdf = array())
 
         $file = 'images/'; //phpmailer will load this file
         $uid = 'header-img-uid'; //will map it to this UID
-        $filename = 'banner_email.png';
+        $filename = 'logo-esinar.jpg';
         // $file_name_pdf = $dataMail['name'].$dataMail['unique_code'].'_reward voucher car wash'.'.pdf';
         // Make sure the PHPMailer class has been instantiated
         // (copied verbatim from wp-includes/pluggable.php)
@@ -639,7 +639,12 @@ function getPdf($dataPdf = array())
                             
         					selamat kamu telah berhasil daftar di seminar : <br><br>
         					".$dataSeminar['nama_seminar']." <br>
-        					setelah ini data kamu akan segera di verifikasi , terimakasih :)
+        					setelah ini data kamu akan segera di verifikasi <br><br>
+        					jika dalam 2 x 24 jam data kamu belum di verifikasi silahkan hubungi langsung kontak kami di : <br>
+        					email : <a href='mailto:esinar.rry@gmail.com'>esinar.rry@gmail.com</a><br>
+        					Kontak E-sinar :  <a href='tel:082211993471'>082211993471</a><br><br>
+
+        					terimakasih
 
 
 
@@ -699,7 +704,7 @@ function remove_wp_logo( $wp_admin_bar ) {
 
         $file = 'images/'; //phpmailer will load this file
         $uid = 'header-img-uid'; //will map it to this UID
-        $filename = 'banner_email.png';
+        $filename = 'logo-esinar.jpg';
         // $file_name_pdf = $dataMail['name'].$dataMail['unique_code'].'_reward voucher car wash'.'.pdf';
         $file_name_pdf = $dataPdf['id_user'].$dataPdf['id_post'].'_verifikasi'.'.pdf';
         // Make sure the PHPMailer class has been instantiated
@@ -734,7 +739,14 @@ function remove_wp_logo( $wp_admin_bar ) {
                             Dear <b>".$dataPdf['nama_pendaftar']."</b> <br><br>
                             
                       		Pembayaran anda pada Seminar ".$dataPdf['nama_seminar']." sudah kami verifikasi<br><br>
-                      		kami lampirkan file pdf tanda anda sudah diverifikasi.
+                      		kami lampirkan file pdf tanda anda sudah diverifikasi. <br>
+                      		silahkan tunjukan file pdf ini ketika datang ke acara seminar <br><br>
+                      		jika ada pertanyaan lebih lanjut silahkan hubungi : <br>
+                      		email : <a href='mailto:esinar.rry@gmail.com'>esinar.rry@gmail.com</a><br>
+        					Kontak E-sinar :  <a href='tel:082211993471'>082211993471</a><br><br>
+
+        					terimakasih
+
 
                         ";
                     $msg = "
@@ -787,7 +799,7 @@ function send_mailDaftarSalah($to='' ,$subject='', $dataSalah=array(), $filename
 
         $file = 'images/'; //phpmailer will load this file
         $uid = 'header-img-uid'; //will map it to this UID
-        $filename = 'banner_email.png';
+        $filename = 'logo-esinar.jpg';
         // $file_name_pdf = $dataMail['name'].$dataMail['unique_code'].'_reward voucher car wash'.'.pdf';
         // Make sure the PHPMailer class has been instantiated
         // (copied verbatim from wp-includes/pluggable.php)
@@ -940,3 +952,106 @@ add_action('admin_head', function() {
         remove_action( 'admin_notices', 'maintenance_nag', 10 );
     }
 }); // menghilangkan notif update
+
+
+
+ function send_mail_tf($to='' ,$subject='', $dataSls=array(), $filename=false)
+    {
+        global $phpmailer;
+
+        $msg = '';
+        $content = '';
+
+        $file = 'images/'; //phpmailer will load this file
+        $uid = 'header-img-uid'; //will map it to this UID
+        $filename = 'logo-esinar.jpg';
+        $file_name_foto = $dataSls['file_foto'];
+        // Make sure the PHPMailer class has been instantiated
+        // (copied verbatim from wp-includes/pluggable.php)
+        // (Re)create it, if it's gone missing.
+        if ( ! is_object( $phpmailer ) || ! is_a( $phpmailer, 'PHPMailer' ) ) {
+            require_once ABSPATH . WPINC . '/class-phpmailer.php';
+            $phpmailer = new PHPMailer( true );
+        }
+        try {
+            // $headers  = "From: My site<noreply@example.com>\r\n"; 
+            // $headers .= "Reply-To: info@example.com\r\n"; 
+            // $headers .= "Return-Path: info@example.com\r\n"; 
+           
+            //$attachments = '/wp-content/uploads/test.pdf';
+            $headers = "X-Mailer: Drupal\n"; 
+            $headers .= 'MIME-Version: 1.0' . "\n"; 
+            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+            $path="images/";
+            // $filepath = dirname(__FILE__)."/images/banner_email.png";
+            $filepath = ABSPATH.$file.$filename;
+            // echo $filepath;
+            add_action( 'phpmailer_init', function(&$phpmailer)use($filepath,$uid,$filename){
+                // $phpmailer->SMTPKeepAlive = true;
+                $phpmailer->AddEmbeddedImage($filepath, $uid, $filename);
+            });
+
+            
+            
+                 $content = "
+                            Hai <b>".$dataSls['nama_pemilik']."</b> <br><br>
+                            
+        					Uangmu pada seminar : ".$dataSls['nama_seminar']." <br>
+        					sudah kami transfer ke rekeningmu dengan rincian sebagai berikut : <br><br>
+
+        					Harga Seminar : Rp ".$dataSls['harga_seminar']." <br>
+        					Jumlah Terverifikasi : Rp ".$dataSls['terverifikasi']." <br>
+        					Total Uang : Rp ".$dataSls['total']."<br>
+        					Uang Yang Anda Terima : Rp ".$dataSls['uang_terima']."<br>
+        					Uang Yang E-sinar Terima : Rp ".$dataSls['uang_kita']."<br>
+
+        					silahkan liat bukti transfer dari kami pada dashboard pemilik anda <br><br>
+
+        					jika ada pertanyaan lebih lanjut silahkan hubungi : <br>
+                      		email : <a href='mailto:esinar.rry@gmail.com'>esinar.rry@gmail.com</a><br>
+        					Kontak E-sinar :  <a href='tel:082211993471'>082211993471</a><br><br>
+
+        					terimakasih
+
+                        ";
+                    $msg = "
+                        <table>
+                            <tr>
+                                <td><img src='cid:header-img-uid'></td>
+                            </tr>
+
+                            <tr>
+                                <td>".$content."</td>
+                            </tr>
+                            <tr>
+                                
+                            </tr>
+                            
+                        </table>
+                    ";   
+            
+
+           
+            //$attach = array();
+            //$attach = get_site_url().'/public/pdf/'.$file_name_pdf;
+
+            $attachments = array();
+            array_push($attachments, WP_CONTENT_DIR .'/uploads/buktitf/'.$file_name_foto );
+
+            $phpmailer->SMTPDebug = apply_filters( 'wp_mail_smtp_admin_test_email_smtp_debug', 0 );
+            
+            // $result = wp_mail($to, $subject, $msg, $headers, $attachments);
+            $result = wp_mail($to, $subject, $msg, $headers,$attachments);
+        }catch (phpmailerException $e) {
+            echo $e->errorMessage(); //Pretty error messages from PHPMailer
+        } catch (Exception $e) {
+            echo $e->getMessage(); //Boring error messages from anything else!
+        }
+        /*echo "<pre>";
+        print_r( $phpmailer );
+        die();*/
+        unset( $phpmailer );
+
+        // usleep(1500);
+    }

@@ -17,12 +17,36 @@ function upload_bukti()
 			$id_done = $_POST['id_selesai'];
 			$post_id = $_POST['id_posts'];
 
+			$nama_pemilik = $wpdb->get_var("SELECT display_name FROM wp_users a LEFT JOIN seminar_selesai b on a.ID = b.id_author where b.id = '$id_done'");
+			$email_pemilik = $wpdb->get_var("SELECT user_email FROM wp_users a LEFT JOIN seminar_selesai b on a.ID = b.id_author where b.id = '$id_done'");
+			$nama_seminar = $wpdb->get_var("SELECT post_title FROM wp_posts where ID = '$post_id'");
+			$harga_seminar = $wpdb->get_var("SELECT harga_sm FROM seminar_selesai where ID = '$id_done'");
+			$terverifikasi = $wpdb->get_var("SELECT terverifikasi FROM seminar_selesai where ID = '$id_done'");
+			$total = $harga_seminar * $terverifikasi;
+
+			$htg_uang_pemilik = $total * (10 / 100) ;
+	        $uang_pemilik = $total - $htg_uang_pemilik;
+
+	        $uang_kita = $total - $uang_pemilik;
+
+	        $dataSls['nama_pemilik'] = $nama_pemilik;
+	        $dataSls['nama_seminar'] = $nama_seminar;
+	        $dataSls['harga_seminar'] = number_format($harga_seminar,0, ".", ".");
+	        $dataSls['terverifikasi'] = $terverifikasi;
+	        $dataSls['total'] = number_format($total,0, ".", ".");
+	        $dataSls['uang_terima'] = number_format($uang_pemilik,0, ".", ".");
+	        $dataSls['uang_kita'] =  number_format($uang_kita,0, ".", ".");
+
+	        $dataSls['email'] = $email_pemilik;
+
 			if($cek_session == 1)
 			{
 				$filename = $_FILES['foto_upload']['name'];
 			    $file_tmp = $_FILES['foto_upload']['tmp_name'];
 			    $size = $_FILES['foto_upload']['size'];
 			    $temp = explode(".", $filename);
+			 
+			 	$dataSls['file_foto'] = $filename;
     			$newfilename = 'bukti-'.$id_done . '-'.$id_posts .'.'. end($temp);
     			$cek =  $wpdb->get_results("SELECT * FROM upload_bukti_selesai where id_selesai = '$id_done' and id_posts = '$post_id'");
     			if(!empty($cek))
@@ -51,6 +75,7 @@ function upload_bukti()
 								$update = $wpdb->update('seminar_selesai', $data, $dataWhere);
 								if($update)
 								{
+									send_mail_tf($dataSls['email'],"Transfer Uang Seminar",$dataSls,false);
 									echo '<br/><div class="container"><div class="alert alert-success alert-dismissible fade show"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Upload Berhasil</div></div>';
 								}
 								else

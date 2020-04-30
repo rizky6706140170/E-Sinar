@@ -68,6 +68,7 @@ function Data_seminar_list()
                                   $mydate=strtotime('now');
                             ?>
                             <?php if($d >= $mydate): ?>
+                               
                             <?php else: ?>
                                 <?php
                                      $cek_status=$wpdb->get_results("SELECT * FROM status_seminar where id_post='$value->ID' and status_sm = 1");
