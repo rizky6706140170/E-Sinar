@@ -36,13 +36,13 @@ function report_verifikasi_list_seminar_selesai_pemilik_modifymenu() {
 		'upload_bukti'
 	);
 
-	// add_submenu_page(null, //parent slug
-	// 	'View Seminar', //page title
-	// 	'View Seminar', //menu title
-	// 	'author', //capability
-	// 	'view_ls_sm', //menu slug
-	// 	'view_ls_sm'
-	// );
+	add_submenu_page(null, //parent slug
+		'Alert Rekening', //page title
+		'Alert Rekening', //menu title
+		'manage_options', //capability
+		'alert_rekening', //menu slug
+		'alert_rekening'
+	);
 
 	// add_submenu_page(null, //parent slug
 	// 	'View Seminar Selesai', //page title
@@ -58,7 +58,7 @@ function report_verifikasi_list_seminar_selesai_pemilik_modifymenu() {
 define('DIRDATASEMSEL', plugin_dir_path(__FILE__));
 require_once(DIRDATASEMSEL . 'list-seminar-selesai.php');
 require_once(DIRDATASEMSEL . 'upload-bukti.php');
-// require_once(DIRDATASEMSEL . 'view-list.php');
+require_once(DIRDATASEMSEL . 'alert_rekening.php');
 // require_once(DIRDATASEMSEL . 'done-sm.php');
 // require_once(DIRSEMINARL . 'verifikasi.php');
 // require_once(DIRSEMINARL . 'salah-bayar.php');

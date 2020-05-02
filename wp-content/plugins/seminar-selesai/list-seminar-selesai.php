@@ -63,13 +63,17 @@ function Data_seminar_selesai()
 	            		<td class="manage-column ss-list-width text-center"><?php echo $value->bank; ?></td>
 	            		<td class="manage-column ss-list-width text-center"><?php echo $value->rekening ?></td>
 	            		<td class="manage-column ss-list-width text-center">
+	            		<?php if($value->rekening != NULL): ?>
 	            			<?php if($value->status_tf == 1): ?>
 	            			<a href="<?php echo content_url().'/uploads/buktitf/'.$value->file_foto; ?>" target="_blank">
 	            				<?php echo "transfer selesai"; ?>
 	            			</a>
 	            			<?php else: ?>
-	            				<a href="<?php echo admin_url('admin.php?page=upload_bukti&type=upload&id_selesai=' . $value->id_selesaii.'&id_posts='.$value->id_posts); ?>" class="button button-warning">Upload Bukti</a>
+	            				<a href="<?php echo admin_url('admin.php?page=upload_bukti&type=upload&id_selesai=' . $value->id_selesaii.'&id_posts='.$value->id_posts); ?>" class="button button-warning">Upload Bukti</a>		
 	            			<?php endif; ?>
+	            		<?php else: ?>
+	            			<a href="<?php echo admin_url('admin.php?page=alert_rekening&type=alert&id_selesai=' . $value->id_selesaii.'&id_author='.$value->id_author); ?>" class="button button-warning">alert rekening</a>
+	            		<?php endif; ?>
 	            		</td>
 	            	</tr>
 	            	<?php endforeach; ?>
