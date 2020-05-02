@@ -94,44 +94,87 @@ get_header(); ?>
 			</style>
 			<div class="row">
 				<div class="col-md-12">
-					<div class="card">
-					  <div class="card-header">
-					    E-Sinar
-					  </div>
-					  <div class="card-body" style="text-align: justify;">
-					    <p class="card-text">e-SINAR adalah situs web online yang memberikan informasi seputar daftar event seminar dengan kemudahan fitur seminar sesuai kebutuhan. Dengan menggunakan e-SINAR peserta dapat mencari seminar secara daring dengan lebih mudah dan efisien serta melakukan pendaftaran dengan cepat. Aplikasi e-SINAR juga dapat mempermudah penyaji seminar karena dapat mempromosikan seminar secara luas dan melakukan manajemen daftar peserta dengan sistematis.</p>
-					    
-					  </div>
-					</div>
+					<div class="heading-title text-center" style="width: 100%;border-bottom: 1px solid #cab0b0;margin-bottom: 4%;">
+                            <h3 class="text-uppercase">E-sinar</h3>
+                            <p class="p-top-30 half-txt" style="text-align: justify;margin-bottom: 4%;">e-SINAR adalah situs web online yang memberikan informasi seputar daftar event seminar dengan kemudahan fitur seminar sesuai kebutuhan. Dengan menggunakan e-SINAR peserta dapat mencari seminar secara daring dengan lebih mudah dan efisien serta melakukan pendaftaran dengan cepat. Aplikasi e-SINAR juga dapat mempermudah penyaji seminar karena dapat mempromosikan seminar secara luas dan melakukan manajemen daftar peserta dengan sistematis. </p>
+                    </div>
 				</div>
 				<div class="col-md-12">
-					<h3>THE TEAM</h3>
-					<div class="card-group">
-						  <div class="card">
-						    <img class="card-img-top" src="<?php echo get_template_directory_uri();?>/images/rogape.jpg" alt="Card image cap">
-						    <div class="card-body">
-						      <h5 class="card-title">Rogape Iansen Euclerr</h5>
-						      <p class="card-text">System Analysis</p>
-						      <p class="card-text"><small class="text-muted">41818310031</small></p>
-						    </div>
-						  </div>
-						  <div class="card">
-						    <img class="card-img-top"src="<?php echo get_template_directory_uri();?>/images/rizky.jpg" alt="Card image cap">
-						    <div class="card-body">
-						      <h5 class="card-title">Rizky Febryan</h5>
-						      <p class="card-text">Programmer</p>
-						      <p class="card-text"><small class="text-muted">41818310021</small></p>
-						    </div>
-						  </div>
-						  <div class="card">
-						    <img class="card-img-top" src="<?php echo get_template_directory_uri();?>/images/yulia.jpg" alt="Card image cap">
-						    <div class="card-body">
-						      <h5 class="card-title">Yulia Wardaningsih</h5>
-						      <p class="card-text">Web Design</p>
-						      <p class="card-text"><small class="text-muted">41818310010</small></p>
-						    </div>
-						  </div>
-						</div>
+                    <div class="row">
+                        <div class="heading-title text-center" style="width: 100%;margin-bottom: 3%;">
+                            <h3 class="text-uppercase">THE TEAM </h3>
+                        </div>
+
+                        <div class="col-md-4 col-sm-4">
+                            <div class="team-member">
+                                <div class="team-img">
+                                    <img src="<?php echo get_template_directory_uri();?>/images/rizky.jpg" alt="team member" class="img-responsive">
+                                </div>
+                                <div class="team-hover">
+                                    <div class="desk">
+                                        <h4>Hi There !</h4>
+                                        <p>I love to introduce myself as a hardcore Web Designer.</p>
+                                    </div>
+                                    <div class="s-link">
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team-title">
+                                <h5>Rizky Febryan</h5>
+                                <span>Programmer</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <div class="team-member">
+                                <div class="team-img">
+                                    <img src="<?php echo get_template_directory_uri();?>/images/yulia.jpg" alt="team member" class="img-responsive">
+                                </div>
+                                <div class="team-hover">
+                                    <div class="desk">
+                                        <h4>Hello World</h4>
+                                        <p>I love to introduce myself as a hardcore Web Designer.</p>
+                                    </div>
+                                    <div class="s-link">
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team-title">
+                                <h5>Yulia Wardaningsih</h5>
+                                <span>Analyst System</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <div class="team-member">
+                                <div class="team-img">
+                                    <img src="<?php echo get_template_directory_uri();?>/images/rogape2.jpg" alt="team member" class="img-responsive">
+                                </div>
+                                <div class="team-hover">
+                                    <div class="desk">
+                                        <h4>I love to design</h4>
+                                        <p>I love to introduce myself as a hardcore Web Designer.</p>
+                                    </div>
+                                    <div class="s-link">
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team-title">
+                                <h5>Rogape Iansen E</h5>
+                                <span>Database</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+             
 				</div>
 			</div>
 		<?php endif;?>
