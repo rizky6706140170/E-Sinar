@@ -289,9 +289,17 @@ function daftarSeminar()
                                             $insert_pdf = $wpdb->insert('pdf_verifikasi_daftar', array(
                                                 'id_verifikasi' => $id_verifikasi,
                                             ));
-                                            send_maildaftarSeminar($to_email,"Pendaftaran Seminar (E-sinar)",$dataSeminar,false);
-                                            wp_redirect( get_home_url().'/sukses_daftar');
-                                            exit();
+                                            if($insert_pdf)
+                                            {
+                                                send_maildaftarSeminar($to_email,"Pendaftaran Seminar (E-sinar)",$dataSeminar,false);
+                                                wp_redirect( get_home_url().'/sukses_daftar');
+                                                exit();
+                                            }
+                                            else
+                                            {
+                                                $this->error[] = new WP_Error('empty_error', __('gagal daftar insert foto'));
+                                            }
+                                           
                                         }
                                         else
                                         {
