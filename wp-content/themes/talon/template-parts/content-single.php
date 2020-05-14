@@ -29,20 +29,37 @@
 				<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_post_thumbnail('talon-blog-image'); ?></a>
 			</div>
 			<?php endif; ?>
-			<div class="detail-post" style="margin-bottom: 5px;">
-				<div class="blok-tempat">
-					<span class="tempat-lokasi"><i class="fas fa-map-marker-alt"> <?php echo get_field('tempat') ?></i></span>
+			<?php if(get_field('harga') && get_field('tempat') && get_field('date') && get_field('waktu_mulai') && get_field('waktu_selesai')) : ?>
+				<div class="detail-post" style="margin-bottom: 5px;">
+					<div class="blok-tempat">
+						<span class="tempat-lokasi"><i class="fas fa-map-marker-alt"> <?php echo get_field('tempat') ?></i></span>
+					</div>
+					<div class="date_sm">
+						<span><i class="far fa-calendar-alt"> <?php echo get_field('date') ?></i></span>
+					</div>
+					<div class="waktu_sm">
+						<span><i class="far fa-clock"> <?php echo get_field('waktu_mulai') .'-'.get_field('waktu_selesai') ?></i></span>
+					</div>
+					<div class="harga_sm">
+						<span><i class="fas fa-money-bill-wave-alt"> Rp. <?php echo number_format(get_field('harga'), 0, ".", ".") ?></i></span>
+					</div>
 				</div>
-				<div class="date_sm">
-					<span><i class="far fa-calendar-alt"> <?php echo get_field('date') ?></i></span>
+			<?php else : ?>
+				<div class="detail-post" style="margin-bottom: 5px;">
+					<div class="blok-tempat">
+						<span class="tempat-lokasi"><i class="fas fa-map-marker-alt"></i></span>
+					</div>
+					<div class="date_sm">
+						<span><i class="far fa-calendar-alt"></i></span>
+					</div>
+					<div class="waktu_sm">
+						<span><i class="far fa-clock"></i></span>
+					</div>
+					<div class="harga_sm">
+						<span><i class="fas fa-money-bill-wave-alt"> Rp.</i></span>
+					</div>
 				</div>
-				<div class="waktu_sm">
-					<span><i class="far fa-clock"> <?php echo get_field('waktu_mulai') .'-'.get_field('waktu_selesai') ?></i></span>
-				</div>
-				<div class="harga_sm">
-					<span><i class="fas fa-money-bill-wave-alt"> Rp. <?php echo number_format(get_field('harga'), 0, ".", ".") ?></i></span>
-				</div>
-			</div>
+			<?php endif; ?>
 			<?php 
 				global $current_user;
 				global $wpdb;
@@ -88,15 +105,21 @@
 								<span>Silahkan login terlebih dahulu untuk bisa mendaftar ke seminar ini</span>
 							</div>
 					<?php else: ?>
-							<?php if(empty($cek)): ?>
-							<div class="daftar-seminar" style="text-align: center;">
-								<a href="<?php echo home_url().'/daftar_sm/?post='.$id_post; ?>" target="_blank" class="btn btn-success" style="background: #0733f3;" name="btn-dft">Daftar Seminar</a>
-							</div>
-							<?php else: ?>
-								<div class="alert alert-danger" style="text-align: center;">
-									<span>Anda Sudah Mendaftar Seminar ini</span>
+						<?php if(get_field('harga') && get_field('tempat') && get_field('date') && get_field('waktu_mulai') && get_field('waktu_selesai')): ?>
+								<?php if(empty($cek)): ?>
+								<div class="daftar-seminar" style="text-align: center;">
+									<a href="<?php echo home_url().'/daftar_sm/?post='.$id_post; ?>" target="_blank" class="btn btn-success" style="background: #0733f3;" name="btn-dft">Daftar Seminar</a>
 								</div>
-							<?php endif; ?>
+								<?php else: ?>
+									<div class="alert alert-danger" style="text-align: center;">
+										<span>Anda Sudah Mendaftar Seminar ini</span>
+									</div>
+								<?php endif; ?>
+						<?php else: ?>
+							<div class="alert alert-danger" style="text-align: center;">
+								<span>data seminar belum dilengkapi pemilik</span>
+							</div>
+						<?php endif; ?>
 					<?php endif; ?>
 				<?php else: ?>
 					<div class="alert alert-danger" style="text-align: center;">

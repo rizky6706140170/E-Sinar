@@ -42,6 +42,7 @@
 
      			$ceknama=$wpdb->get_var("SELECT user_nicename from wp_users where id='$current_user->id'");
      			$namauser = $ceknama;
+    
 			?>
 	<div class="row-btn-login" style="">
 				<div class="row-left" style="width: 59%;float: left;">
@@ -62,6 +63,9 @@
 		     				?>
 		     					<?php if(current_user_can( 'administrator' )): ?>
 		     					<span> hello <?php echo ucfirst($current_user->user_login); ?></span>
+		     							<div class="col-md-12" style="text-align: center;">
+			     							<a href="<?php echo home_url().'/wp-admin'?>" class="button" style="background: #0733f3;">Dashboard</a>
+			     						</div>
 		     					<?php elseif(current_user_can( 'author' )) : ?>
 		     						<span> hello  <?php echo ucfirst($namauser); ?></span> <br>
 		     						<div>
@@ -69,7 +73,7 @@
 		     						</div>
 		     						<div class="row" style="margin-top: 20px;">
 			     						<div class="col-md-6" style="text-align: right;">
-			     							<a href="<?php echo home_url().'/profile'?>" class="button" style="background: #0733f3;">Lihat Profil</a>
+			     							<a href="<?php echo home_url().'/profile'?>" class="button" style="background: #0733f3;">Lihat Profile</a>
 			     						</div>
 			     						<div class="col-md-6" style="text-align: left;">
 			     							<a href="<?php echo home_url().'/wp-admin/admin.php?page=Data_seminar_list'?>" class="button" style="background: #0733f3;">Dashboard Pemilik</a>
@@ -82,7 +86,7 @@
 		     					</div>
 		     					<div class="row" style="margin-top: 20px;">
 		     						<div class="col-md-6" style="text-align: right;">
-		     							<a href="<?php echo home_url().'/profile'?>" class="button" style="background: #0733f3;">Lihat Profil</a>
+		     							<a href="<?php echo home_url().'/profile'?>" class="button" style="background: #0733f3;">Lihat Profile</a>
 		     						</div>
 		     						<div class="col-md-6" style="text-align: left;">
 		     							<a href="<?php echo home_url().'/history'?>" class="button" style="background: #0733f3;">History Seminar</a>

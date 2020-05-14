@@ -73,7 +73,8 @@
 									endif;
 
 									$html .= '<h3 class="rpwe-title"><a href="' . esc_url( get_permalink() ) . '" title="' . sprintf( esc_attr__( 'Permalink to %s', 'recent-posts-widget-extended' ), the_title_attribute( 'echo=0' ) ) . '" rel="bookmark">' . esc_attr( get_the_title() ) . '</a></h3>';
-
+									if(get_field('harga') && get_field('tempat') && get_field('date') && get_field('waktu_mulai') && get_field('waktu_selesai'))
+									{
 										$html .='
 											<div class="blok-tempat">
 												<span class="tempat-lokasi"><i class="fas fa-map-marker-alt"> '.get_field('tempat').'</i></span>
@@ -89,6 +90,30 @@
 											</div>
 
 										';
+									}
+									else{
+
+										$html .='
+											<div class="blok-tempat">
+												<span class="tempat-lokasi"><i class="fas fa-map-marker-alt"> </i></span>
+											</div>
+											<div class="date_sm">
+												<span><i class="far fa-calendar-alt"> </i></span>
+											</div>
+											<div class="waktu_sm">
+												<span><i class="far fa-clock"></i></span>
+											</div>
+											<div class="harga_sm">
+												<span><i class="fas fa-money-bill-wave-alt"></i></span>
+											</div>
+											<div>
+												<span>data belum lengkap</span>
+											</div>
+
+										';
+									}
+
+										
 
 
 								$html .= '</li>';

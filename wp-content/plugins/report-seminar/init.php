@@ -19,9 +19,9 @@ function report_seminar_modifymenu() {
 	
 	//this is the main item for the menu
 	add_menu_page('Report Seminar List', //page title
-		'Report Seminar List', //menu title
+		'Report Pendaftar Seminar List', //menu title
 		'manage_options', //capabilities
-		'Seminar_list', //menu slug
+		'Pendaftar_Seminar_list', //menu slug
 		'Seminar_list', //function
 		'dashicons-editor-kitchensink',
 	4

@@ -19,9 +19,9 @@ function report_verifikasi_seminar_modifymenu() {
 	
 	//this is the main item for the menu
 	add_menu_page('Verifikasi Seminar List', //page title
-		'Verifikasi Seminar List', //menu title
+		'Verifikasi Pendaftar Seminar List', //menu title
 		'manage_options', //capabilities
-		'Verifikasi_list', //menu slug
+		'Verifikasi_Pendaftar_list', //menu slug
 		'Verifikasi_list', //function
 		'dashicons-editor-kitchensink',
 	4

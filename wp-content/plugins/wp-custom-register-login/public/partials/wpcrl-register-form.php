@@ -68,7 +68,7 @@
                         <label>Status Daftar: </label>
                         <select id="wpcrl_status" name="wpcrl_status" class="form-control">
                           <option value="">--Pilih Status Daftar--</option>
-                          <option value="subscriber">Pendaftar Seminar</option>
+                          <option value="subscriber">Pendaftar Seminar(member)</option>
                           <option value="author">Pemilik Seminar</option>
                         </select>
                     </div>

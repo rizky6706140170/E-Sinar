@@ -4,7 +4,7 @@ function Pemilik_list() {
 
 <div class="wrap">
     <div class="title-border">
-        <h1 class="wp-heading-inline">User List</h1>
+        <h1 class="wp-heading-inline">Pemilik List</h1>
     </div></br></br>
 
     <?php
@@ -17,6 +17,7 @@ function Pemilik_list() {
             <thead>
                 <tr>
                     <th class="manage-column ss-list-width text-center text-bold" style="width: 5%;">No</th>
+                    <th class="manage-column ss-list-width text-center text-bold" style="">Profile</th>
                     <th class="manage-column ss-list-width text-center text-bold">User Name</th>
                     <th class="manage-column ss-list-width text-center text-bold">Name</th>
                     <th class="manage-column ss-list-width text-center text-bold">Email</th>
@@ -31,6 +32,11 @@ function Pemilik_list() {
             	<?php $no = 0; foreach ($query_user as $key => $value): $no++; ?>
             		<tr>
             			<td class="manage-column ss-list-width text-center"><?php echo $no; ?></td>
+                        <td class="manage-column ss-list-width text-center">
+                            <a href="<?php echo content_url().'/uploads/profile/null/profil.png' ?>" target="_blank">
+                                <img src="<?php echo content_url().'/uploads/profile/null/profil.png' ?>" style="width: 40px;height: 40px;">
+                            </a>
+                        </td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->user_login; ?></td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->display_name; ?></td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->user_email; ?></td>

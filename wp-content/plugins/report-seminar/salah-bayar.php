@@ -32,7 +32,7 @@ function salah_pemby()
 		 	{
 		 		send_mailDaftarSalah($dataSalah['email'],"Pendaftaran Seminar",$dataSalah,false);
 		 		echo '<br/><div class="container"><div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Success</div></div>';
-	         	echo '<br/><a href="'.home_url().'/wp-admin/admin.php?page=Seminar_list" class="button button-primary">Back</a>';
+	         	echo '<br/><a href="'.home_url().'/wp-admin/admin.php?page=Pendaftar_Seminar_list" class="button button-primary">Back</a>';
 		 	}
 		 	else
 		 	{

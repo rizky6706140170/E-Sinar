@@ -110,7 +110,7 @@ function upload_bukti()
 		 <div class="form-group">
                 	Upload Bukti Transfer (< 1MB): <input type="file" name="foto_upload" data-bvalidator-msg="Upluoad Struk Bukti Pembayaran" style="width: 100%;" accept="image/jpeg, image/png" required>
          </div>
-         <input class="btn btn-danger" style="background: #0733f3;" type='submit' value='SUBMIT' name="upload" />
+         <input class="btn btn-danger" style="background: #0733f3;" type='submit' value='Kirim Bukti' name="upload" />
 	</form>
 
 <?php } ?>
