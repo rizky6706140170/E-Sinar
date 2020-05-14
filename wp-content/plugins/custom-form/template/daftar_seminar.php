@@ -145,7 +145,7 @@ $id_post = $_GET['post'];
                 <div class="form-group  text-center">
 					<center>
 						<?php echo wp_nonce_field('handle_custom_form', 'nonce_custom_form'); ?>
-						<input class="btn btn-danger" type='submit' value='SUBMIT' style="background: #0733f3;"/>
+						<input class="btn btn-danger" type='submit' value='DAFTAR' style="background: #0733f3;"/>
 					</center>
 				</div>
 			</div>

@@ -92,11 +92,11 @@ $query_foto = $wpdb->get_var("SELECT file_foto FROM profile where id_user = '$id
                 <label style="font-weight:bold;margin-bottom:5px;">Username</label>
                 <input class="form-control"  name='' type='text' value='<?php echo $value->user_login; ?>' style="width:100%;" disabled/>
             </div>
-            <div class="form-group"> 
+            <div class="form-group ed"> 
                 <label style="font-weight:bold;margin-bottom:5px;">Nama Lengkap</label>
                 <input class="form-control" data-bvalidator="required" data-bvalidator-msg="Isi Nama Lengkap Anda" name='display_name' type='text' value='<?php echo $value->display_name; ?>' id="display_name" style="width:100%;" disabled/>
             </div>
-            <div class="form-group"> 
+            <div class="form-group ed"> 
                 <label style="font-weight:bold;margin-bottom:5px;">Email</label>
                 <input class="form-control" data-bvalidator="required" data-bvalidator-msg="Isi Email Anda"  name='user_email' type='text' value='<?php echo $value->user_email; ?>' id="user_email" style="width:100%;" disabled/>
             </div>
@@ -106,11 +106,11 @@ $query_foto = $wpdb->get_var("SELECT file_foto FROM profile where id_user = '$id
             	$cek_no =  $wpdb->get_var("SELECT rekening FROM rekening_pemilik where id_user = '$id_user'");
             ?>
             <?php if($cek_author == 'author'): ?>
-           	<div class="form-group"> 
+           	<div class="form-group ed"> 
                 <label style="font-weight:bold;margin-bottom:5px;">Nama Bank</label>
   				 <input class="form-control" data-bvalidator="required" data-bvalidator-msg="Isi Nama Bank Anda"  name='bank' type='text' value='<?php echo $cek_rek; ?>' id="bank_pm" style="width:100%;" disabled/>
             </div>
-            <div class="form-group"> 
+            <div class="form-group ed"> 
                 <label style="font-weight:bold;margin-bottom:5px;">Rekening</label>
   				<input class="form-control" data-bvalidator="required" data-bvalidator-msg="Isi No Rekening Anda"  name='rekening' type='text' value='<?php echo $cek_no; ?>' id="rekening_pm" style="width:100%;" disabled/>
             </div>
@@ -132,7 +132,7 @@ $query_foto = $wpdb->get_var("SELECT file_foto FROM profile where id_user = '$id
             <div class="form-group  text-center submit-profile">
 					<center>
 						<?php echo wp_nonce_field('handle_custom_form', 'nonce_custom_form'); ?>
-						<input class="btn btn-danger" style="background: #0733f3;" type='submit' value='SUBMIT'/>
+						<input class="btn btn-danger" style="background: #0733f3;" type='submit' value='UBAH PROFILE'/>
 					</center>
 			</div>
 		</form>
@@ -155,5 +155,6 @@ $( "#edit-profil" ).click(function() {
   	$('#bank_pm').removeAttr("disabled");
   	$('#rekening_pm').removeAttr("disabled");
     $('.submit-profile').css('display','block');
+    $('.ed .form-control').css('background-color','white !important');
 });
 </script>

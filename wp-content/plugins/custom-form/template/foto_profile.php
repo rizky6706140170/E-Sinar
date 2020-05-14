@@ -74,7 +74,7 @@
 				 <div class="form-group  text-center">
 					<center>
 						<?php echo wp_nonce_field('handle_custom_form', 'nonce_custom_form'); ?>
-						<input class="btn btn-danger" style="background: #0733f3;" type='submit' value='SUBMIT'/>
+						<input class="btn btn-danger" style="background: #0733f3;" type='submit' value='UPLOAD'/>
 					</center>
 				</div>
         </div>
