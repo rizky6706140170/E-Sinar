@@ -101,6 +101,7 @@ function Data_bukti_tf()
                     },
                 ],
             });
+            $('.dt-buttons').css('display','none');
         });
 	</script>
 

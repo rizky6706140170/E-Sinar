@@ -4,7 +4,7 @@ function Seminar_list() {
 
 <div class="wrap">
     <div class="title-border">
-        <h1 class="wp-heading-inline">Seminar List</h1>
+        <h1 class="wp-heading-inline">Report Pendaftar Seminar</h1>
     </div></br></br>
 
     <?php

@@ -75,6 +75,7 @@ function Data_posts()
                 //     },
                 // ],
             });
+            $('.dt-buttons').css('display','none');
         });
 	</script>
 

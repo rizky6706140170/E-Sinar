@@ -139,13 +139,13 @@ function View_ls_sm()
                             columns: [ 0, 1, 2, 3]
                         }
                     },
-                    {
-                        extend: 'pdf',
-                        title: 'Data Pendaftaran Seminar',
-                        exportOptions: {
-                            columns: [ 0, 1, 2, 3]
-                        }
-                    },
+                    // {
+                    //     extend: 'pdf',
+                    //     title: 'Data Pendaftaran Seminar',
+                    //     exportOptions: {
+                    //         columns: [ 0, 1, 2, 3]
+                    //     }
+                    // },
                     {
                         extend: 'print',
                         title: 'Data Pendaftaran Seminar',

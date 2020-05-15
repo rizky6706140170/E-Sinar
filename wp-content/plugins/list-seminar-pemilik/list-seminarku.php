@@ -148,7 +148,12 @@ function Data_seminar_list()
                     },
                 ],
             });
+
+            $('.dt-buttons').css('display','none');
         });
+
+
+
 	</script>
 
 <?php } ?>
