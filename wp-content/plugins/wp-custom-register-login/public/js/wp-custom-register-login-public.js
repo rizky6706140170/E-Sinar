@@ -257,7 +257,7 @@
                     $('#wpcrl-register-alert').html(data.success);
                     setTimeout(function(){
                       location.reload();
-                    }, 3000);
+                    }, 2000);
 
 
                 } else {

@@ -337,7 +337,21 @@ class Wp_Custom_Register_Login_Public extends Wp_Custom_Register_Login_Generic_P
                 do_action('user_register', $user_id);
 
                 $response['reg_status'] = true;
-                $response['success'] = __('Thanks for signing up. Please Login', $this->plugin_name);
+
+                $credentials = array();
+                $credentials['user_login'] = trim($_POST['wpcrl_username']);
+                $credentials['user_password'] = trim($_POST['wpcrl_password']);
+
+                $user = wp_signon($credentials, false);
+                wp_set_auth_cookie($user->data->ID);
+                // setting current logged in user
+                wp_set_current_user($user->data->ID, $user->data->user_login);
+                // Adding hook so that anyone can add action on user login
+                do_action('set_current_user');
+                // $response['userid'] = $user->data->ID;
+                $response['logged_in'] = true;
+
+                $response['success'] = __('Thanks for signing up.', $this->plugin_name);
                 //Sending user registration mails
                 // $email_confirmation_enabled = $wpcrl_email_settings['wpcrl_user_email_confirmation'];
                 // // check if admin opt for email confirmation
