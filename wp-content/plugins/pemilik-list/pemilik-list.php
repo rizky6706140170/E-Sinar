@@ -10,7 +10,7 @@ function Pemilik_list() {
     <?php
       global $wpdb;
       // $query_user = $wpdb->get_results("SELECT *,a.user_login as username,b.status as statuses FROM wp_users a left join user_esinar b on a.ID = b.user_id");
-      $query_user = $wpdb->get_results("SELECT * FROM wp_users a LEFT JOIN rekening_pemilik b on a.ID = b.id_user where a.role_user ='author'");
+      $query_user = $wpdb->get_results("SELECT *, c.file_foto as foto FROM wp_users a LEFT JOIN rekening_pemilik b on a.ID = b.id_user LEFT JOIN profile c on a.ID = c.id_user where a.role_user ='author' order by a.user_registered desc");
     ?>
     <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" style="display: inline-block;">
         <table id="table-data" class='wp-list-table widefat fixed striped' style="width: 100%;">
@@ -33,9 +33,15 @@ function Pemilik_list() {
             		<tr>
             			<td class="manage-column ss-list-width text-center"><?php echo $no; ?></td>
                         <td class="manage-column ss-list-width text-center">
-                            <a href="<?php echo content_url().'/uploads/profile/null/profil.png' ?>" target="_blank">
-                                <img src="<?php echo content_url().'/uploads/profile/null/profil.png' ?>" style="width: 40px;height: 40px;">
-                            </a>
+                           <?php if(empty($value->foto)): ?>
+                                 <a href="<?php echo content_url().'/uploads/profile/null/profil.png' ?>" target="_blank">
+                                    <img src="<?php echo content_url().'/uploads/profile/null/profil.png' ?>" style="width: 40px;height: 40px;">
+                                </a>
+                            <?php else: ?>
+                                 <a href="<?php echo content_url().'/uploads/profile/'.$value->foto; ?>" target="_blank">
+                                    <img src="<?php echo content_url().'/uploads/profile/'.$value->foto; ?>" style="width: 40px;height: 40px;">
+                                </a>
+                            <?php endif; ?>         
                         </td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->user_login; ?></td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->display_name; ?></td>

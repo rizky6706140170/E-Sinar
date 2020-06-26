@@ -130,7 +130,7 @@ $id_post = $_GET['post'];
                 </div>
               	<?php if(count($msg)):?>
 					<?php
-						$msg_code = "";
+						// $msg_code = "";
 						foreach ($msg as $key => $value) :
 						//$msg_code = $value->get_error_message();
 						//echo $value->get_error_message().'<br>';

@@ -2,12 +2,9 @@
  
 /**
  * Plugin Name: Custom Form
- * Plugin URI: http://www.scriptbaker.com/
  * Description: Creates a custom form through shortcode and handles the submit event.
  * Version: 1.0
  * Author: iky
- * Author URI: http://www.scriptbaker.com/author/tahir/
- * License: GPL2
  */
 //require get_template_directory() .'/lib/dompdf/autoload.inc.php';
 // require_once dirname( __FILE__ ) .'/../lib/dompdf/autoload.inc.php';
@@ -20,7 +17,7 @@ session_start();
 class CustomForm
 {
     protected $error = array();
-    protected $errorInput = array();
+    // protected $errorInput = array();
 
     public function __construct()
     {
@@ -65,7 +62,7 @@ class CustomForm
     public function init()
     {
         global $wpdb;
-        $code_isvalid = false;
+        // $code_isvalid = false;
 
         $data = array();
 
@@ -164,18 +161,6 @@ class CustomForm
             ob_start();
             include 'template/edit_foto_profile.php';
 
-            $template = ob_get_clean();
-
-            return $template;
-        }
-        else 
-        {
-            // echo "masuk form 2";
-            $msg = $this->error;
-            
-
-            ob_start();
-            include 'template/form_redeem.php';
             $template = ob_get_clean();
 
             return $template;
