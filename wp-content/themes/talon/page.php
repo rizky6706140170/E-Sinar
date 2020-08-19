@@ -113,7 +113,7 @@ get_header(); ?>
                                 <div class="team-hover">
                                     <div class="desk">
                                         <h4>Hi There !</h4>
-                                        <p>I love to introduce myself as a hardcore Web Designer.</p>
+                                        <p>I love to introduce myself as a hardcore Web Development.</p>
                                     </div>
                                     <div class="s-link">
                                         <a href="#"><i class="fa fa-facebook"></i></a>
@@ -135,7 +135,7 @@ get_header(); ?>
                                 <div class="team-hover">
                                     <div class="desk">
                                         <h4>Hello World</h4>
-                                        <p>I love to introduce myself as a hardcore Web Designer.</p>
+                                        <p>I love to introduce myself as a database.</p>
                                     </div>
                                     <div class="s-link">
                                         <a href="#"><i class="fa fa-facebook"></i></a>
@@ -146,7 +146,7 @@ get_header(); ?>
                             </div>
                             <div class="team-title">
                                 <h5>Yulia Wardaningsih</h5>
-                                <span>Analyst System</span>
+                                <span>Database</span>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-4">
@@ -157,7 +157,7 @@ get_header(); ?>
                                 <div class="team-hover">
                                     <div class="desk">
                                         <h4>I love to design</h4>
-                                        <p>I love to introduce myself as a hardcore Web Designer.</p>
+                                        <p>I love Analyst System.</p>
                                     </div>
                                     <div class="s-link">
                                         <a href="#"><i class="fa fa-facebook"></i></a>
@@ -168,7 +168,7 @@ get_header(); ?>
                             </div>
                             <div class="team-title">
                                 <h5>Rogape Iansen E</h5>
-                                <span>Database</span>
+                                <span>Analyst System</span>
                             </div>
                         </div>
 

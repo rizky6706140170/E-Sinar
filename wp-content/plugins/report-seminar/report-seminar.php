@@ -10,7 +10,7 @@ function Seminar_list() {
     <?php
       global $wpdb;
       // $query_seminar = $wpdb->get_results("SELECT * FROM daftar_seminar left join ");
-      $query_seminar = $wpdb->get_results("SELECT * , a.id_post as post_id FROM daftar_seminar a LEFT JOIN file_verifikasi b on a.id = b.id_daftar LEFT JOIN wp_users c ON a.id_user = c.ID where a.status != 1");
+      $query_seminar = $wpdb->get_results("SELECT * , a.id_post as post_id , d.post_title as title FROM daftar_seminar a LEFT JOIN file_verifikasi b on a.id = b.id_daftar LEFT JOIN wp_users c ON a.id_user = c.ID LEFT JOIN wp_posts d on a.id_post = d.ID where a.status != 1");
     ?>
     <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" style="display: inline-block;">
         <table id="table-data" class='wp-list-table widefat fixed striped' style="width: 100%;">
@@ -33,7 +33,7 @@ function Seminar_list() {
             		<tr>
                         <td class="manage-column ss-list-width text-center"><?php echo $no; ?></td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->display_name; ?></td>
-            			<td class="manage-column ss-list-width text-center"><?php echo $value->nama_seminar; ?></td>
+            			<td class="manage-column ss-list-width text-center"><?php echo $value->title; ?></td>
                         <td class="manage-column ss-list-width text-center">
                             <?php  $harga_sm=$wpdb->get_var("SELECT meta_value from wp_postmeta where post_id='$value->post_id' and meta_key = 'harga'");
                             echo 'Rp '.number_format($harga_sm,2,',','.');

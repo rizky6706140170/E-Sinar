@@ -11,6 +11,7 @@ function delete_post()
 		 	// $pos = 206;
 	
 		 	// wp_delete_post(206, true);
+
 	if($cek_session == $id_user)
 	{
 		$delete_post = wp_delete_post($id_post , true);

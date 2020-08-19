@@ -63,7 +63,10 @@
                     <center>
                         <label style="font-weight:bold;margin-bottom:5px;">Nama Seminar</label>
                     </center>
-                    <input class="form-control"  name='' type='text' value='<?php echo $value->nama_seminar; ?>' style="width:100%;text-align: center;" disabled/>
+                    <?php
+                    	$seminar = $wpdb->get_var("SELECT post_title FROM wp_posts where ID = '$id_post'");
+                    ?>
+                    <input class="form-control"  name='' type='text' value='<?php echo $seminar; ?>' style="width:100%;text-align: center;" disabled/>
                     
                 </div>
             <?php endforeach; ?>

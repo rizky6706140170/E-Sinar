@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 28 Bulan Mei 2020 pada 23.28
--- Versi server: 10.4.11-MariaDB
--- Versi PHP: 7.4.4
+-- Generation Time: Aug 19, 2020 at 09:18 PM
+-- Server version: 10.4.13-MariaDB
+-- PHP Version: 7.3.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,33 +24,14 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `coba`
---
-
-CREATE TABLE `coba` (
-  `id` int(10) NOT NULL,
-  `nama` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `coba`
---
-
-INSERT INTO `coba` (`id`, `nama`) VALUES
-(1, 'andre taulanyyyy');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `daftar_seminar`
+-- Table structure for table `daftar_seminar`
 --
 
 CREATE TABLE `daftar_seminar` (
   `id` int(6) NOT NULL,
-  `id_user` int(6) NOT NULL,
-  `nama_seminar` varchar(100) NOT NULL,
-  `id_post` int(6) NOT NULL,
-  `id_author` int(6) NOT NULL,
+  `id_user` bigint(20) UNSIGNED NOT NULL,
+  `id_post` bigint(20) UNSIGNED NOT NULL,
+  `id_author` bigint(20) UNSIGNED NOT NULL,
   `tgl_seminar` varchar(20) NOT NULL,
   `status` int(3) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
@@ -58,16 +39,17 @@ CREATE TABLE `daftar_seminar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `daftar_seminar`
+-- Dumping data for table `daftar_seminar`
 --
 
-INSERT INTO `daftar_seminar` (`id`, `id_user`, `nama_seminar`, `id_post`, `id_author`, `tgl_seminar`, `status`, `created_at`, `update_at`) VALUES
-(1, 25, 'seminar nasional', 280, 59, '24-05-2020', 1, '2020-05-16 02:25:04', '2020-05-15 19:41:09');
+INSERT INTO `daftar_seminar` (`id`, `id_user`, `id_post`, `id_author`, `tgl_seminar`, `status`, `created_at`, `update_at`) VALUES
+(3, 64, 298, 65, '22-08-2020', 1, '2020-08-19 17:32:00', '2020-08-19 11:17:40'),
+(4, 66, 298, 65, '22-08-2020', 1, '2020-08-19 22:42:17', '2020-08-19 15:47:10');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `file_verifikasi`
+-- Table structure for table `file_verifikasi`
 --
 
 CREATE TABLE `file_verifikasi` (
@@ -79,16 +61,17 @@ CREATE TABLE `file_verifikasi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `file_verifikasi`
+-- Dumping data for table `file_verifikasi`
 --
 
 INSERT INTO `file_verifikasi` (`id`, `id_daftar`, `id_author`, `id_post`, `file_foto`) VALUES
-(1, 1, 59, 280, 'rogape tamvan-280-25.jpg');
+(4, 3, 65, 298, 'rizky febryan-298-64.PNG'),
+(5, 4, 65, 298, 'sri rahayu-298-66.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pdf_verifikasi_daftar`
+-- Table structure for table `pdf_verifikasi_daftar`
 --
 
 CREATE TABLE `pdf_verifikasi_daftar` (
@@ -98,175 +81,92 @@ CREATE TABLE `pdf_verifikasi_daftar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `pdf_verifikasi_daftar`
+-- Dumping data for table `pdf_verifikasi_daftar`
 --
 
 INSERT INTO `pdf_verifikasi_daftar` (`id`, `id_verifikasi`, `file_pdf`) VALUES
-(1, 1, '25280_verifikasi.pdf');
+(1, 4, '64298_verifikasi.pdf'),
+(2, 5, '66298_verifikasi.pdf');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `profile`
+-- Table structure for table `profile`
 --
 
 CREATE TABLE `profile` (
   `id` int(6) NOT NULL,
-  `id_user` int(6) DEFAULT NULL,
+  `id_user` bigint(20) UNSIGNED DEFAULT NULL,
   `file_foto` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `profile`
---
-
-INSERT INTO `profile` (`id`, `id_user`, `file_foto`) VALUES
-(1, 6, '6.jpg'),
-(2, 35, '35.jpg'),
-(3, 44, '44.jpg'),
-(4, 45, '45.jpg'),
-(5, 58, '58.jpg'),
-(6, 25, '25.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `rekening_pemilik`
+-- Table structure for table `rekening_pemilik`
 --
 
 CREATE TABLE `rekening_pemilik` (
   `id` int(6) NOT NULL,
-  `id_user` int(6) NOT NULL,
+  `id_user` bigint(20) UNSIGNED NOT NULL,
   `bank` varchar(20) DEFAULT NULL,
   `rekening` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `rekening_pemilik`
+-- Dumping data for table `rekening_pemilik`
 --
 
 INSERT INTO `rekening_pemilik` (`id`, `id_user`, `bank`, `rekening`) VALUES
-(1, 2, NULL, NULL),
-(2, 49, NULL, NULL),
-(3, 54, 'BNI', '123456789'),
-(4, 57, NULL, NULL),
-(5, 59, NULL, NULL),
-(6, 61, NULL, NULL),
-(7, 62, NULL, NULL);
+(1, 65, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `seminar_selesai`
+-- Table structure for table `seminar_selesai`
 --
 
 CREATE TABLE `seminar_selesai` (
   `id` int(6) NOT NULL,
   `id_author` int(6) DEFAULT NULL,
-  `id_post` int(6) DEFAULT NULL,
+  `id_post` bigint(20) UNSIGNED DEFAULT NULL,
   `harga_sm` varchar(30) DEFAULT NULL,
   `terverifikasi` int(5) DEFAULT NULL,
   `status_tf` int(5) NOT NULL DEFAULT 0,
   `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data untuk tabel `seminar_selesai`
---
-
-INSERT INTO `seminar_selesai` (`id`, `id_author`, `id_post`, `harga_sm`, `terverifikasi`, `status_tf`, `created_at`) VALUES
-(1, 54, 241, '50000', 0, 1, '2020-05-16 03:20:09'),
-(2, 59, 280, '75000', 1, 0, '2020-05-16 03:22:22');
-
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `status_seminar`
+-- Table structure for table `status_seminar`
 --
 
 CREATE TABLE `status_seminar` (
   `id` int(6) NOT NULL,
-  `id_post` int(6) DEFAULT NULL,
+  `id_post` bigint(20) UNSIGNED DEFAULT NULL,
   `status_sm` int(3) NOT NULL DEFAULT 0,
   `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data untuk tabel `status_seminar`
---
-
-INSERT INTO `status_seminar` (`id`, `id_post`, `status_sm`, `created_at`) VALUES
-(1, 241, 1, '2020-05-16 03:20:09'),
-(2, 280, 1, '2020-05-16 03:22:22');
-
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `upload_bukti_selesai`
+-- Table structure for table `upload_bukti_selesai`
 --
 
 CREATE TABLE `upload_bukti_selesai` (
   `id` int(6) NOT NULL,
   `id_selesai` int(6) DEFAULT NULL,
-  `id_posts` int(6) DEFAULT NULL,
+  `id_posts` bigint(20) UNSIGNED DEFAULT NULL,
   `file_foto` varchar(30) NOT NULL,
   `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data untuk tabel `upload_bukti_selesai`
---
-
-INSERT INTO `upload_bukti_selesai` (`id`, `id_selesai`, `id_posts`, `file_foto`, `created_at`) VALUES
-(1, 1, 241, 'bukti-1-241.png', '2020-05-16 03:26:25');
-
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user_esinar`
---
-
-CREATE TABLE `user_esinar` (
-  `id` bigint(20) NOT NULL,
-  `user_login` varchar(60) DEFAULT NULL,
-  `firstname` varchar(50) DEFAULT NULL,
-  `lastname` varchar(50) DEFAULT NULL,
-  `status` varchar(20) DEFAULT NULL,
-  `user_id` int(20) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `user_esinar`
---
-
-INSERT INTO `user_esinar` (`id`, `user_login`, `firstname`, `lastname`, `status`, `user_id`, `created_at`) VALUES
-(1, 'jamrud', 'jamrud', 'jamrud', 'subscriber', 37, '2019-11-29 16:53:01'),
-(2, 'pongkibr', 'pngki', 'barata', 'subscriber', 38, '2019-11-30 00:02:25'),
-(3, 'testes', 'tes', 'tes', 'subscriber', 39, '2019-11-30 00:08:34'),
-(4, 'rogape160', 'Rogape', 'Iansen', 'subscriber', 40, '2019-11-30 17:04:30'),
-(5, 'cobacoba', 'coba', 'coba', 'subscriber', 41, '2019-11-30 17:10:08'),
-(6, 'rizkafit21', 'rizka', 'fitrianty', 'subscriber', 42, '2019-12-10 23:08:22'),
-(7, 'des333', 'desta', 'des', 'subscriber', 43, '2019-12-10 23:19:10'),
-(8, 'blaise14', 'blaise', 'matuidi', 'subscriber', 44, '2019-12-13 01:51:37'),
-(9, 'bambang', 'bambang', 'pamungkas', 'subscriber', 45, '2019-12-13 09:03:43'),
-(10, 'iky2102', 'iky', 'febryan', 'subscriber', 46, '2019-12-13 10:58:27'),
-(11, 'ridwanto', 'ridwan', 'aja', 'subscriber', 47, '2019-12-14 10:07:25'),
-(12, 'psrhyu', 'Putri', 'Sri Rahayu', 'subscriber', 48, '2019-12-14 10:47:57'),
-(13, 'pemilik17032225', 'pemilik', '17032225', 'subscriber', 49, '2020-03-17 22:25:35'),
-(14, 'pm2242', 'pemilik', '2242', 'subscriber', 50, '2020-03-17 22:42:34'),
-(15, 'pemilik23', 'pemilik', '23', 'subscriber', 52, '2020-03-17 23:04:11'),
-(16, 'onipmpm', 'oni', 'pm', 'subscriber', 53, '2020-03-17 23:12:49'),
-(17, 'pemilik1803', 'pemilik', '', 'subscriber', 55, '2020-03-18 11:45:35'),
-(18, 'pm1330', 'pemilik', '', 'subscriber', 56, '2020-03-18 13:30:26'),
-(19, 'pemilik1331', 'pemilik', '', 'subscriber', 57, '2020-03-18 13:31:59'),
-(20, 'tiasambar', 'tias', 'ambar', 'subcriber', 58, '2020-03-19 15:06:36'),
-(21, 'pmrogape', 'rogape', 'pm', 'author', 59, '2020-03-19 15:07:47');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `wp_commentmeta`
+-- Table structure for table `wp_commentmeta`
 --
 
 CREATE TABLE `wp_commentmeta` (
@@ -279,7 +179,7 @@ CREATE TABLE `wp_commentmeta` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `wp_comments`
+-- Table structure for table `wp_comments`
 --
 
 CREATE TABLE `wp_comments` (
@@ -303,7 +203,7 @@ CREATE TABLE `wp_comments` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `wp_links`
+-- Table structure for table `wp_links`
 --
 
 CREATE TABLE `wp_links` (
@@ -325,7 +225,7 @@ CREATE TABLE `wp_links` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `wp_options`
+-- Table structure for table `wp_options`
 --
 
 CREATE TABLE `wp_options` (
@@ -336,7 +236,7 @@ CREATE TABLE `wp_options` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `wp_options`
+-- Dumping data for table `wp_options`
 --
 
 INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`) VALUES
@@ -372,7 +272,7 @@ INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (30, 'hack_file', '0', 'yes'),
 (31, 'blog_charset', 'UTF-8', 'yes'),
 (32, 'moderation_keys', '', 'no'),
-(33, 'active_plugins', 'a:16:{i:0;s:30:\"advanced-custom-fields/acf.php\";i:1;s:25:\"bukti-tf-pemilik/init.php\";i:2;s:26:\"custom-form/CustomForm.php\";i:3;s:27:\"data-posts-pemilik/init.php\";i:4;s:45:\"easy-custom-sidebars/easy-custom-sidebars.php\";i:5;s:29:\"list-seminar-pemilik/init.php\";i:6;s:21:\"pemilik-list/init.php\";i:7;s:37:\"recent-posts-widget-extended/rpwe.php\";i:8;s:23:\"report-seminar/init.php\";i:9;s:20:\"report-user/init.php\";i:10;s:34:\"report-verifikasi-seminar/init.php\";i:11;s:45:\"restrict-user-access/restrict-user-access.php\";i:12;s:29:\"seminar-list/seminar-list.php\";i:13;s:24:\"seminar-selesai/init.php\";i:14;s:53:\"wp-custom-register-login/wp-custom-register-login.php\";i:15;s:29:\"wp-mail-smtp/wp_mail_smtp.php\";}', 'yes'),
+(33, 'active_plugins', 'a:16:{i:0;s:30:\"advanced-custom-fields/acf.php\";i:1;s:25:\"bukti-tf-pemilik/init.php\";i:2;s:26:\"custom-form/CustomForm.php\";i:3;s:27:\"data-posts-pemilik/init.php\";i:4;s:45:\"easy-custom-sidebars/easy-custom-sidebars.php\";i:5;s:29:\"list-seminar-pemilik/init.php\";i:6;s:21:\"pemilik-list/init.php\";i:7;s:37:\"recent-posts-widget-extended/rpwe.php\";i:8;s:23:\"report-seminar/init.php\";i:9;s:20:\"report-user/init.php\";i:10;s:34:\"report-verifikasi-seminar/init.php\";i:11;s:45:\"restrict-user-access/restrict-user-access.php\";i:12;s:29:\"seminar-list/seminar-list.php\";i:13;s:24:\"seminar-selesai/init.php\";i:15;s:53:\"wp-custom-register-login/wp-custom-register-login.php\";i:16;s:29:\"wp-mail-smtp/wp_mail_smtp.php\";}', 'yes'),
 (34, 'category_base', '', 'yes'),
 (35, 'ping_sites', 'http://rpc.pingomatic.com/', 'yes'),
 (36, 'comment_max_links', '2', 'yes'),
@@ -441,7 +341,7 @@ INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (99, 'widget_archives', 'a:2:{i:2;a:3:{s:5:\"title\";s:0:\"\";s:5:\"count\";i:0;s:8:\"dropdown\";i:0;}s:12:\"_multiwidget\";i:1;}', 'yes'),
 (100, 'widget_meta', 'a:2:{i:2;a:1:{s:5:\"title\";s:0:\"\";}s:12:\"_multiwidget\";i:1;}', 'yes'),
 (101, 'sidebars_widgets', 'a:4:{s:19:\"wp_inactive_widgets\";a:6:{i:0;s:10:\"archives-2\";i:1;s:6:\"meta-2\";i:2;s:8:\"search-2\";i:3;s:12:\"categories-2\";i:4;s:14:\"recent-posts-2\";i:5;s:17:\"recent-comments-2\";}s:9:\"sidebar-1\";a:1:{i:0;s:13:\"rpwe_widget-2\";}s:8:\"footer-1\";a:0:{}s:13:\"array_version\";i:3;}', 'yes'),
-(102, 'cron', 'a:7:{i:1590652761;a:1:{s:34:\"wp_privacy_delete_old_export_files\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:6:\"hourly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:3600;}}}i:1590688760;a:1:{s:32:\"recovery_mode_clean_expired_keys\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1590688761;a:3:{s:17:\"wp_update_plugins\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_update_themes\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_version_check\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}}i:1590688783;a:2:{s:19:\"wp_scheduled_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}s:25:\"delete_expired_transients\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1590688786;a:1:{s:30:\"wp_scheduled_auto_draft_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1590692400;a:1:{s:26:\"wpca/cache_condition_types\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}s:7:\"version\";i:2;}', 'yes'),
+(102, 'cron', 'a:7:{i:1597867161;a:1:{s:34:\"wp_privacy_delete_old_export_files\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:6:\"hourly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:3600;}}}i:1597903161;a:3:{s:17:\"wp_update_plugins\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_update_themes\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_version_check\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}}i:1597946360;a:1:{s:32:\"recovery_mode_clean_expired_keys\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1597946383;a:2:{s:19:\"wp_scheduled_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}s:25:\"delete_expired_transients\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1597946386;a:1:{s:30:\"wp_scheduled_auto_draft_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1597950000;a:1:{s:26:\"wpca/cache_condition_types\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}s:7:\"version\";i:2;}', 'yes'),
 (103, 'widget_pages', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
 (104, 'widget_calendar', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
 (105, 'widget_media_audio', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
@@ -451,11 +351,11 @@ INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (109, 'widget_tag_cloud', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
 (110, 'widget_nav_menu', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
 (111, 'widget_custom_html', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
-(113, 'recovery_keys', 'a:0:{}', 'yes'),
-(114, '_site_transient_update_core', 'O:8:\"stdClass\":4:{s:7:\"updates\";a:4:{i:0;O:8:\"stdClass\":10:{s:8:\"response\";s:7:\"upgrade\";s:8:\"download\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.4.1.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.4.1.zip\";s:10:\"no_content\";s:70:\"https://downloads.wordpress.org/release/wordpress-5.4.1-no-content.zip\";s:11:\"new_bundled\";s:71:\"https://downloads.wordpress.org/release/wordpress-5.4.1-new-bundled.zip\";s:7:\"partial\";b:0;s:8:\"rollback\";b:0;}s:7:\"current\";s:5:\"5.4.1\";s:7:\"version\";s:5:\"5.4.1\";s:11:\"php_version\";s:6:\"5.6.20\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"5.3\";s:15:\"partial_version\";s:0:\"\";}i:1;O:8:\"stdClass\":11:{s:8:\"response\";s:10:\"autoupdate\";s:8:\"download\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.4.1.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.4.1.zip\";s:10:\"no_content\";s:70:\"https://downloads.wordpress.org/release/wordpress-5.4.1-no-content.zip\";s:11:\"new_bundled\";s:71:\"https://downloads.wordpress.org/release/wordpress-5.4.1-new-bundled.zip\";s:7:\"partial\";b:0;s:8:\"rollback\";b:0;}s:7:\"current\";s:5:\"5.4.1\";s:7:\"version\";s:5:\"5.4.1\";s:11:\"php_version\";s:6:\"5.6.20\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"5.3\";s:15:\"partial_version\";s:0:\"\";s:9:\"new_files\";s:1:\"1\";}i:2;O:8:\"stdClass\":11:{s:8:\"response\";s:10:\"autoupdate\";s:8:\"download\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.3.3.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.3.3.zip\";s:10:\"no_content\";s:70:\"https://downloads.wordpress.org/release/wordpress-5.3.3-no-content.zip\";s:11:\"new_bundled\";s:71:\"https://downloads.wordpress.org/release/wordpress-5.3.3-new-bundled.zip\";s:7:\"partial\";b:0;s:8:\"rollback\";b:0;}s:7:\"current\";s:5:\"5.3.3\";s:7:\"version\";s:5:\"5.3.3\";s:11:\"php_version\";s:6:\"5.6.20\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"5.3\";s:15:\"partial_version\";s:0:\"\";s:9:\"new_files\";s:1:\"1\";}i:3;O:8:\"stdClass\":11:{s:8:\"response\";s:10:\"autoupdate\";s:8:\"download\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.2.6.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.2.6.zip\";s:10:\"no_content\";s:70:\"https://downloads.wordpress.org/release/wordpress-5.2.6-no-content.zip\";s:11:\"new_bundled\";s:71:\"https://downloads.wordpress.org/release/wordpress-5.2.6-new-bundled.zip\";s:7:\"partial\";s:69:\"https://downloads.wordpress.org/release/wordpress-5.2.6-partial-3.zip\";s:8:\"rollback\";s:70:\"https://downloads.wordpress.org/release/wordpress-5.2.6-rollback-3.zip\";}s:7:\"current\";s:5:\"5.2.6\";s:7:\"version\";s:5:\"5.2.6\";s:11:\"php_version\";s:6:\"5.6.20\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"5.3\";s:15:\"partial_version\";s:5:\"5.2.3\";s:9:\"new_files\";s:0:\"\";}}s:12:\"last_checked\";i:1590649345;s:15:\"version_checked\";s:5:\"5.2.3\";s:12:\"translations\";a:0:{}}', 'no'),
+(113, 'recovery_keys', 'a:1:{s:22:\"tShc8N7adb4ZD6sJaYCYEW\";a:2:{s:10:\"hashed_key\";s:34:\"$P$BP3B2e8uYzfwGWT8f6IbY5tb2k6yv/0\";s:10:\"created_at\";i:1597836293;}}', 'yes'),
+(114, '_site_transient_update_core', 'O:8:\"stdClass\":4:{s:7:\"updates\";a:5:{i:0;O:8:\"stdClass\":10:{s:8:\"response\";s:7:\"upgrade\";s:8:\"download\";s:57:\"https://downloads.wordpress.org/release/wordpress-5.5.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:57:\"https://downloads.wordpress.org/release/wordpress-5.5.zip\";s:10:\"no_content\";s:68:\"https://downloads.wordpress.org/release/wordpress-5.5-no-content.zip\";s:11:\"new_bundled\";s:69:\"https://downloads.wordpress.org/release/wordpress-5.5-new-bundled.zip\";s:7:\"partial\";b:0;s:8:\"rollback\";b:0;}s:7:\"current\";s:3:\"5.5\";s:7:\"version\";s:3:\"5.5\";s:11:\"php_version\";s:6:\"5.6.20\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"5.3\";s:15:\"partial_version\";s:0:\"\";}i:1;O:8:\"stdClass\":11:{s:8:\"response\";s:10:\"autoupdate\";s:8:\"download\";s:57:\"https://downloads.wordpress.org/release/wordpress-5.5.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:57:\"https://downloads.wordpress.org/release/wordpress-5.5.zip\";s:10:\"no_content\";s:68:\"https://downloads.wordpress.org/release/wordpress-5.5-no-content.zip\";s:11:\"new_bundled\";s:69:\"https://downloads.wordpress.org/release/wordpress-5.5-new-bundled.zip\";s:7:\"partial\";b:0;s:8:\"rollback\";b:0;}s:7:\"current\";s:3:\"5.5\";s:7:\"version\";s:3:\"5.5\";s:11:\"php_version\";s:6:\"5.6.20\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"5.3\";s:15:\"partial_version\";s:0:\"\";s:9:\"new_files\";s:1:\"1\";}i:2;O:8:\"stdClass\":11:{s:8:\"response\";s:10:\"autoupdate\";s:8:\"download\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.4.2.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.4.2.zip\";s:10:\"no_content\";s:70:\"https://downloads.wordpress.org/release/wordpress-5.4.2-no-content.zip\";s:11:\"new_bundled\";s:71:\"https://downloads.wordpress.org/release/wordpress-5.4.2-new-bundled.zip\";s:7:\"partial\";b:0;s:8:\"rollback\";b:0;}s:7:\"current\";s:5:\"5.4.2\";s:7:\"version\";s:5:\"5.4.2\";s:11:\"php_version\";s:6:\"5.6.20\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"5.3\";s:15:\"partial_version\";s:0:\"\";s:9:\"new_files\";s:1:\"1\";}i:3;O:8:\"stdClass\":11:{s:8:\"response\";s:10:\"autoupdate\";s:8:\"download\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.3.4.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.3.4.zip\";s:10:\"no_content\";s:70:\"https://downloads.wordpress.org/release/wordpress-5.3.4-no-content.zip\";s:11:\"new_bundled\";s:71:\"https://downloads.wordpress.org/release/wordpress-5.3.4-new-bundled.zip\";s:7:\"partial\";b:0;s:8:\"rollback\";b:0;}s:7:\"current\";s:5:\"5.3.4\";s:7:\"version\";s:5:\"5.3.4\";s:11:\"php_version\";s:6:\"5.6.20\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"5.3\";s:15:\"partial_version\";s:0:\"\";s:9:\"new_files\";s:1:\"1\";}i:4;O:8:\"stdClass\":11:{s:8:\"response\";s:10:\"autoupdate\";s:8:\"download\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.2.7.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.2.7.zip\";s:10:\"no_content\";s:70:\"https://downloads.wordpress.org/release/wordpress-5.2.7-no-content.zip\";s:11:\"new_bundled\";s:71:\"https://downloads.wordpress.org/release/wordpress-5.2.7-new-bundled.zip\";s:7:\"partial\";s:69:\"https://downloads.wordpress.org/release/wordpress-5.2.7-partial-3.zip\";s:8:\"rollback\";s:70:\"https://downloads.wordpress.org/release/wordpress-5.2.7-rollback-3.zip\";}s:7:\"current\";s:5:\"5.2.7\";s:7:\"version\";s:5:\"5.2.7\";s:11:\"php_version\";s:6:\"5.6.20\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"5.3\";s:15:\"partial_version\";s:5:\"5.2.3\";s:9:\"new_files\";s:0:\"\";}}s:12:\"last_checked\";i:1597859977;s:15:\"version_checked\";s:5:\"5.2.3\";s:12:\"translations\";a:0:{}}', 'no'),
 (115, 'theme_mods_twentynineteen', 'a:2:{s:18:\"custom_css_post_id\";i:-1;s:16:\"sidebars_widgets\";a:2:{s:4:\"time\";i:1569607761;s:4:\"data\";a:2:{s:19:\"wp_inactive_widgets\";a:0:{}s:9:\"sidebar-1\";a:6:{i:0;s:8:\"search-2\";i:1;s:14:\"recent-posts-2\";i:2;s:17:\"recent-comments-2\";i:3;s:10:\"archives-2\";i:4;s:12:\"categories-2\";i:5;s:6:\"meta-2\";}}}}', 'yes'),
 (126, 'can_compress_scripts', '1', 'no'),
-(143, 'recently_activated', 'a:0:{}', 'yes'),
+(143, 'recently_activated', 'a:1:{s:26:\"test-plugin/TestPlugin.php\";i:1593182923;}', 'yes'),
 (146, 'current_theme', 'Talon', 'yes'),
 (147, 'theme_mods_talon', 'a:10:{i:0;b:0;s:18:\"nav_menu_locations\";a:1:{s:7:\"primary\";i:4;}s:18:\"custom_css_post_id\";i:-1;s:17:\"front_header_type\";s:9:\"has-image\";s:16:\"site_header_type\";s:9:\"has-image\";s:12:\"header_image\";s:74:\"http://localhost/e_sinar/wp-content/uploads/2019/09/cropped-janEE_16x9.jpg\";s:17:\"header_image_data\";O:8:\"stdClass\":5:{s:13:\"attachment_id\";i:42;s:3:\"url\";s:74:\"http://localhost/e_sinar/wp-content/uploads/2019/09/cropped-janEE_16x9.jpg\";s:13:\"thumbnail_url\";s:74:\"http://localhost/e_sinar/wp-content/uploads/2019/09/cropped-janEE_16x9.jpg\";s:6:\"height\";i:1079;s:5:\"width\";i:1920;}s:19:\"footer_widget_areas\";s:1:\"1\";s:16:\"sidebars_widgets\";a:2:{s:4:\"time\";i:1570369198;s:4:\"data\";a:3:{s:19:\"wp_inactive_widgets\";a:0:{}s:9:\"sidebar-1\";a:1:{i:0;s:13:\"rpwe_widget-4\";}s:8:\"footer-1\";a:0:{}}}s:11:\"custom_logo\";i:134;}', 'yes'),
 (148, 'theme_switched', '', 'yes'),
@@ -495,13 +395,13 @@ INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (392, 'wp_mail_smtp_debug', 'a:0:{}', 'no'),
 (396, 'WPLANG', '', 'yes'),
 (397, 'new_admin_email', 'rizkyfebryan21@gmail.com', 'yes'),
-(559, 'recovery_mode_email_last_sent', '1588273029', 'yes'),
+(559, 'recovery_mode_email_last_sent', '1597836293', 'yes'),
 (974, 'fs_active_plugins', 'O:8:\"stdClass\":3:{s:7:\"plugins\";a:1:{s:33:\"restrict-user-access/lib/freemius\";O:8:\"stdClass\":4:{s:7:\"version\";s:5:\"2.3.1\";s:4:\"type\";s:6:\"plugin\";s:9:\"timestamp\";i:1587914375;s:11:\"plugin_path\";s:45:\"restrict-user-access/restrict-user-access.php\";}}s:7:\"abspath\";s:24:\"C:\\xampp\\htdocs\\e_sinar/\";s:6:\"newest\";O:8:\"stdClass\":5:{s:11:\"plugin_path\";s:45:\"restrict-user-access/restrict-user-access.php\";s:8:\"sdk_path\";s:33:\"restrict-user-access/lib/freemius\";s:7:\"version\";s:5:\"2.3.1\";s:13:\"in_activation\";b:0;s:9:\"timestamp\";i:1587914375;}}', 'yes'),
 (975, 'fs_debug_mode', '', 'yes'),
-(976, 'fs_accounts', 'a:6:{s:21:\"id_slug_type_path_map\";a:1:{i:1538;a:3:{s:4:\"slug\";s:20:\"restrict-user-access\";s:4:\"type\";s:6:\"plugin\";s:4:\"path\";s:45:\"restrict-user-access/restrict-user-access.php\";}}s:11:\"plugin_data\";a:1:{s:20:\"restrict-user-access\";a:14:{s:16:\"plugin_main_file\";O:8:\"stdClass\":1:{s:4:\"path\";s:45:\"restrict-user-access/restrict-user-access.php\";}s:20:\"is_network_activated\";b:0;s:17:\"install_timestamp\";i:1576177771;s:17:\"was_plugin_loaded\";b:1;s:21:\"is_plugin_new_install\";b:0;s:16:\"sdk_last_version\";N;s:11:\"sdk_version\";s:5:\"2.3.1\";s:16:\"sdk_upgrade_mode\";b:1;s:18:\"sdk_downgrade_mode\";b:0;s:19:\"plugin_last_version\";N;s:14:\"plugin_version\";s:5:\"1.2.1\";s:19:\"plugin_upgrade_mode\";b:1;s:21:\"plugin_downgrade_mode\";b:0;s:17:\"connectivity_test\";a:6:{s:12:\"is_connected\";b:1;s:4:\"host\";s:9:\"localhost\";s:9:\"server_ip\";s:3:\"::1\";s:9:\"is_active\";b:0;s:9:\"timestamp\";i:1576177771;s:7:\"version\";s:5:\"1.2.1\";}}}s:13:\"file_slug_map\";a:1:{s:45:\"restrict-user-access/restrict-user-access.php\";s:20:\"restrict-user-access\";}s:7:\"plugins\";a:1:{s:20:\"restrict-user-access\";O:9:\"FS_Plugin\":23:{s:16:\"parent_plugin_id\";N;s:5:\"title\";s:20:\"Restrict User Access\";s:4:\"slug\";s:20:\"restrict-user-access\";s:12:\"premium_slug\";s:28:\"restrict-user-access-premium\";s:4:\"type\";s:6:\"plugin\";s:20:\"affiliate_moderation\";b:0;s:19:\"is_wp_org_compliant\";b:1;s:22:\"premium_releases_count\";N;s:4:\"file\";s:45:\"restrict-user-access/restrict-user-access.php\";s:7:\"version\";s:5:\"1.2.1\";s:11:\"auto_update\";N;s:4:\"info\";N;s:10:\"is_premium\";b:0;s:14:\"premium_suffix\";s:9:\"(Premium)\";s:7:\"is_live\";b:1;s:9:\"bundle_id\";N;s:17:\"bundle_public_key\";N;s:10:\"public_key\";s:32:\"pk_606dec7b339c246a1bad6a6a04c52\";s:10:\"secret_key\";N;s:2:\"id\";s:4:\"1538\";s:7:\"updated\";N;s:7:\"created\";N;s:22:\"\0FS_Entity\0_is_updated\";b:0;}}s:9:\"unique_id\";s:32:\"57525293c5251a6cb8765204bda833da\";s:6:\"addons\";a:1:{i:1538;a:4:{i:0;O:9:\"FS_Plugin\":23:{s:16:\"parent_plugin_id\";s:4:\"1538\";s:5:\"title\";s:16:\"Date Restriction\";s:4:\"slug\";s:17:\"rua-restrict-date\";s:12:\"premium_slug\";s:25:\"rua-restrict-date-premium\";s:4:\"type\";s:6:\"plugin\";s:20:\"affiliate_moderation\";N;s:19:\"is_wp_org_compliant\";b:0;s:22:\"premium_releases_count\";i:5;s:4:\"file\";N;s:7:\"version\";N;s:11:\"auto_update\";N;s:4:\"info\";O:14:\"FS_Plugin_Info\":13:{s:9:\"plugin_id\";s:4:\"1539\";s:11:\"description\";s:334:\"<p>You can now easily restrict content based on the time it was added to your membership site!</p>\n<p>This add-on enables a new <b>Date Access Condition</b> that you can add to your Access Levels. Limit access to any content published at a select time, or combine the condition to limit only posts, pages, or any custom post type.</p>\";s:17:\"short_description\";s:90:\"New Access Condition to easily restrict content published on a select day, month, or year!\";s:10:\"banner_url\";s:61:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1539/banner.png\";s:15:\"card_banner_url\";s:66:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1539/card_banner.png\";s:15:\"selling_point_0\";s:39:\"Give exclusive access to upcoming posts\";s:15:\"selling_point_1\";s:42:\"Drip content from last year to new members\";s:15:\"selling_point_2\";s:39:\"Combine with any other Access Condition\";s:11:\"screenshots\";O:8:\"stdClass\":3:{s:12:\"screenshot_0\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1539/screenshots/0.png\";s:12:\"screenshot_1\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1539/screenshots/1.png\";s:12:\"screenshot_2\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1539/screenshots/2.png\";}s:2:\"id\";s:2:\"93\";s:7:\"updated\";s:19:\"2020-01-14 09:19:31\";s:7:\"created\";s:19:\"2017-11-15 23:39:13\";s:22:\"\0FS_Entity\0_is_updated\";b:0;}s:10:\"is_premium\";b:0;s:14:\"premium_suffix\";s:9:\"(Premium)\";s:7:\"is_live\";b:1;s:9:\"bundle_id\";N;s:17:\"bundle_public_key\";N;s:10:\"public_key\";s:32:\"pk_825ac0fd17eed5ce23c5e981ab061\";s:10:\"secret_key\";N;s:2:\"id\";s:4:\"1539\";s:7:\"updated\";s:19:\"2020-04-09 07:35:15\";s:7:\"created\";s:19:\"2017-11-15 00:14:38\";s:22:\"\0FS_Entity\0_is_updated\";b:0;}i:1;O:9:\"FS_Plugin\":23:{s:16:\"parent_plugin_id\";s:4:\"1538\";s:5:\"title\";s:15:\"URL Restriction\";s:4:\"slug\";s:16:\"rua-restrict-url\";s:12:\"premium_slug\";s:24:\"rua-restrict-url-premium\";s:4:\"type\";s:6:\"plugin\";s:20:\"affiliate_moderation\";N;s:19:\"is_wp_org_compliant\";b:0;s:22:\"premium_releases_count\";i:7;s:4:\"file\";N;s:7:\"version\";N;s:11:\"auto_update\";N;s:4:\"info\";O:14:\"FS_Plugin_Info\":13:{s:9:\"plugin_id\";s:4:\"1716\";s:11:\"description\";s:356:\"<p>You can now easily restrict any page on your membership site, no matter what URL it has!</p>\n<p>This add-on enables a new <b>URL Access Condition</b> that you can add to your Access Levels. Limit access to specific custom pages, or restrict content with dynamic URLs.</p>\n<p></p>\n<p><b>This add-on does currently not limit access to asset files.</b></p>\";s:17:\"short_description\";s:92:\"New Access Condition to easily restrict any custom WordPress URL, with support of wildcards!\";s:10:\"banner_url\";s:61:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1716/banner.png\";s:15:\"card_banner_url\";s:66:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1716/card_banner.png\";s:15:\"selling_point_0\";s:36:\"Limit access to any URL in WordPress\";s:15:\"selling_point_1\";s:41:\"Use wildcards to target specific keywords\";s:15:\"selling_point_2\";s:39:\"Combine with any other Access Condition\";s:11:\"screenshots\";O:8:\"stdClass\":3:{s:12:\"screenshot_0\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1716/screenshots/0.png\";s:12:\"screenshot_1\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1716/screenshots/1.png\";s:12:\"screenshot_2\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1716/screenshots/2.png\";}s:2:\"id\";s:3:\"141\";s:7:\"updated\";s:19:\"2020-04-11 19:21:21\";s:7:\"created\";s:19:\"2018-02-09 19:31:48\";s:22:\"\0FS_Entity\0_is_updated\";b:0;}s:10:\"is_premium\";b:0;s:14:\"premium_suffix\";s:9:\"(Premium)\";s:7:\"is_live\";b:1;s:9:\"bundle_id\";N;s:17:\"bundle_public_key\";N;s:10:\"public_key\";s:32:\"pk_91089dff383d3e4c66d1a37b625ac\";s:10:\"secret_key\";N;s:2:\"id\";s:4:\"1716\";s:7:\"updated\";s:19:\"2020-05-13 12:06:06\";s:7:\"created\";s:19:\"2018-02-09 19:20:50\";s:22:\"\0FS_Entity\0_is_updated\";b:0;}i:2;O:9:\"FS_Plugin\":23:{s:16:\"parent_plugin_id\";s:4:\"1538\";s:5:\"title\";s:8:\"Timelock\";s:4:\"slug\";s:12:\"rua-timelock\";s:12:\"premium_slug\";s:20:\"rua-timelock-premium\";s:4:\"type\";s:6:\"plugin\";s:20:\"affiliate_moderation\";N;s:19:\"is_wp_org_compliant\";b:0;s:22:\"premium_releases_count\";i:5;s:4:\"file\";N;s:7:\"version\";N;s:11:\"auto_update\";N;s:4:\"info\";O:14:\"FS_Plugin_Info\":13:{s:9:\"plugin_id\";s:4:\"1740\";s:11:\"description\";s:500:\"<p>This add-on is perfect for site owners who wants an easy way to make content become restricted and/or unrestricted at a certain time and date automatically.</p>\n<p>Simply specify a date and a time for any restrictions in your levels. Make content freely accessible at first, then restrict it to members only after a select time, or limit access to members at first, and then unlock it for everyone. It\'s even possible to combine the times so content is only restricted in a certain time range.</p>\";s:17:\"short_description\";s:63:\"Set a date and a time to activate/deactivate Access Conditions!\";s:10:\"banner_url\";s:61:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1740/banner.png\";s:15:\"card_banner_url\";s:66:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1740/card_banner.png\";s:15:\"selling_point_0\";s:36:\"Lock content for a limited time only\";s:15:\"selling_point_1\";s:66:\"Give early access to premium content before unlocking for everyone\";s:15:\"selling_point_2\";s:32:\"Works with all Access Conditions\";s:11:\"screenshots\";O:8:\"stdClass\":3:{s:12:\"screenshot_0\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1740/screenshots/0.png\";s:12:\"screenshot_1\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1740/screenshots/1.png\";s:12:\"screenshot_2\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1740/screenshots/2.png\";}s:2:\"id\";s:3:\"147\";s:7:\"updated\";s:19:\"2020-01-14 09:24:46\";s:7:\"created\";s:19:\"2018-02-15 20:10:47\";s:22:\"\0FS_Entity\0_is_updated\";b:0;}s:10:\"is_premium\";b:0;s:14:\"premium_suffix\";s:9:\"(Premium)\";s:7:\"is_live\";b:1;s:9:\"bundle_id\";N;s:17:\"bundle_public_key\";N;s:10:\"public_key\";s:32:\"pk_9bddbbc0d3a534ca5241873a0aa8b\";s:10:\"secret_key\";N;s:2:\"id\";s:4:\"1740\";s:7:\"updated\";s:19:\"2020-05-08 11:20:37\";s:7:\"created\";s:19:\"2018-02-14 23:58:02\";s:22:\"\0FS_Entity\0_is_updated\";b:0;}i:3;O:9:\"FS_Plugin\":23:{s:16:\"parent_plugin_id\";s:4:\"1538\";s:5:\"title\";s:15:\"ACF Restriction\";s:4:\"slug\";s:16:\"rua-restrict-acf\";s:12:\"premium_slug\";s:24:\"rua-restrict-acf-premium\";s:4:\"type\";s:6:\"plugin\";s:20:\"affiliate_moderation\";N;s:19:\"is_wp_org_compliant\";b:0;s:22:\"premium_releases_count\";i:2;s:4:\"file\";N;s:7:\"version\";N;s:11:\"auto_update\";N;s:4:\"info\";O:14:\"FS_Plugin_Info\":13:{s:9:\"plugin_id\";s:4:\"5849\";s:11:\"description\";s:426:\"<p>You can now easily restrict content based on data from Advanced Custom Fields!</p>\n<p>This add-on enables a new <b>ACF Access Condition</b> that you can add to your Access Levels. Limit access to any content with a specific custom field and value, or combine the condition to limit only posts, pages, or any custom post type.</p>\n<p></p>\n<p><b>This add-on requires the Advanced Custom Fields plugin to be installed.</b></p>\";s:17:\"short_description\";s:88:\"New Access Condition to easily restrict content with select Advanced Custom Fields data!\";s:10:\"banner_url\";s:61:\"//s3-us-west-2.amazonaws.com/freemius/plugins/5849/banner.png\";s:15:\"card_banner_url\";s:66:\"//s3-us-west-2.amazonaws.com/freemius/plugins/5849/card_banner.png\";s:15:\"selling_point_0\";s:44:\"Give exclusive access to pages with ACF data\";s:15:\"selling_point_1\";s:45:\"Protect custom fields from unauthorized users\";s:15:\"selling_point_2\";s:39:\"Combine with any other Access Condition\";s:11:\"screenshots\";N;s:2:\"id\";s:4:\"1542\";s:7:\"updated\";s:19:\"2020-04-11 19:16:52\";s:7:\"created\";s:19:\"2020-04-10 22:21:40\";s:22:\"\0FS_Entity\0_is_updated\";b:0;}s:10:\"is_premium\";b:0;s:14:\"premium_suffix\";s:9:\"(Premium)\";s:7:\"is_live\";b:1;s:9:\"bundle_id\";N;s:17:\"bundle_public_key\";N;s:10:\"public_key\";s:32:\"pk_05cf5773ce8afcbb36084c30e884e\";s:10:\"secret_key\";N;s:2:\"id\";s:4:\"5849\";s:7:\"updated\";s:19:\"2020-05-16 06:23:02\";s:7:\"created\";s:19:\"2020-04-08 07:22:48\";s:22:\"\0FS_Entity\0_is_updated\";b:0;}}}}', 'yes'),
+(976, 'fs_accounts', 'a:6:{s:21:\"id_slug_type_path_map\";a:1:{i:1538;a:3:{s:4:\"slug\";s:20:\"restrict-user-access\";s:4:\"type\";s:6:\"plugin\";s:4:\"path\";s:45:\"restrict-user-access/restrict-user-access.php\";}}s:11:\"plugin_data\";a:1:{s:20:\"restrict-user-access\";a:14:{s:16:\"plugin_main_file\";O:8:\"stdClass\":1:{s:4:\"path\";s:45:\"restrict-user-access/restrict-user-access.php\";}s:20:\"is_network_activated\";b:0;s:17:\"install_timestamp\";i:1576177771;s:17:\"was_plugin_loaded\";b:1;s:21:\"is_plugin_new_install\";b:0;s:16:\"sdk_last_version\";N;s:11:\"sdk_version\";s:5:\"2.3.1\";s:16:\"sdk_upgrade_mode\";b:1;s:18:\"sdk_downgrade_mode\";b:0;s:19:\"plugin_last_version\";N;s:14:\"plugin_version\";s:5:\"1.2.1\";s:19:\"plugin_upgrade_mode\";b:1;s:21:\"plugin_downgrade_mode\";b:0;s:17:\"connectivity_test\";a:6:{s:12:\"is_connected\";b:1;s:4:\"host\";s:9:\"localhost\";s:9:\"server_ip\";s:3:\"::1\";s:9:\"is_active\";b:0;s:9:\"timestamp\";i:1576177771;s:7:\"version\";s:5:\"1.2.1\";}}}s:13:\"file_slug_map\";a:1:{s:45:\"restrict-user-access/restrict-user-access.php\";s:20:\"restrict-user-access\";}s:7:\"plugins\";a:1:{s:20:\"restrict-user-access\";O:9:\"FS_Plugin\":23:{s:16:\"parent_plugin_id\";N;s:5:\"title\";s:20:\"Restrict User Access\";s:4:\"slug\";s:20:\"restrict-user-access\";s:12:\"premium_slug\";s:28:\"restrict-user-access-premium\";s:4:\"type\";s:6:\"plugin\";s:20:\"affiliate_moderation\";b:0;s:19:\"is_wp_org_compliant\";b:1;s:22:\"premium_releases_count\";N;s:4:\"file\";s:45:\"restrict-user-access/restrict-user-access.php\";s:7:\"version\";s:5:\"1.2.1\";s:11:\"auto_update\";N;s:4:\"info\";N;s:10:\"is_premium\";b:0;s:14:\"premium_suffix\";s:9:\"(Premium)\";s:7:\"is_live\";b:1;s:9:\"bundle_id\";N;s:17:\"bundle_public_key\";N;s:10:\"public_key\";s:32:\"pk_606dec7b339c246a1bad6a6a04c52\";s:10:\"secret_key\";N;s:2:\"id\";s:4:\"1538\";s:7:\"updated\";N;s:7:\"created\";N;s:22:\"\0FS_Entity\0_is_updated\";b:0;}}s:9:\"unique_id\";s:32:\"57525293c5251a6cb8765204bda833da\";s:6:\"addons\";a:1:{i:1538;a:4:{i:0;O:9:\"FS_Plugin\":23:{s:16:\"parent_plugin_id\";s:4:\"1538\";s:5:\"title\";s:16:\"Date Restriction\";s:4:\"slug\";s:17:\"rua-restrict-date\";s:12:\"premium_slug\";s:25:\"rua-restrict-date-premium\";s:4:\"type\";s:6:\"plugin\";s:20:\"affiliate_moderation\";N;s:19:\"is_wp_org_compliant\";b:0;s:22:\"premium_releases_count\";i:5;s:4:\"file\";N;s:7:\"version\";N;s:11:\"auto_update\";N;s:4:\"info\";O:14:\"FS_Plugin_Info\":13:{s:9:\"plugin_id\";s:4:\"1539\";s:11:\"description\";s:334:\"<p>You can now easily restrict content based on the time it was added to your membership site!</p>\n<p>This add-on enables a new <b>Date Access Condition</b> that you can add to your Access Levels. Limit access to any content published at a select time, or combine the condition to limit only posts, pages, or any custom post type.</p>\";s:17:\"short_description\";s:90:\"New Access Condition to easily restrict content published on a select day, month, or year!\";s:10:\"banner_url\";s:61:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1539/banner.png\";s:15:\"card_banner_url\";s:66:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1539/card_banner.png\";s:15:\"selling_point_0\";s:39:\"Give exclusive access to upcoming posts\";s:15:\"selling_point_1\";s:42:\"Drip content from last year to new members\";s:15:\"selling_point_2\";s:39:\"Combine with any other Access Condition\";s:11:\"screenshots\";O:8:\"stdClass\":3:{s:12:\"screenshot_0\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1539/screenshots/0.png\";s:12:\"screenshot_1\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1539/screenshots/1.png\";s:12:\"screenshot_2\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1539/screenshots/2.png\";}s:2:\"id\";s:2:\"93\";s:7:\"updated\";s:19:\"2020-01-14 09:19:31\";s:7:\"created\";s:19:\"2017-11-15 23:39:13\";s:22:\"\0FS_Entity\0_is_updated\";b:0;}s:10:\"is_premium\";b:0;s:14:\"premium_suffix\";s:9:\"(Premium)\";s:7:\"is_live\";b:1;s:9:\"bundle_id\";N;s:17:\"bundle_public_key\";N;s:10:\"public_key\";s:32:\"pk_825ac0fd17eed5ce23c5e981ab061\";s:10:\"secret_key\";N;s:2:\"id\";s:4:\"1539\";s:7:\"updated\";s:19:\"2020-06-12 05:56:49\";s:7:\"created\";s:19:\"2017-11-15 00:14:38\";s:22:\"\0FS_Entity\0_is_updated\";b:0;}i:1;O:9:\"FS_Plugin\":23:{s:16:\"parent_plugin_id\";s:4:\"1538\";s:5:\"title\";s:15:\"URL Restriction\";s:4:\"slug\";s:16:\"rua-restrict-url\";s:12:\"premium_slug\";s:24:\"rua-restrict-url-premium\";s:4:\"type\";s:6:\"plugin\";s:20:\"affiliate_moderation\";N;s:19:\"is_wp_org_compliant\";b:0;s:22:\"premium_releases_count\";i:7;s:4:\"file\";N;s:7:\"version\";N;s:11:\"auto_update\";N;s:4:\"info\";O:14:\"FS_Plugin_Info\":13:{s:9:\"plugin_id\";s:4:\"1716\";s:11:\"description\";s:356:\"<p>You can now easily restrict any page on your membership site, no matter what URL it has!</p>\n<p>This add-on enables a new <b>URL Access Condition</b> that you can add to your Access Levels. Limit access to specific custom pages, or restrict content with dynamic URLs.</p>\n<p></p>\n<p><b>This add-on does currently not limit access to asset files.</b></p>\";s:17:\"short_description\";s:92:\"New Access Condition to easily restrict any custom WordPress URL, with support of wildcards!\";s:10:\"banner_url\";s:61:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1716/banner.png\";s:15:\"card_banner_url\";s:66:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1716/card_banner.png\";s:15:\"selling_point_0\";s:36:\"Limit access to any URL in WordPress\";s:15:\"selling_point_1\";s:41:\"Use wildcards to target specific keywords\";s:15:\"selling_point_2\";s:39:\"Combine with any other Access Condition\";s:11:\"screenshots\";O:8:\"stdClass\":3:{s:12:\"screenshot_0\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1716/screenshots/0.png\";s:12:\"screenshot_1\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1716/screenshots/1.png\";s:12:\"screenshot_2\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1716/screenshots/2.png\";}s:2:\"id\";s:3:\"141\";s:7:\"updated\";s:19:\"2020-04-11 19:21:21\";s:7:\"created\";s:19:\"2018-02-09 19:31:48\";s:22:\"\0FS_Entity\0_is_updated\";b:0;}s:10:\"is_premium\";b:0;s:14:\"premium_suffix\";s:9:\"(Premium)\";s:7:\"is_live\";b:1;s:9:\"bundle_id\";N;s:17:\"bundle_public_key\";N;s:10:\"public_key\";s:32:\"pk_91089dff383d3e4c66d1a37b625ac\";s:10:\"secret_key\";N;s:2:\"id\";s:4:\"1716\";s:7:\"updated\";s:19:\"2020-08-18 11:00:08\";s:7:\"created\";s:19:\"2018-02-09 19:20:50\";s:22:\"\0FS_Entity\0_is_updated\";b:0;}i:2;O:9:\"FS_Plugin\":23:{s:16:\"parent_plugin_id\";s:4:\"1538\";s:5:\"title\";s:8:\"Timelock\";s:4:\"slug\";s:12:\"rua-timelock\";s:12:\"premium_slug\";s:20:\"rua-timelock-premium\";s:4:\"type\";s:6:\"plugin\";s:20:\"affiliate_moderation\";N;s:19:\"is_wp_org_compliant\";b:0;s:22:\"premium_releases_count\";i:5;s:4:\"file\";N;s:7:\"version\";N;s:11:\"auto_update\";N;s:4:\"info\";O:14:\"FS_Plugin_Info\":13:{s:9:\"plugin_id\";s:4:\"1740\";s:11:\"description\";s:500:\"<p>This add-on is perfect for site owners who wants an easy way to make content become restricted and/or unrestricted at a certain time and date automatically.</p>\n<p>Simply specify a date and a time for any restrictions in your levels. Make content freely accessible at first, then restrict it to members only after a select time, or limit access to members at first, and then unlock it for everyone. It\'s even possible to combine the times so content is only restricted in a certain time range.</p>\";s:17:\"short_description\";s:63:\"Set a date and a time to activate/deactivate Access Conditions!\";s:10:\"banner_url\";s:61:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1740/banner.png\";s:15:\"card_banner_url\";s:66:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1740/card_banner.png\";s:15:\"selling_point_0\";s:36:\"Lock content for a limited time only\";s:15:\"selling_point_1\";s:66:\"Give early access to premium content before unlocking for everyone\";s:15:\"selling_point_2\";s:32:\"Works with all Access Conditions\";s:11:\"screenshots\";O:8:\"stdClass\":3:{s:12:\"screenshot_0\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1740/screenshots/0.png\";s:12:\"screenshot_1\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1740/screenshots/1.png\";s:12:\"screenshot_2\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1740/screenshots/2.png\";}s:2:\"id\";s:3:\"147\";s:7:\"updated\";s:19:\"2020-01-14 09:24:46\";s:7:\"created\";s:19:\"2018-02-15 20:10:47\";s:22:\"\0FS_Entity\0_is_updated\";b:0;}s:10:\"is_premium\";b:0;s:14:\"premium_suffix\";s:9:\"(Premium)\";s:7:\"is_live\";b:1;s:9:\"bundle_id\";N;s:17:\"bundle_public_key\";N;s:10:\"public_key\";s:32:\"pk_9bddbbc0d3a534ca5241873a0aa8b\";s:10:\"secret_key\";N;s:2:\"id\";s:4:\"1740\";s:7:\"updated\";s:19:\"2020-08-10 11:35:06\";s:7:\"created\";s:19:\"2018-02-14 23:58:02\";s:22:\"\0FS_Entity\0_is_updated\";b:0;}i:3;O:9:\"FS_Plugin\":23:{s:16:\"parent_plugin_id\";s:4:\"1538\";s:5:\"title\";s:15:\"ACF Restriction\";s:4:\"slug\";s:16:\"rua-restrict-acf\";s:12:\"premium_slug\";s:24:\"rua-restrict-acf-premium\";s:4:\"type\";s:6:\"plugin\";s:20:\"affiliate_moderation\";N;s:19:\"is_wp_org_compliant\";b:0;s:22:\"premium_releases_count\";i:2;s:4:\"file\";N;s:7:\"version\";N;s:11:\"auto_update\";N;s:4:\"info\";O:14:\"FS_Plugin_Info\":13:{s:9:\"plugin_id\";s:4:\"5849\";s:11:\"description\";s:426:\"<p>You can now easily restrict content based on data from Advanced Custom Fields!</p>\n<p>This add-on enables a new <b>ACF Access Condition</b> that you can add to your Access Levels. Limit access to any content with a specific custom field and value, or combine the condition to limit only posts, pages, or any custom post type.</p>\n<p></p>\n<p><b>This add-on requires the Advanced Custom Fields plugin to be installed.</b></p>\";s:17:\"short_description\";s:88:\"New Access Condition to easily restrict content with select Advanced Custom Fields data!\";s:10:\"banner_url\";s:61:\"//s3-us-west-2.amazonaws.com/freemius/plugins/5849/banner.png\";s:15:\"card_banner_url\";s:66:\"//s3-us-west-2.amazonaws.com/freemius/plugins/5849/card_banner.png\";s:15:\"selling_point_0\";s:44:\"Give exclusive access to pages with ACF data\";s:15:\"selling_point_1\";s:45:\"Protect custom fields from unauthorized users\";s:15:\"selling_point_2\";s:39:\"Combine with any other Access Condition\";s:11:\"screenshots\";N;s:2:\"id\";s:4:\"1542\";s:7:\"updated\";s:19:\"2020-04-11 19:16:52\";s:7:\"created\";s:19:\"2020-04-10 22:21:40\";s:22:\"\0FS_Entity\0_is_updated\";b:0;}s:10:\"is_premium\";b:0;s:14:\"premium_suffix\";s:9:\"(Premium)\";s:7:\"is_live\";b:1;s:9:\"bundle_id\";N;s:17:\"bundle_public_key\";N;s:10:\"public_key\";s:32:\"pk_05cf5773ce8afcbb36084c30e884e\";s:10:\"secret_key\";N;s:2:\"id\";s:4:\"5849\";s:7:\"updated\";s:19:\"2020-08-19 08:59:29\";s:7:\"created\";s:19:\"2020-04-08 07:22:48\";s:22:\"\0FS_Entity\0_is_updated\";b:0;}}}}', 'yes'),
 (977, 'fs_gdpr', 'a:1:{s:2:\"u1\";a:1:{s:8:\"required\";b:0;}}', 'yes');
 INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`) VALUES
-(978, 'fs_api_cache', 'a:1:{s:55:\"get:/v1/plugins/1538/addons.json?enriched=true&count=50\";O:8:\"stdClass\":3:{s:6:\"result\";O:8:\"stdClass\":1:{s:7:\"plugins\";a:4:{i:0;O:8:\"stdClass\":38:{s:16:\"parent_plugin_id\";s:4:\"1538\";s:12:\"developer_id\";s:3:\"172\";s:10:\"install_id\";s:7:\"1008295\";s:4:\"slug\";s:17:\"rua-restrict-date\";s:5:\"title\";s:16:\"Date Restriction\";s:11:\"environment\";i:0;s:4:\"icon\";s:93:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1539/icons/a75f709c8d753a13ffb1e57e6f3d5955.png\";s:15:\"default_plan_id\";s:4:\"2226\";s:5:\"plans\";i:2226;s:8:\"features\";N;s:17:\"money_back_period\";i:14;s:13:\"refund_policy\";s:8:\"moderate\";s:24:\"annual_renewals_discount\";N;s:22:\"renewals_discount_type\";s:0:\"\";s:11:\"is_released\";b:1;s:18:\"is_pricing_visible\";b:1;s:19:\"is_wp_org_compliant\";b:0;s:6:\"is_off\";b:0;s:24:\"is_only_for_new_installs\";b:0;s:14:\"installs_limit\";N;s:14:\"installs_count\";i:17;s:21:\"active_installs_count\";i:9;s:19:\"free_releases_count\";i:0;s:22:\"premium_releases_count\";i:5;s:15:\"total_purchases\";i:0;s:19:\"total_subscriptions\";i:6;s:14:\"total_renewals\";i:2;s:8:\"earnings\";d:181.96;s:10:\"commission\";s:35:\"{\"1000\":0.3,\"5000\":0.2,\"above\":0.1}\";s:17:\"accepted_payments\";i:0;s:7:\"plan_id\";s:1:\"0\";s:4:\"type\";s:6:\"plugin\";s:10:\"public_key\";s:32:\"pk_825ac0fd17eed5ce23c5e981ab061\";s:2:\"id\";s:4:\"1539\";s:7:\"created\";s:19:\"2017-11-15 00:14:38\";s:7:\"updated\";s:19:\"2020-04-09 07:35:15\";s:4:\"info\";O:8:\"stdClass\":13:{s:9:\"plugin_id\";s:4:\"1539\";s:3:\"url\";N;s:11:\"description\";s:334:\"<p>You can now easily restrict content based on the time it was added to your membership site!</p>\n<p>This add-on enables a new <b>Date Access Condition</b> that you can add to your Access Levels. Limit access to any content published at a select time, or combine the condition to limit only posts, pages, or any custom post type.</p>\";s:17:\"short_description\";s:90:\"New Access Condition to easily restrict content published on a select day, month, or year!\";s:10:\"banner_url\";s:61:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1539/banner.png\";s:15:\"card_banner_url\";s:66:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1539/card_banner.png\";s:15:\"selling_point_0\";s:39:\"Give exclusive access to upcoming posts\";s:15:\"selling_point_1\";s:42:\"Drip content from last year to new members\";s:15:\"selling_point_2\";s:39:\"Combine with any other Access Condition\";s:11:\"screenshots\";O:8:\"stdClass\":3:{s:12:\"screenshot_0\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1539/screenshots/0.png\";s:12:\"screenshot_1\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1539/screenshots/1.png\";s:12:\"screenshot_2\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1539/screenshots/2.png\";}s:2:\"id\";s:2:\"93\";s:7:\"created\";s:19:\"2017-11-15 23:39:13\";s:7:\"updated\";s:19:\"2020-01-14 09:19:31\";}s:12:\"premium_slug\";s:25:\"rua-restrict-date-premium\";}i:1;O:8:\"stdClass\":38:{s:16:\"parent_plugin_id\";s:4:\"1538\";s:12:\"developer_id\";s:3:\"172\";s:10:\"install_id\";s:7:\"1236410\";s:4:\"slug\";s:16:\"rua-restrict-url\";s:5:\"title\";s:15:\"URL Restriction\";s:11:\"environment\";i:0;s:4:\"icon\";s:93:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1716/icons/8d40b0659f9982b00bc6291176bae8b6.png\";s:15:\"default_plan_id\";s:4:\"2508\";s:5:\"plans\";i:2508;s:8:\"features\";N;s:17:\"money_back_period\";i:14;s:13:\"refund_policy\";s:8:\"moderate\";s:24:\"annual_renewals_discount\";N;s:22:\"renewals_discount_type\";s:0:\"\";s:11:\"is_released\";b:1;s:18:\"is_pricing_visible\";b:1;s:19:\"is_wp_org_compliant\";b:0;s:6:\"is_off\";b:0;s:24:\"is_only_for_new_installs\";b:0;s:14:\"installs_limit\";N;s:14:\"installs_count\";i:88;s:21:\"active_installs_count\";i:47;s:19:\"free_releases_count\";i:0;s:22:\"premium_releases_count\";i:7;s:15:\"total_purchases\";i:0;s:19:\"total_subscriptions\";i:44;s:14:\"total_renewals\";i:12;s:8:\"earnings\";d:1447.45;s:10:\"commission\";s:35:\"{\"1000\":0.3,\"5000\":0.2,\"above\":0.1}\";s:17:\"accepted_payments\";i:0;s:7:\"plan_id\";s:1:\"0\";s:4:\"type\";s:6:\"plugin\";s:10:\"public_key\";s:32:\"pk_91089dff383d3e4c66d1a37b625ac\";s:2:\"id\";s:4:\"1716\";s:7:\"created\";s:19:\"2018-02-09 19:20:50\";s:7:\"updated\";s:19:\"2020-05-13 12:06:06\";s:4:\"info\";O:8:\"stdClass\":13:{s:9:\"plugin_id\";s:4:\"1716\";s:3:\"url\";N;s:11:\"description\";s:356:\"<p>You can now easily restrict any page on your membership site, no matter what URL it has!</p>\n<p>This add-on enables a new <b>URL Access Condition</b> that you can add to your Access Levels. Limit access to specific custom pages, or restrict content with dynamic URLs.</p>\n<p></p>\n<p><b>This add-on does currently not limit access to asset files.</b></p>\";s:17:\"short_description\";s:92:\"New Access Condition to easily restrict any custom WordPress URL, with support of wildcards!\";s:10:\"banner_url\";s:61:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1716/banner.png\";s:15:\"card_banner_url\";s:66:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1716/card_banner.png\";s:15:\"selling_point_0\";s:36:\"Limit access to any URL in WordPress\";s:15:\"selling_point_1\";s:41:\"Use wildcards to target specific keywords\";s:15:\"selling_point_2\";s:39:\"Combine with any other Access Condition\";s:11:\"screenshots\";O:8:\"stdClass\":3:{s:12:\"screenshot_0\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1716/screenshots/0.png\";s:12:\"screenshot_1\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1716/screenshots/1.png\";s:12:\"screenshot_2\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1716/screenshots/2.png\";}s:2:\"id\";s:3:\"141\";s:7:\"created\";s:19:\"2018-02-09 19:31:48\";s:7:\"updated\";s:19:\"2020-04-11 19:21:21\";}s:12:\"premium_slug\";s:24:\"rua-restrict-url-premium\";}i:2;O:8:\"stdClass\":37:{s:16:\"parent_plugin_id\";s:4:\"1538\";s:12:\"developer_id\";s:3:\"172\";s:10:\"install_id\";s:7:\"1251974\";s:4:\"slug\";s:12:\"rua-timelock\";s:5:\"title\";s:8:\"Timelock\";s:11:\"environment\";i:0;s:4:\"icon\";s:93:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1740/icons/7b1b697f68dbeba88f94c212984ba3e1.png\";s:15:\"default_plan_id\";s:4:\"2543\";s:5:\"plans\";i:2543;s:8:\"features\";N;s:17:\"money_back_period\";i:14;s:13:\"refund_policy\";s:8:\"moderate\";s:24:\"annual_renewals_discount\";N;s:22:\"renewals_discount_type\";s:0:\"\";s:11:\"is_released\";b:1;s:18:\"is_pricing_visible\";b:1;s:19:\"is_wp_org_compliant\";b:0;s:6:\"is_off\";b:0;s:24:\"is_only_for_new_installs\";b:0;s:14:\"installs_limit\";N;s:14:\"installs_count\";i:26;s:21:\"active_installs_count\";i:12;s:19:\"free_releases_count\";i:0;s:22:\"premium_releases_count\";i:5;s:15:\"total_purchases\";i:0;s:19:\"total_subscriptions\";i:10;s:14:\"total_renewals\";i:1;s:8:\"earnings\";d:221.96;s:10:\"commission\";s:35:\"{\"1000\":0.3,\"5000\":0.2,\"above\":0.1}\";s:17:\"accepted_payments\";i:0;s:7:\"plan_id\";s:1:\"0\";s:4:\"type\";s:6:\"plugin\";s:10:\"public_key\";s:32:\"pk_9bddbbc0d3a534ca5241873a0aa8b\";s:2:\"id\";s:4:\"1740\";s:7:\"created\";s:19:\"2018-02-14 23:58:02\";s:7:\"updated\";s:19:\"2020-05-08 11:20:37\";s:4:\"info\";O:8:\"stdClass\":13:{s:9:\"plugin_id\";s:4:\"1740\";s:3:\"url\";N;s:11:\"description\";s:500:\"<p>This add-on is perfect for site owners who wants an easy way to make content become restricted and/or unrestricted at a certain time and date automatically.</p>\n<p>Simply specify a date and a time for any restrictions in your levels. Make content freely accessible at first, then restrict it to members only after a select time, or limit access to members at first, and then unlock it for everyone. It\'s even possible to combine the times so content is only restricted in a certain time range.</p>\";s:17:\"short_description\";s:63:\"Set a date and a time to activate/deactivate Access Conditions!\";s:10:\"banner_url\";s:61:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1740/banner.png\";s:15:\"card_banner_url\";s:66:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1740/card_banner.png\";s:15:\"selling_point_0\";s:36:\"Lock content for a limited time only\";s:15:\"selling_point_1\";s:66:\"Give early access to premium content before unlocking for everyone\";s:15:\"selling_point_2\";s:32:\"Works with all Access Conditions\";s:11:\"screenshots\";O:8:\"stdClass\":3:{s:12:\"screenshot_0\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1740/screenshots/0.png\";s:12:\"screenshot_1\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1740/screenshots/1.png\";s:12:\"screenshot_2\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1740/screenshots/2.png\";}s:2:\"id\";s:3:\"147\";s:7:\"created\";s:19:\"2018-02-15 20:10:47\";s:7:\"updated\";s:19:\"2020-01-14 09:24:46\";}}i:3;O:8:\"stdClass\":38:{s:16:\"parent_plugin_id\";s:4:\"1538\";s:12:\"developer_id\";s:3:\"172\";s:10:\"install_id\";s:7:\"4307165\";s:4:\"slug\";s:16:\"rua-restrict-acf\";s:5:\"title\";s:15:\"ACF Restriction\";s:11:\"environment\";i:0;s:4:\"icon\";s:93:\"//s3-us-west-2.amazonaws.com/freemius/plugins/5849/icons/98aa990e179ef86ffb229429d32fbd46.png\";s:15:\"default_plan_id\";s:4:\"9573\";s:5:\"plans\";i:9573;s:8:\"features\";N;s:17:\"money_back_period\";i:14;s:13:\"refund_policy\";s:8:\"moderate\";s:24:\"annual_renewals_discount\";N;s:22:\"renewals_discount_type\";s:0:\"\";s:11:\"is_released\";b:1;s:18:\"is_pricing_visible\";b:1;s:19:\"is_wp_org_compliant\";b:0;s:6:\"is_off\";b:0;s:24:\"is_only_for_new_installs\";b:0;s:14:\"installs_limit\";N;s:14:\"installs_count\";i:5;s:21:\"active_installs_count\";i:6;s:19:\"free_releases_count\";i:0;s:22:\"premium_releases_count\";i:2;s:15:\"total_purchases\";i:0;s:19:\"total_subscriptions\";i:2;s:14:\"total_renewals\";i:0;s:8:\"earnings\";i:0;s:10:\"commission\";s:0:\"\";s:17:\"accepted_payments\";i:0;s:7:\"plan_id\";s:1:\"0\";s:4:\"type\";s:6:\"plugin\";s:10:\"public_key\";s:32:\"pk_05cf5773ce8afcbb36084c30e884e\";s:2:\"id\";s:4:\"5849\";s:7:\"created\";s:19:\"2020-04-08 07:22:48\";s:7:\"updated\";s:19:\"2020-05-16 06:23:02\";s:4:\"info\";O:8:\"stdClass\":13:{s:9:\"plugin_id\";s:4:\"5849\";s:3:\"url\";N;s:11:\"description\";s:426:\"<p>You can now easily restrict content based on data from Advanced Custom Fields!</p>\n<p>This add-on enables a new <b>ACF Access Condition</b> that you can add to your Access Levels. Limit access to any content with a specific custom field and value, or combine the condition to limit only posts, pages, or any custom post type.</p>\n<p></p>\n<p><b>This add-on requires the Advanced Custom Fields plugin to be installed.</b></p>\";s:17:\"short_description\";s:88:\"New Access Condition to easily restrict content with select Advanced Custom Fields data!\";s:10:\"banner_url\";s:61:\"//s3-us-west-2.amazonaws.com/freemius/plugins/5849/banner.png\";s:15:\"card_banner_url\";s:66:\"//s3-us-west-2.amazonaws.com/freemius/plugins/5849/card_banner.png\";s:15:\"selling_point_0\";s:44:\"Give exclusive access to pages with ACF data\";s:15:\"selling_point_1\";s:45:\"Protect custom fields from unauthorized users\";s:15:\"selling_point_2\";s:39:\"Combine with any other Access Condition\";s:11:\"screenshots\";N;s:2:\"id\";s:4:\"1542\";s:7:\"created\";s:19:\"2020-04-10 22:21:40\";s:7:\"updated\";s:19:\"2020-04-11 19:16:52\";}s:12:\"premium_slug\";s:24:\"rua-restrict-acf-premium\";}}}s:7:\"created\";i:1589787131;s:9:\"timestamp\";i:1589873531;}}', 'no'),
+(978, 'fs_api_cache', 'a:1:{s:55:\"get:/v1/plugins/1538/addons.json?enriched=true&count=50\";O:8:\"stdClass\":3:{s:6:\"result\";O:8:\"stdClass\":1:{s:7:\"plugins\";a:4:{i:0;O:8:\"stdClass\":39:{s:16:\"parent_plugin_id\";s:4:\"1538\";s:12:\"developer_id\";s:3:\"172\";s:10:\"install_id\";s:7:\"1008295\";s:4:\"slug\";s:17:\"rua-restrict-date\";s:5:\"title\";s:16:\"Date Restriction\";s:11:\"environment\";i:0;s:4:\"icon\";s:93:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1539/icons/a75f709c8d753a13ffb1e57e6f3d5955.png\";s:15:\"default_plan_id\";s:4:\"2226\";s:5:\"plans\";i:2226;s:8:\"features\";N;s:17:\"money_back_period\";i:14;s:13:\"refund_policy\";s:8:\"flexible\";s:24:\"annual_renewals_discount\";N;s:22:\"renewals_discount_type\";s:0:\"\";s:11:\"is_released\";b:1;s:15:\"is_sdk_required\";b:1;s:18:\"is_pricing_visible\";b:1;s:19:\"is_wp_org_compliant\";b:0;s:6:\"is_off\";b:0;s:24:\"is_only_for_new_installs\";b:0;s:14:\"installs_limit\";N;s:14:\"installs_count\";i:17;s:21:\"active_installs_count\";i:9;s:19:\"free_releases_count\";i:0;s:22:\"premium_releases_count\";i:5;s:15:\"total_purchases\";i:0;s:19:\"total_subscriptions\";i:6;s:14:\"total_renewals\";i:2;s:8:\"earnings\";d:181.96;s:10:\"commission\";s:35:\"{\"1000\":0.3,\"5000\":0.2,\"above\":0.1}\";s:17:\"accepted_payments\";i:0;s:7:\"plan_id\";s:1:\"0\";s:4:\"type\";s:6:\"plugin\";s:10:\"public_key\";s:32:\"pk_825ac0fd17eed5ce23c5e981ab061\";s:2:\"id\";s:4:\"1539\";s:7:\"created\";s:19:\"2017-11-15 00:14:38\";s:7:\"updated\";s:19:\"2020-06-12 05:56:49\";s:4:\"info\";O:8:\"stdClass\":13:{s:9:\"plugin_id\";s:4:\"1539\";s:3:\"url\";N;s:11:\"description\";s:334:\"<p>You can now easily restrict content based on the time it was added to your membership site!</p>\n<p>This add-on enables a new <b>Date Access Condition</b> that you can add to your Access Levels. Limit access to any content published at a select time, or combine the condition to limit only posts, pages, or any custom post type.</p>\";s:17:\"short_description\";s:90:\"New Access Condition to easily restrict content published on a select day, month, or year!\";s:10:\"banner_url\";s:61:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1539/banner.png\";s:15:\"card_banner_url\";s:66:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1539/card_banner.png\";s:15:\"selling_point_0\";s:39:\"Give exclusive access to upcoming posts\";s:15:\"selling_point_1\";s:42:\"Drip content from last year to new members\";s:15:\"selling_point_2\";s:39:\"Combine with any other Access Condition\";s:11:\"screenshots\";O:8:\"stdClass\":3:{s:12:\"screenshot_0\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1539/screenshots/0.png\";s:12:\"screenshot_1\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1539/screenshots/1.png\";s:12:\"screenshot_2\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1539/screenshots/2.png\";}s:2:\"id\";s:2:\"93\";s:7:\"created\";s:19:\"2017-11-15 23:39:13\";s:7:\"updated\";s:19:\"2020-01-14 09:19:31\";}s:12:\"premium_slug\";s:25:\"rua-restrict-date-premium\";}i:1;O:8:\"stdClass\":39:{s:16:\"parent_plugin_id\";s:4:\"1538\";s:12:\"developer_id\";s:3:\"172\";s:10:\"install_id\";s:7:\"1236410\";s:4:\"slug\";s:16:\"rua-restrict-url\";s:5:\"title\";s:15:\"URL Restriction\";s:11:\"environment\";i:0;s:4:\"icon\";s:93:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1716/icons/8d40b0659f9982b00bc6291176bae8b6.png\";s:15:\"default_plan_id\";s:4:\"2508\";s:5:\"plans\";i:2508;s:8:\"features\";N;s:17:\"money_back_period\";i:14;s:13:\"refund_policy\";s:8:\"flexible\";s:24:\"annual_renewals_discount\";N;s:22:\"renewals_discount_type\";s:0:\"\";s:11:\"is_released\";b:1;s:15:\"is_sdk_required\";b:1;s:18:\"is_pricing_visible\";b:1;s:19:\"is_wp_org_compliant\";b:0;s:6:\"is_off\";b:0;s:24:\"is_only_for_new_installs\";b:0;s:14:\"installs_limit\";N;s:14:\"installs_count\";i:99;s:21:\"active_installs_count\";i:53;s:19:\"free_releases_count\";i:0;s:22:\"premium_releases_count\";i:7;s:15:\"total_purchases\";i:0;s:19:\"total_subscriptions\";i:47;s:14:\"total_renewals\";i:15;s:8:\"earnings\";d:1621.36;s:10:\"commission\";s:35:\"{\"1000\":0.3,\"5000\":0.2,\"above\":0.1}\";s:17:\"accepted_payments\";i:0;s:7:\"plan_id\";s:1:\"0\";s:4:\"type\";s:6:\"plugin\";s:10:\"public_key\";s:32:\"pk_91089dff383d3e4c66d1a37b625ac\";s:2:\"id\";s:4:\"1716\";s:7:\"created\";s:19:\"2018-02-09 19:20:50\";s:7:\"updated\";s:19:\"2020-08-18 11:00:08\";s:4:\"info\";O:8:\"stdClass\":13:{s:9:\"plugin_id\";s:4:\"1716\";s:3:\"url\";N;s:11:\"description\";s:356:\"<p>You can now easily restrict any page on your membership site, no matter what URL it has!</p>\n<p>This add-on enables a new <b>URL Access Condition</b> that you can add to your Access Levels. Limit access to specific custom pages, or restrict content with dynamic URLs.</p>\n<p></p>\n<p><b>This add-on does currently not limit access to asset files.</b></p>\";s:17:\"short_description\";s:92:\"New Access Condition to easily restrict any custom WordPress URL, with support of wildcards!\";s:10:\"banner_url\";s:61:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1716/banner.png\";s:15:\"card_banner_url\";s:66:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1716/card_banner.png\";s:15:\"selling_point_0\";s:36:\"Limit access to any URL in WordPress\";s:15:\"selling_point_1\";s:41:\"Use wildcards to target specific keywords\";s:15:\"selling_point_2\";s:39:\"Combine with any other Access Condition\";s:11:\"screenshots\";O:8:\"stdClass\":3:{s:12:\"screenshot_0\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1716/screenshots/0.png\";s:12:\"screenshot_1\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1716/screenshots/1.png\";s:12:\"screenshot_2\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1716/screenshots/2.png\";}s:2:\"id\";s:3:\"141\";s:7:\"created\";s:19:\"2018-02-09 19:31:48\";s:7:\"updated\";s:19:\"2020-04-11 19:21:21\";}s:12:\"premium_slug\";s:24:\"rua-restrict-url-premium\";}i:2;O:8:\"stdClass\":38:{s:16:\"parent_plugin_id\";s:4:\"1538\";s:12:\"developer_id\";s:3:\"172\";s:10:\"install_id\";s:7:\"1251974\";s:4:\"slug\";s:12:\"rua-timelock\";s:5:\"title\";s:8:\"Timelock\";s:11:\"environment\";i:0;s:4:\"icon\";s:93:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1740/icons/7b1b697f68dbeba88f94c212984ba3e1.png\";s:15:\"default_plan_id\";s:4:\"2543\";s:5:\"plans\";i:2543;s:8:\"features\";N;s:17:\"money_back_period\";i:14;s:13:\"refund_policy\";s:8:\"flexible\";s:24:\"annual_renewals_discount\";N;s:22:\"renewals_discount_type\";s:0:\"\";s:11:\"is_released\";b:1;s:15:\"is_sdk_required\";b:1;s:18:\"is_pricing_visible\";b:1;s:19:\"is_wp_org_compliant\";b:0;s:6:\"is_off\";b:0;s:24:\"is_only_for_new_installs\";b:0;s:14:\"installs_limit\";N;s:14:\"installs_count\";i:28;s:21:\"active_installs_count\";i:12;s:19:\"free_releases_count\";i:0;s:22:\"premium_releases_count\";i:5;s:15:\"total_purchases\";i:0;s:19:\"total_subscriptions\";i:12;s:14:\"total_renewals\";i:2;s:8:\"earnings\";d:308.9;s:10:\"commission\";s:35:\"{\"1000\":0.3,\"5000\":0.2,\"above\":0.1}\";s:17:\"accepted_payments\";i:0;s:7:\"plan_id\";s:1:\"0\";s:4:\"type\";s:6:\"plugin\";s:10:\"public_key\";s:32:\"pk_9bddbbc0d3a534ca5241873a0aa8b\";s:2:\"id\";s:4:\"1740\";s:7:\"created\";s:19:\"2018-02-14 23:58:02\";s:7:\"updated\";s:19:\"2020-08-10 11:35:06\";s:4:\"info\";O:8:\"stdClass\":13:{s:9:\"plugin_id\";s:4:\"1740\";s:3:\"url\";N;s:11:\"description\";s:500:\"<p>This add-on is perfect for site owners who wants an easy way to make content become restricted and/or unrestricted at a certain time and date automatically.</p>\n<p>Simply specify a date and a time for any restrictions in your levels. Make content freely accessible at first, then restrict it to members only after a select time, or limit access to members at first, and then unlock it for everyone. It\'s even possible to combine the times so content is only restricted in a certain time range.</p>\";s:17:\"short_description\";s:63:\"Set a date and a time to activate/deactivate Access Conditions!\";s:10:\"banner_url\";s:61:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1740/banner.png\";s:15:\"card_banner_url\";s:66:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1740/card_banner.png\";s:15:\"selling_point_0\";s:36:\"Lock content for a limited time only\";s:15:\"selling_point_1\";s:66:\"Give early access to premium content before unlocking for everyone\";s:15:\"selling_point_2\";s:32:\"Works with all Access Conditions\";s:11:\"screenshots\";O:8:\"stdClass\":3:{s:12:\"screenshot_0\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1740/screenshots/0.png\";s:12:\"screenshot_1\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1740/screenshots/1.png\";s:12:\"screenshot_2\";s:68:\"//s3-us-west-2.amazonaws.com/freemius/plugins/1740/screenshots/2.png\";}s:2:\"id\";s:3:\"147\";s:7:\"created\";s:19:\"2018-02-15 20:10:47\";s:7:\"updated\";s:19:\"2020-01-14 09:24:46\";}}i:3;O:8:\"stdClass\":39:{s:16:\"parent_plugin_id\";s:4:\"1538\";s:12:\"developer_id\";s:3:\"172\";s:10:\"install_id\";s:7:\"4307165\";s:4:\"slug\";s:16:\"rua-restrict-acf\";s:5:\"title\";s:15:\"ACF Restriction\";s:11:\"environment\";i:0;s:4:\"icon\";s:93:\"//s3-us-west-2.amazonaws.com/freemius/plugins/5849/icons/98aa990e179ef86ffb229429d32fbd46.png\";s:15:\"default_plan_id\";s:4:\"9573\";s:5:\"plans\";i:9573;s:8:\"features\";N;s:17:\"money_back_period\";i:14;s:13:\"refund_policy\";s:8:\"flexible\";s:24:\"annual_renewals_discount\";N;s:22:\"renewals_discount_type\";s:0:\"\";s:11:\"is_released\";b:1;s:15:\"is_sdk_required\";b:1;s:18:\"is_pricing_visible\";b:1;s:19:\"is_wp_org_compliant\";b:0;s:6:\"is_off\";b:0;s:24:\"is_only_for_new_installs\";b:0;s:14:\"installs_limit\";N;s:14:\"installs_count\";i:8;s:21:\"active_installs_count\";i:9;s:19:\"free_releases_count\";i:0;s:22:\"premium_releases_count\";i:2;s:15:\"total_purchases\";i:0;s:19:\"total_subscriptions\";i:4;s:14:\"total_renewals\";i:0;s:8:\"earnings\";i:29;s:10:\"commission\";s:0:\"\";s:17:\"accepted_payments\";i:0;s:7:\"plan_id\";s:1:\"0\";s:4:\"type\";s:6:\"plugin\";s:10:\"public_key\";s:32:\"pk_05cf5773ce8afcbb36084c30e884e\";s:2:\"id\";s:4:\"5849\";s:7:\"created\";s:19:\"2020-04-08 07:22:48\";s:7:\"updated\";s:19:\"2020-08-19 08:59:29\";s:4:\"info\";O:8:\"stdClass\":13:{s:9:\"plugin_id\";s:4:\"5849\";s:3:\"url\";N;s:11:\"description\";s:426:\"<p>You can now easily restrict content based on data from Advanced Custom Fields!</p>\n<p>This add-on enables a new <b>ACF Access Condition</b> that you can add to your Access Levels. Limit access to any content with a specific custom field and value, or combine the condition to limit only posts, pages, or any custom post type.</p>\n<p></p>\n<p><b>This add-on requires the Advanced Custom Fields plugin to be installed.</b></p>\";s:17:\"short_description\";s:88:\"New Access Condition to easily restrict content with select Advanced Custom Fields data!\";s:10:\"banner_url\";s:61:\"//s3-us-west-2.amazonaws.com/freemius/plugins/5849/banner.png\";s:15:\"card_banner_url\";s:66:\"//s3-us-west-2.amazonaws.com/freemius/plugins/5849/card_banner.png\";s:15:\"selling_point_0\";s:44:\"Give exclusive access to pages with ACF data\";s:15:\"selling_point_1\";s:45:\"Protect custom fields from unauthorized users\";s:15:\"selling_point_2\";s:39:\"Combine with any other Access Condition\";s:11:\"screenshots\";N;s:2:\"id\";s:4:\"1542\";s:7:\"created\";s:19:\"2020-04-10 22:21:40\";s:7:\"updated\";s:19:\"2020-04-11 19:16:52\";}s:12:\"premium_slug\";s:24:\"rua-restrict-acf-premium\";}}}s:7:\"created\";i:1597833933;s:9:\"timestamp\";i:1597920333;}}', 'no'),
 (981, 'rua_plugin_version', '1.2.1', 'yes'),
 (982, '_ca_condition_type_cache', 'a:1:{s:11:\"restriction\";a:1:{i:0;s:9:\"post_type\";}}', 'yes'),
 (1542, 'dashboard-widgets', 'a:1:{i:0;a:7:{s:5:\"title\";s:5:\"Pages\";s:4:\"icon\";s:20:\"dashicons-admin-page\";s:4:\"link\";s:23:\"edit.php?post_type=page\";s:6:\"status\";s:7:\"checked\";s:13:\"administrator\";s:7:\"checked\";s:6:\"author\";s:7:\"checked\";s:5:\"order\";s:1:\"5\";}}', 'yes'),
@@ -512,17 +412,25 @@ INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (1558, 'ure_role_additional_options_values', 'a:1:{s:6:\"author\";a:0:{}}', 'yes'),
 (1716, 'aptrc_post', 'a:7:{s:11:\"title_check\";s:1:\"1\";s:15:\"thumbnail_check\";s:1:\"1\";s:16:\"categories_check\";s:1:\"1\";s:19:\"categories_dropdown\";s:1:\"1\";s:23:\"categories_max_dropdown\";s:1:\"1\";s:13:\"tags_dropdown\";s:1:\"1\";s:17:\"tags_max_dropdown\";s:1:\"1\";}', 'yes'),
 (1717, 'aptrc_page', 'a:8:{s:5:\"title\";s:0:\"\";s:6:\"editor\";s:0:\"\";s:9:\"thumbnail\";s:0:\"\";s:7:\"excerpt\";s:0:\"\";s:10:\"categories\";s:0:\"\";s:4:\"tags\";s:0:\"\";s:16:\"customtaxonomies\";s:0:\"\";s:12:\"customfields\";s:0:\"\";}', 'yes'),
-(1958, '_transient_is_multi_author', '1', 'yes'),
-(1959, '_transient_talon_categories', '2', 'yes'),
-(1967, '_site_transient_timeout_theme_roots', '1590651143', 'no'),
-(1968, '_site_transient_theme_roots', 'a:2:{s:5:\"talon\";s:7:\"/themes\";s:13:\"twentysixteen\";s:7:\"/themes\";}', 'no'),
-(1970, '_site_transient_update_themes', 'O:8:\"stdClass\":4:{s:12:\"last_checked\";i:1590649348;s:7:\"checked\";a:2:{s:5:\"talon\";s:4:\"1.07\";s:13:\"twentysixteen\";s:3:\"2.0\";}s:8:\"response\";a:2:{s:5:\"talon\";a:6:{s:5:\"theme\";s:5:\"talon\";s:11:\"new_version\";s:4:\"1.08\";s:3:\"url\";s:35:\"https://wordpress.org/themes/talon/\";s:7:\"package\";s:52:\"https://downloads.wordpress.org/theme/talon.1.08.zip\";s:8:\"requires\";b:0;s:12:\"requires_php\";b:0;}s:13:\"twentysixteen\";a:6:{s:5:\"theme\";s:13:\"twentysixteen\";s:11:\"new_version\";s:3:\"2.1\";s:3:\"url\";s:43:\"https://wordpress.org/themes/twentysixteen/\";s:7:\"package\";s:59:\"https://downloads.wordpress.org/theme/twentysixteen.2.1.zip\";s:8:\"requires\";s:3:\"4.4\";s:12:\"requires_php\";s:5:\"5.2.4\";}}s:12:\"translations\";a:0:{}}', 'no'),
-(1971, '_site_transient_update_plugins', 'O:8:\"stdClass\":4:{s:12:\"last_checked\";i:1590649349;s:8:\"response\";a:4:{s:30:\"advanced-custom-fields/acf.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:36:\"w.org/plugins/advanced-custom-fields\";s:4:\"slug\";s:22:\"advanced-custom-fields\";s:6:\"plugin\";s:30:\"advanced-custom-fields/acf.php\";s:11:\"new_version\";s:6:\"5.8.11\";s:3:\"url\";s:53:\"https://wordpress.org/plugins/advanced-custom-fields/\";s:7:\"package\";s:72:\"https://downloads.wordpress.org/plugin/advanced-custom-fields.5.8.11.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:75:\"https://ps.w.org/advanced-custom-fields/assets/icon-256x256.png?rev=1082746\";s:2:\"1x\";s:75:\"https://ps.w.org/advanced-custom-fields/assets/icon-128x128.png?rev=1082746\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:78:\"https://ps.w.org/advanced-custom-fields/assets/banner-1544x500.jpg?rev=1729099\";s:2:\"1x\";s:77:\"https://ps.w.org/advanced-custom-fields/assets/banner-772x250.jpg?rev=1729102\";}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:5:\"5.4.1\";s:12:\"requires_php\";s:3:\"5.4\";s:13:\"compatibility\";O:8:\"stdClass\":0:{}}s:19:\"akismet/akismet.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:21:\"w.org/plugins/akismet\";s:4:\"slug\";s:7:\"akismet\";s:6:\"plugin\";s:19:\"akismet/akismet.php\";s:11:\"new_version\";s:5:\"4.1.5\";s:3:\"url\";s:38:\"https://wordpress.org/plugins/akismet/\";s:7:\"package\";s:56:\"https://downloads.wordpress.org/plugin/akismet.4.1.5.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:59:\"https://ps.w.org/akismet/assets/icon-256x256.png?rev=969272\";s:2:\"1x\";s:59:\"https://ps.w.org/akismet/assets/icon-128x128.png?rev=969272\";}s:7:\"banners\";a:1:{s:2:\"1x\";s:61:\"https://ps.w.org/akismet/assets/banner-772x250.jpg?rev=479904\";}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:5:\"5.4.1\";s:12:\"requires_php\";b:0;s:13:\"compatibility\";O:8:\"stdClass\":0:{}}s:45:\"restrict-user-access/restrict-user-access.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:34:\"w.org/plugins/restrict-user-access\";s:4:\"slug\";s:20:\"restrict-user-access\";s:6:\"plugin\";s:45:\"restrict-user-access/restrict-user-access.php\";s:11:\"new_version\";s:3:\"1.3\";s:3:\"url\";s:51:\"https://wordpress.org/plugins/restrict-user-access/\";s:7:\"package\";s:63:\"https://downloads.wordpress.org/plugin/restrict-user-access.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:73:\"https://ps.w.org/restrict-user-access/assets/icon-256x256.png?rev=1815922\";s:2:\"1x\";s:73:\"https://ps.w.org/restrict-user-access/assets/icon-128x128.png?rev=1815922\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:76:\"https://ps.w.org/restrict-user-access/assets/banner-1544x500.png?rev=1815922\";s:2:\"1x\";s:75:\"https://ps.w.org/restrict-user-access/assets/banner-772x250.png?rev=1815922\";}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:5:\"5.4.1\";s:12:\"requires_php\";s:3:\"5.6\";s:13:\"compatibility\";O:8:\"stdClass\":0:{}}s:29:\"wp-mail-smtp/wp_mail_smtp.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:26:\"w.org/plugins/wp-mail-smtp\";s:4:\"slug\";s:12:\"wp-mail-smtp\";s:6:\"plugin\";s:29:\"wp-mail-smtp/wp_mail_smtp.php\";s:11:\"new_version\";s:5:\"2.0.1\";s:3:\"url\";s:43:\"https://wordpress.org/plugins/wp-mail-smtp/\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/plugin/wp-mail-smtp.2.0.1.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:65:\"https://ps.w.org/wp-mail-smtp/assets/icon-256x256.png?rev=1755440\";s:2:\"1x\";s:65:\"https://ps.w.org/wp-mail-smtp/assets/icon-128x128.png?rev=1755440\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:68:\"https://ps.w.org/wp-mail-smtp/assets/banner-1544x500.png?rev=2120094\";s:2:\"1x\";s:67:\"https://ps.w.org/wp-mail-smtp/assets/banner-772x250.png?rev=2120094\";}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:5:\"5.4.1\";s:12:\"requires_php\";s:5:\"5.5.0\";s:13:\"compatibility\";O:8:\"stdClass\":0:{}}}s:12:\"translations\";a:0:{}s:9:\"no_update\";a:4:{s:45:\"easy-custom-sidebars/easy-custom-sidebars.php\";O:8:\"stdClass\":9:{s:2:\"id\";s:34:\"w.org/plugins/easy-custom-sidebars\";s:4:\"slug\";s:20:\"easy-custom-sidebars\";s:6:\"plugin\";s:45:\"easy-custom-sidebars/easy-custom-sidebars.php\";s:11:\"new_version\";s:6:\"1.0.10\";s:3:\"url\";s:51:\"https://wordpress.org/plugins/easy-custom-sidebars/\";s:7:\"package\";s:63:\"https://downloads.wordpress.org/plugin/easy-custom-sidebars.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:72:\"https://ps.w.org/easy-custom-sidebars/assets/icon-256x256.png?rev=991222\";s:2:\"1x\";s:72:\"https://ps.w.org/easy-custom-sidebars/assets/icon-128x128.png?rev=991222\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:75:\"https://ps.w.org/easy-custom-sidebars/assets/banner-1544x500.png?rev=987596\";s:2:\"1x\";s:74:\"https://ps.w.org/easy-custom-sidebars/assets/banner-772x250.png?rev=987596\";}s:11:\"banners_rtl\";a:0:{}}s:9:\"hello.php\";O:8:\"stdClass\":9:{s:2:\"id\";s:25:\"w.org/plugins/hello-dolly\";s:4:\"slug\";s:11:\"hello-dolly\";s:6:\"plugin\";s:9:\"hello.php\";s:11:\"new_version\";s:5:\"1.7.2\";s:3:\"url\";s:42:\"https://wordpress.org/plugins/hello-dolly/\";s:7:\"package\";s:60:\"https://downloads.wordpress.org/plugin/hello-dolly.1.7.2.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:64:\"https://ps.w.org/hello-dolly/assets/icon-256x256.jpg?rev=2052855\";s:2:\"1x\";s:64:\"https://ps.w.org/hello-dolly/assets/icon-128x128.jpg?rev=2052855\";}s:7:\"banners\";a:1:{s:2:\"1x\";s:66:\"https://ps.w.org/hello-dolly/assets/banner-772x250.jpg?rev=2052855\";}s:11:\"banners_rtl\";a:0:{}}s:37:\"recent-posts-widget-extended/rpwe.php\";O:8:\"stdClass\":9:{s:2:\"id\";s:42:\"w.org/plugins/recent-posts-widget-extended\";s:4:\"slug\";s:28:\"recent-posts-widget-extended\";s:6:\"plugin\";s:37:\"recent-posts-widget-extended/rpwe.php\";s:11:\"new_version\";s:7:\"0.9.9.7\";s:3:\"url\";s:59:\"https://wordpress.org/plugins/recent-posts-widget-extended/\";s:7:\"package\";s:79:\"https://downloads.wordpress.org/plugin/recent-posts-widget-extended.0.9.9.7.zip\";s:5:\"icons\";a:1:{s:2:\"1x\";s:81:\"https://ps.w.org/recent-posts-widget-extended/assets/icon-128x128.png?rev=1240338\";}s:7:\"banners\";a:1:{s:2:\"1x\";s:82:\"https://ps.w.org/recent-posts-widget-extended/assets/banner-772x250.png?rev=900647\";}s:11:\"banners_rtl\";a:0:{}}s:53:\"wp-custom-register-login/wp-custom-register-login.php\";O:8:\"stdClass\":9:{s:2:\"id\";s:38:\"w.org/plugins/wp-custom-register-login\";s:4:\"slug\";s:24:\"wp-custom-register-login\";s:6:\"plugin\";s:53:\"wp-custom-register-login/wp-custom-register-login.php\";s:11:\"new_version\";s:5:\"2.0.0\";s:3:\"url\";s:55:\"https://wordpress.org/plugins/wp-custom-register-login/\";s:7:\"package\";s:73:\"https://downloads.wordpress.org/plugin/wp-custom-register-login.2.0.0.zip\";s:5:\"icons\";a:1:{s:2:\"1x\";s:77:\"https://ps.w.org/wp-custom-register-login/assets/icon-128x128.jpg?rev=1269330\";}s:7:\"banners\";a:1:{s:2:\"1x\";s:79:\"https://ps.w.org/wp-custom-register-login/assets/banner-772x250.jpg?rev=1269252\";}s:11:\"banners_rtl\";a:0:{}}}}', 'no');
+(2113, '_site_transient_timeout_browser_e456bff5650ce5cf8fd29fe01d8faa71', '1598255635', 'no'),
+(2114, '_site_transient_browser_e456bff5650ce5cf8fd29fe01d8faa71', 'a:10:{s:4:\"name\";s:7:\"Firefox\";s:7:\"version\";s:4:\"79.0\";s:8:\"platform\";s:7:\"Windows\";s:10:\"update_url\";s:32:\"https://www.mozilla.org/firefox/\";s:7:\"img_src\";s:44:\"http://s.w.org/images/browsers/firefox.png?1\";s:11:\"img_src_ssl\";s:45:\"https://s.w.org/images/browsers/firefox.png?1\";s:15:\"current_version\";s:2:\"56\";s:7:\"upgrade\";b:0;s:8:\"insecure\";b:0;s:6:\"mobile\";b:0;}', 'no'),
+(2115, '_site_transient_timeout_php_check_c60e90b5b23808bb6ae5fe6d44788a5f', '1598255637', 'no'),
+(2116, '_site_transient_php_check_c60e90b5b23808bb6ae5fe6d44788a5f', 'a:5:{s:19:\"recommended_version\";s:3:\"7.4\";s:15:\"minimum_version\";s:6:\"5.6.20\";s:12:\"is_supported\";b:1;s:9:\"is_secure\";b:1;s:13:\"is_acceptable\";b:1;}', 'no'),
+(2163, '_site_transient_update_themes', 'O:8:\"stdClass\":4:{s:12:\"last_checked\";i:1597859977;s:7:\"checked\";a:2:{s:5:\"talon\";s:4:\"1.07\";s:13:\"twentysixteen\";s:3:\"2.0\";}s:8:\"response\";a:2:{s:5:\"talon\";a:6:{s:5:\"theme\";s:5:\"talon\";s:11:\"new_version\";s:4:\"1.08\";s:3:\"url\";s:35:\"https://wordpress.org/themes/talon/\";s:7:\"package\";s:52:\"https://downloads.wordpress.org/theme/talon.1.08.zip\";s:8:\"requires\";b:0;s:12:\"requires_php\";b:0;}s:13:\"twentysixteen\";a:6:{s:5:\"theme\";s:13:\"twentysixteen\";s:11:\"new_version\";s:3:\"2.2\";s:3:\"url\";s:43:\"https://wordpress.org/themes/twentysixteen/\";s:7:\"package\";s:59:\"https://downloads.wordpress.org/theme/twentysixteen.2.2.zip\";s:8:\"requires\";s:3:\"4.4\";s:12:\"requires_php\";s:5:\"5.2.4\";}}s:12:\"translations\";a:0:{}}', 'no'),
+(2164, '_site_transient_update_plugins', 'O:8:\"stdClass\":4:{s:12:\"last_checked\";i:1597859976;s:8:\"response\";a:4:{s:30:\"advanced-custom-fields/acf.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:36:\"w.org/plugins/advanced-custom-fields\";s:4:\"slug\";s:22:\"advanced-custom-fields\";s:6:\"plugin\";s:30:\"advanced-custom-fields/acf.php\";s:11:\"new_version\";s:5:\"5.9.0\";s:3:\"url\";s:53:\"https://wordpress.org/plugins/advanced-custom-fields/\";s:7:\"package\";s:71:\"https://downloads.wordpress.org/plugin/advanced-custom-fields.5.9.0.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:75:\"https://ps.w.org/advanced-custom-fields/assets/icon-256x256.png?rev=1082746\";s:2:\"1x\";s:75:\"https://ps.w.org/advanced-custom-fields/assets/icon-128x128.png?rev=1082746\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:78:\"https://ps.w.org/advanced-custom-fields/assets/banner-1544x500.jpg?rev=1729099\";s:2:\"1x\";s:77:\"https://ps.w.org/advanced-custom-fields/assets/banner-772x250.jpg?rev=1729102\";}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:3:\"5.5\";s:12:\"requires_php\";s:3:\"5.6\";s:13:\"compatibility\";O:8:\"stdClass\":0:{}}s:19:\"akismet/akismet.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:21:\"w.org/plugins/akismet\";s:4:\"slug\";s:7:\"akismet\";s:6:\"plugin\";s:19:\"akismet/akismet.php\";s:11:\"new_version\";s:5:\"4.1.6\";s:3:\"url\";s:38:\"https://wordpress.org/plugins/akismet/\";s:7:\"package\";s:56:\"https://downloads.wordpress.org/plugin/akismet.4.1.6.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:59:\"https://ps.w.org/akismet/assets/icon-256x256.png?rev=969272\";s:2:\"1x\";s:59:\"https://ps.w.org/akismet/assets/icon-128x128.png?rev=969272\";}s:7:\"banners\";a:1:{s:2:\"1x\";s:61:\"https://ps.w.org/akismet/assets/banner-772x250.jpg?rev=479904\";}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:3:\"5.5\";s:12:\"requires_php\";b:0;s:13:\"compatibility\";O:8:\"stdClass\":0:{}}s:45:\"restrict-user-access/restrict-user-access.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:34:\"w.org/plugins/restrict-user-access\";s:4:\"slug\";s:20:\"restrict-user-access\";s:6:\"plugin\";s:45:\"restrict-user-access/restrict-user-access.php\";s:11:\"new_version\";s:3:\"2.0\";s:3:\"url\";s:51:\"https://wordpress.org/plugins/restrict-user-access/\";s:7:\"package\";s:67:\"https://downloads.wordpress.org/plugin/restrict-user-access.2.0.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:73:\"https://ps.w.org/restrict-user-access/assets/icon-256x256.png?rev=1815922\";s:2:\"1x\";s:73:\"https://ps.w.org/restrict-user-access/assets/icon-128x128.png?rev=1815922\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:76:\"https://ps.w.org/restrict-user-access/assets/banner-1544x500.png?rev=1815922\";s:2:\"1x\";s:75:\"https://ps.w.org/restrict-user-access/assets/banner-772x250.png?rev=1815922\";}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:5:\"5.4.2\";s:12:\"requires_php\";s:3:\"5.6\";s:13:\"compatibility\";O:8:\"stdClass\":0:{}}s:29:\"wp-mail-smtp/wp_mail_smtp.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:26:\"w.org/plugins/wp-mail-smtp\";s:4:\"slug\";s:12:\"wp-mail-smtp\";s:6:\"plugin\";s:29:\"wp-mail-smtp/wp_mail_smtp.php\";s:11:\"new_version\";s:5:\"2.2.1\";s:3:\"url\";s:43:\"https://wordpress.org/plugins/wp-mail-smtp/\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/plugin/wp-mail-smtp.2.2.1.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:65:\"https://ps.w.org/wp-mail-smtp/assets/icon-256x256.png?rev=1755440\";s:2:\"1x\";s:65:\"https://ps.w.org/wp-mail-smtp/assets/icon-128x128.png?rev=1755440\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:68:\"https://ps.w.org/wp-mail-smtp/assets/banner-1544x500.png?rev=2120094\";s:2:\"1x\";s:67:\"https://ps.w.org/wp-mail-smtp/assets/banner-772x250.png?rev=2120094\";}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:5:\"5.4.2\";s:12:\"requires_php\";s:5:\"5.5.0\";s:13:\"compatibility\";O:8:\"stdClass\":0:{}}}s:12:\"translations\";a:0:{}s:9:\"no_update\";a:4:{s:45:\"easy-custom-sidebars/easy-custom-sidebars.php\";O:8:\"stdClass\":9:{s:2:\"id\";s:34:\"w.org/plugins/easy-custom-sidebars\";s:4:\"slug\";s:20:\"easy-custom-sidebars\";s:6:\"plugin\";s:45:\"easy-custom-sidebars/easy-custom-sidebars.php\";s:11:\"new_version\";s:6:\"1.0.10\";s:3:\"url\";s:51:\"https://wordpress.org/plugins/easy-custom-sidebars/\";s:7:\"package\";s:63:\"https://downloads.wordpress.org/plugin/easy-custom-sidebars.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:72:\"https://ps.w.org/easy-custom-sidebars/assets/icon-256x256.png?rev=991222\";s:2:\"1x\";s:72:\"https://ps.w.org/easy-custom-sidebars/assets/icon-128x128.png?rev=991222\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:75:\"https://ps.w.org/easy-custom-sidebars/assets/banner-1544x500.png?rev=987596\";s:2:\"1x\";s:74:\"https://ps.w.org/easy-custom-sidebars/assets/banner-772x250.png?rev=987596\";}s:11:\"banners_rtl\";a:0:{}}s:9:\"hello.php\";O:8:\"stdClass\":9:{s:2:\"id\";s:25:\"w.org/plugins/hello-dolly\";s:4:\"slug\";s:11:\"hello-dolly\";s:6:\"plugin\";s:9:\"hello.php\";s:11:\"new_version\";s:5:\"1.7.2\";s:3:\"url\";s:42:\"https://wordpress.org/plugins/hello-dolly/\";s:7:\"package\";s:60:\"https://downloads.wordpress.org/plugin/hello-dolly.1.7.2.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:64:\"https://ps.w.org/hello-dolly/assets/icon-256x256.jpg?rev=2052855\";s:2:\"1x\";s:64:\"https://ps.w.org/hello-dolly/assets/icon-128x128.jpg?rev=2052855\";}s:7:\"banners\";a:1:{s:2:\"1x\";s:66:\"https://ps.w.org/hello-dolly/assets/banner-772x250.jpg?rev=2052855\";}s:11:\"banners_rtl\";a:0:{}}s:37:\"recent-posts-widget-extended/rpwe.php\";O:8:\"stdClass\":9:{s:2:\"id\";s:42:\"w.org/plugins/recent-posts-widget-extended\";s:4:\"slug\";s:28:\"recent-posts-widget-extended\";s:6:\"plugin\";s:37:\"recent-posts-widget-extended/rpwe.php\";s:11:\"new_version\";s:7:\"0.9.9.7\";s:3:\"url\";s:59:\"https://wordpress.org/plugins/recent-posts-widget-extended/\";s:7:\"package\";s:79:\"https://downloads.wordpress.org/plugin/recent-posts-widget-extended.0.9.9.7.zip\";s:5:\"icons\";a:1:{s:2:\"1x\";s:81:\"https://ps.w.org/recent-posts-widget-extended/assets/icon-128x128.png?rev=1240338\";}s:7:\"banners\";a:1:{s:2:\"1x\";s:82:\"https://ps.w.org/recent-posts-widget-extended/assets/banner-772x250.png?rev=900647\";}s:11:\"banners_rtl\";a:0:{}}s:53:\"wp-custom-register-login/wp-custom-register-login.php\";O:8:\"stdClass\":9:{s:2:\"id\";s:38:\"w.org/plugins/wp-custom-register-login\";s:4:\"slug\";s:24:\"wp-custom-register-login\";s:6:\"plugin\";s:53:\"wp-custom-register-login/wp-custom-register-login.php\";s:11:\"new_version\";s:5:\"2.0.0\";s:3:\"url\";s:55:\"https://wordpress.org/plugins/wp-custom-register-login/\";s:7:\"package\";s:73:\"https://downloads.wordpress.org/plugin/wp-custom-register-login.2.0.0.zip\";s:5:\"icons\";a:1:{s:2:\"1x\";s:77:\"https://ps.w.org/wp-custom-register-login/assets/icon-128x128.jpg?rev=1269330\";}s:7:\"banners\";a:1:{s:2:\"1x\";s:79:\"https://ps.w.org/wp-custom-register-login/assets/banner-772x250.jpg?rev=1269252\";}s:11:\"banners_rtl\";a:0:{}}}}', 'no'),
+(2165, '_site_transient_timeout_community-events-d41d8cd98f00b204e9800998ecf8427e', '1597895179', 'no'),
+(2166, '_site_transient_community-events-d41d8cd98f00b204e9800998ecf8427e', 'a:3:{s:9:\"sandboxed\";b:0;s:8:\"location\";a:1:{s:2:\"ip\";b:0;}s:6:\"events\";a:2:{i:0;a:8:{s:4:\"type\";s:6:\"meetup\";s:5:\"title\";s:54:\"Discussion Group: Intro to Gutenberg Block Development\";s:3:\"url\";s:68:\"https://www.meetup.com/learn-wordpress-discussions/events/272503390/\";s:6:\"meetup\";s:15:\"Learn WordPress\";s:10:\"meetup_url\";s:51:\"https://www.meetup.com/learn-wordpress-discussions/\";s:4:\"date\";s:19:\"2020-08-20 06:00:00\";s:8:\"end_date\";s:19:\"2020-08-20 07:00:00\";s:8:\"location\";a:4:{s:8:\"location\";s:6:\"Online\";s:7:\"country\";s:2:\"US\";s:8:\"latitude\";d:37.779998779297;s:9:\"longitude\";d:-122.41999816895;}}i:1;a:8:{s:4:\"type\";s:8:\"wordcamp\";s:5:\"title\";s:35:\"WordCamp Minneapolis, Minnesota USA\";s:3:\"url\";s:38:\"https://minneapolis.wordcamp.org/2020/\";s:6:\"meetup\";N;s:10:\"meetup_url\";N;s:4:\"date\";s:19:\"2020-08-21 13:45:00\";s:8:\"end_date\";s:19:\"2020-08-21 13:45:00\";s:8:\"location\";a:4:{s:8:\"location\";s:6:\"Online\";s:7:\"country\";s:2:\"US\";s:8:\"latitude\";d:44.977753;s:9:\"longitude\";d:-93.2650108;}}}}', 'no'),
+(2167, '_transient_timeout_dash_v2_88ae138922fe95674369b1cb3d215a2b', '1597875028', 'no'),
+(2168, '_transient_dash_v2_88ae138922fe95674369b1cb3d215a2b', '<div class=\"rss-widget\"><p><strong>RSS Error:</strong> WP HTTP Error: cURL error 28: Operation timed out after 10000 milliseconds with 65138 bytes received</p></div><div class=\"rss-widget\"><p><strong>RSS Error:</strong> WP HTTP Error: cURL error 28: Operation timed out after 10000 milliseconds with 97993 bytes received</p></div>', 'no'),
+(2177, '_transient_is_multi_author', '0', 'yes'),
+(2178, '_transient_talon_categories', '2', 'yes'),
+(2184, '_site_transient_timeout_theme_roots', '1597861776', 'no'),
+(2185, '_site_transient_theme_roots', 'a:2:{s:5:\"talon\";s:7:\"/themes\";s:13:\"twentysixteen\";s:7:\"/themes\";}', 'no');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `wp_postmeta`
+-- Table structure for table `wp_postmeta`
 --
 
 CREATE TABLE `wp_postmeta` (
@@ -533,7 +441,7 @@ CREATE TABLE `wp_postmeta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `wp_postmeta`
+-- Dumping data for table `wp_postmeta`
 --
 
 INSERT INTO `wp_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES
@@ -566,14 +474,11 @@ INSERT INTO `wp_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUE
 (99, 35, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
 (100, 35, '_menu_item_xfn', ''),
 (101, 35, '_menu_item_url', ''),
-(107, 37, '_wp_attached_file', '2019/09/Presentasi-Kelompok-6-AUDIT-Terlambat.pptx'),
 (110, 39, '_wp_attached_file', '2019/09/cropped-download.jpg'),
 (111, 39, '_wp_attachment_context', 'custom-header'),
 (112, 39, '_wp_attachment_metadata', 'a:6:{s:5:\"width\";i:1920;s:6:\"height\";i:1078;s:4:\"file\";s:28:\"2019/09/cropped-download.jpg\";s:5:\"sizes\";a:7:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:28:\"cropped-download-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:6:\"medium\";a:4:{s:4:\"file\";s:28:\"cropped-download-300x168.jpg\";s:5:\"width\";i:300;s:6:\"height\";i:168;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:12:\"medium_large\";a:4:{s:4:\"file\";s:28:\"cropped-download-768x431.jpg\";s:5:\"width\";i:768;s:6:\"height\";i:431;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:5:\"large\";a:4:{s:4:\"file\";s:29:\"cropped-download-1024x575.jpg\";s:5:\"width\";i:1024;s:6:\"height\";i:575;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:16:\"talon-home-small\";a:4:{s:4:\"file\";s:28:\"cropped-download-200x112.jpg\";s:5:\"width\";i:200;s:6:\"height\";i:112;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:16:\"talon-home-large\";a:4:{s:4:\"file\";s:28:\"cropped-download-280x280.jpg\";s:5:\"width\";i:280;s:6:\"height\";i:280;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:16:\"talon-blog-image\";a:4:{s:4:\"file\";s:28:\"cropped-download-690x387.jpg\";s:5:\"width\";i:690;s:6:\"height\";i:387;s:9:\"mime-type\";s:10:\"image/jpeg\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}s:17:\"attachment_parent\";i:38;}'),
 (113, 39, '_wp_attachment_custom_header_last_used_talon', '1569608660'),
 (114, 39, '_wp_attachment_is_custom_header', 'talon'),
-(119, 41, '_wp_attached_file', '2019/09/janEE_16x9.jpg'),
-(120, 41, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:450;s:6:\"height\";i:253;s:4:\"file\";s:22:\"2019/09/janEE_16x9.jpg\";s:5:\"sizes\";a:4:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:22:\"janEE_16x9-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:6:\"medium\";a:4:{s:4:\"file\";s:22:\"janEE_16x9-300x169.jpg\";s:5:\"width\";i:300;s:6:\"height\";i:169;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:16:\"talon-home-small\";a:4:{s:4:\"file\";s:22:\"janEE_16x9-200x112.jpg\";s:5:\"width\";i:200;s:6:\"height\";i:112;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:16:\"talon-home-large\";a:4:{s:4:\"file\";s:22:\"janEE_16x9-280x253.jpg\";s:5:\"width\";i:280;s:6:\"height\";i:253;s:9:\"mime-type\";s:10:\"image/jpeg\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:18:\"Jennifer McCormick\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}'),
 (121, 42, '_wp_attached_file', '2019/09/cropped-janEE_16x9.jpg'),
 (122, 42, '_wp_attachment_context', 'custom-header'),
 (123, 42, '_wp_attachment_metadata', 'a:6:{s:5:\"width\";i:1920;s:6:\"height\";i:1079;s:4:\"file\";s:30:\"2019/09/cropped-janEE_16x9.jpg\";s:5:\"sizes\";a:7:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:30:\"cropped-janEE_16x9-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:6:\"medium\";a:4:{s:4:\"file\";s:30:\"cropped-janEE_16x9-300x169.jpg\";s:5:\"width\";i:300;s:6:\"height\";i:169;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:12:\"medium_large\";a:4:{s:4:\"file\";s:30:\"cropped-janEE_16x9-768x432.jpg\";s:5:\"width\";i:768;s:6:\"height\";i:432;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:5:\"large\";a:4:{s:4:\"file\";s:31:\"cropped-janEE_16x9-1024x575.jpg\";s:5:\"width\";i:1024;s:6:\"height\";i:575;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:16:\"talon-home-small\";a:4:{s:4:\"file\";s:30:\"cropped-janEE_16x9-200x112.jpg\";s:5:\"width\";i:200;s:6:\"height\";i:112;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:16:\"talon-home-large\";a:4:{s:4:\"file\";s:30:\"cropped-janEE_16x9-280x280.jpg\";s:5:\"width\";i:280;s:6:\"height\";i:280;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:16:\"talon-blog-image\";a:4:{s:4:\"file\";s:30:\"cropped-janEE_16x9-690x388.jpg\";s:5:\"width\";i:690;s:6:\"height\";i:388;s:9:\"mime-type\";s:10:\"image/jpeg\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}s:17:\"attachment_parent\";i:41;}'),
@@ -592,68 +497,12 @@ INSERT INTO `wp_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUE
 (154, 53, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
 (155, 53, '_menu_item_xfn', ''),
 (156, 53, '_menu_item_url', ''),
-(162, 57, '_wp_attached_file', '2019/09/oracle.jpg'),
-(163, 57, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:900;s:6:\"height\";i:860;s:4:\"file\";s:18:\"2019/09/oracle.jpg\";s:5:\"sizes\";a:7:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:18:\"oracle-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:6:\"medium\";a:4:{s:4:\"file\";s:18:\"oracle-300x287.jpg\";s:5:\"width\";i:300;s:6:\"height\";i:287;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:12:\"medium_large\";a:4:{s:4:\"file\";s:18:\"oracle-768x734.jpg\";s:5:\"width\";i:768;s:6:\"height\";i:734;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:16:\"talon-home-small\";a:4:{s:4:\"file\";s:18:\"oracle-200x191.jpg\";s:5:\"width\";i:200;s:6:\"height\";i:191;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:16:\"talon-home-large\";a:4:{s:4:\"file\";s:18:\"oracle-280x280.jpg\";s:5:\"width\";i:280;s:6:\"height\";i:280;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:16:\"talon-blog-image\";a:4:{s:4:\"file\";s:18:\"oracle-690x659.jpg\";s:5:\"width\";i:690;s:6:\"height\";i:659;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:14:\"rpwe-thumbnail\";a:4:{s:4:\"file\";s:16:\"oracle-45x45.jpg\";s:5:\"width\";i:45;s:6:\"height\";i:45;s:9:\"mime-type\";s:10:\"image/jpeg\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}'),
-(166, 61, '_edit_lock', '1586444362:1'),
-(167, 63, '_wp_attached_file', '2019/10/oracle2.jpg'),
-(168, 63, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:225;s:6:\"height\";i:225;s:4:\"file\";s:19:\"2019/10/oracle2.jpg\";s:5:\"sizes\";a:3:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:19:\"oracle2-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:16:\"talon-home-small\";a:4:{s:4:\"file\";s:19:\"oracle2-200x200.jpg\";s:5:\"width\";i:200;s:6:\"height\";i:200;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:14:\"rpwe-thumbnail\";a:4:{s:4:\"file\";s:17:\"oracle2-45x45.jpg\";s:5:\"width\";i:45;s:6:\"height\";i:45;s:9:\"mime-type\";s:10:\"image/jpeg\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}'),
-(175, 61, '_thumbnail_id', '63'),
 (176, 66, '_edit_lock', '1587573979:1'),
 (177, 66, '_edit_last', '1'),
-(186, 61, '_edit_last', '1'),
-(188, 61, 'tempat', 'Univ Mercu Buana'),
-(189, 61, '_tempat', 'field_5dd94df5703f6'),
-(190, 69, 'tempat', 'Univ Mercu Buana'),
-(191, 69, '_tempat', 'field_5dd94df5703f6'),
-(218, 61, 'date', '20200430'),
-(219, 61, '_date', 'field_5dd9624ae2349'),
-(220, 61, 'waktu_mulai', '09:00:00'),
-(221, 61, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(222, 61, 'waktu_selesai', '12:00:00'),
-(223, 61, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(224, 76, 'tempat', 'Univ Mercu Buana'),
-(225, 76, '_tempat', 'field_5dd94df5703f6'),
-(226, 76, 'date', '20191120'),
-(227, 76, '_date', 'field_5dd9624ae2349'),
-(228, 76, 'waktu_mulai', '09:00:00'),
-(229, 76, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(230, 76, 'waktu_selesai', '12:00:00'),
-(231, 76, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(234, 77, 'tempat', 'Univ Mercu Buana'),
-(235, 77, '_tempat', 'field_5dd94df5703f6'),
-(236, 77, 'date', '20191120'),
-(237, 77, '_date', 'field_5dd9624ae2349'),
-(238, 77, 'waktu_mulai', '09:00:00'),
-(239, 77, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(240, 77, 'waktu_selesai', '12:00:00'),
-(241, 77, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(244, 78, 'tempat', 'Univ Mercu Buana'),
-(245, 78, '_tempat', 'field_5dd94df5703f6'),
-(246, 78, 'date', '20191220'),
-(247, 78, '_date', 'field_5dd9624ae2349'),
-(248, 78, 'waktu_mulai', '09:00:00'),
-(249, 78, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(250, 78, 'waktu_selesai', '12:00:00'),
-(251, 78, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(253, 81, '_wp_attached_file', '2019/09/download.jpg'),
-(254, 81, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:194;s:6:\"height\";i:259;s:4:\"file\";s:20:\"2019/09/download.jpg\";s:5:\"sizes\";a:2:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:20:\"download-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:14:\"rpwe-thumbnail\";a:4:{s:4:\"file\";s:18:\"download-45x45.jpg\";s:5:\"width\";i:45;s:6:\"height\";i:45;s:9:\"mime-type\";s:10:\"image/jpeg\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}'),
-(265, 82, '_wp_attached_file', '2019/09/download-1.jpg'),
-(266, 82, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:218;s:6:\"height\";i:231;s:4:\"file\";s:22:\"2019/09/download-1.jpg\";s:5:\"sizes\";a:3:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:22:\"download-1-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:16:\"talon-home-small\";a:4:{s:4:\"file\";s:22:\"download-1-200x212.jpg\";s:5:\"width\";i:200;s:6:\"height\";i:212;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:14:\"rpwe-thumbnail\";a:4:{s:4:\"file\";s:20:\"download-1-45x45.jpg\";s:5:\"width\";i:45;s:6:\"height\";i:45;s:9:\"mime-type\";s:10:\"image/jpeg\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}'),
 (289, 2, '_edit_lock', '1575476536:1'),
-(299, 94, '_wp_attached_file', '2019/12/logo-esinar.jpg'),
-(300, 94, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:496;s:6:\"height\";i:253;s:4:\"file\";s:23:\"2019/12/logo-esinar.jpg\";s:5:\"sizes\";a:5:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:23:\"logo-esinar-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:6:\"medium\";a:4:{s:4:\"file\";s:23:\"logo-esinar-300x153.jpg\";s:5:\"width\";i:300;s:6:\"height\";i:153;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:16:\"talon-home-small\";a:4:{s:4:\"file\";s:23:\"logo-esinar-200x102.jpg\";s:5:\"width\";i:200;s:6:\"height\";i:102;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:16:\"talon-home-large\";a:4:{s:4:\"file\";s:23:\"logo-esinar-280x253.jpg\";s:5:\"width\";i:280;s:6:\"height\";i:253;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:14:\"rpwe-thumbnail\";a:4:{s:4:\"file\";s:21:\"logo-esinar-45x45.jpg\";s:5:\"width\";i:45;s:6:\"height\";i:45;s:9:\"mime-type\";s:10:\"image/jpeg\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"1\";s:8:\"keywords\";a:0:{}}}'),
 (301, 95, '_wp_attached_file', '2019/12/cropped-logo-esinar.jpg'),
 (302, 95, '_wp_attachment_context', 'custom-logo'),
 (303, 95, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:200;s:6:\"height\";i:87;s:4:\"file\";s:31:\"2019/12/cropped-logo-esinar.jpg\";s:5:\"sizes\";a:3:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:30:\"cropped-logo-esinar-150x87.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:87;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:16:\"talon-home-small\";a:4:{s:4:\"file\";s:30:\"cropped-logo-esinar-200x87.jpg\";s:5:\"width\";i:200;s:6:\"height\";i:87;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:14:\"rpwe-thumbnail\";a:4:{s:4:\"file\";s:29:\"cropped-logo-esinar-45x45.jpg\";s:5:\"width\";i:45;s:6:\"height\";i:45;s:9:\"mime-type\";s:10:\"image/jpeg\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}'),
-(310, 98, 'tempat', 'Univ Mercu Buana'),
-(311, 98, '_tempat', 'field_5dd94df5703f6'),
-(312, 98, 'date', '20191220'),
-(313, 98, '_date', 'field_5dd9624ae2349'),
-(314, 98, 'waktu_mulai', '09:00:00'),
-(315, 98, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(316, 98, 'waktu_selesai', '12:00:00'),
-(317, 98, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(330, 61, '_wp_old_slug', 'post-ke-2'),
 (332, 100, '_edit_lock', '1575991628:1'),
 (341, 108, '_edit_lock', '1576005778:1'),
 (364, 121, '_edit_lock', '1576179781:1'),
@@ -662,15 +511,10 @@ INSERT INTO `wp_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUE
 (375, 121, '_nama', 'field_5defbdbef471a'),
 (376, 124, 'nama', 'tes'),
 (377, 124, '_nama', 'field_5defbdbef471a'),
-(387, 125, '_edit_lock', '1576171399:1'),
-(399, 130, '_edit_lock', '1576071698:1'),
-(400, 130, '_edit_last', '1'),
-(402, 133, '_wp_attached_file', '2019/12/logo-esinar.png'),
-(403, 133, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:496;s:6:\"height\";i:253;s:4:\"file\";s:23:\"2019/12/logo-esinar.png\";s:5:\"sizes\";a:5:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:23:\"logo-esinar-150x150.png\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:9:\"image/png\";}s:6:\"medium\";a:4:{s:4:\"file\";s:23:\"logo-esinar-300x153.png\";s:5:\"width\";i:300;s:6:\"height\";i:153;s:9:\"mime-type\";s:9:\"image/png\";}s:16:\"talon-home-small\";a:4:{s:4:\"file\";s:23:\"logo-esinar-200x102.png\";s:5:\"width\";i:200;s:6:\"height\";i:102;s:9:\"mime-type\";s:9:\"image/png\";}s:16:\"talon-home-large\";a:4:{s:4:\"file\";s:23:\"logo-esinar-280x253.png\";s:5:\"width\";i:280;s:6:\"height\";i:253;s:9:\"mime-type\";s:9:\"image/png\";}s:14:\"rpwe-thumbnail\";a:4:{s:4:\"file\";s:21:\"logo-esinar-45x45.png\";s:5:\"width\";i:45;s:6:\"height\";i:45;s:9:\"mime-type\";s:9:\"image/png\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}'),
+(387, 125, '_edit_lock', '1593182390:1'),
 (404, 134, '_wp_attached_file', '2019/12/cropped-logo-esinar.png'),
 (405, 134, '_wp_attachment_context', 'custom-logo'),
 (406, 134, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:200;s:6:\"height\";i:80;s:4:\"file\";s:31:\"2019/12/cropped-logo-esinar.png\";s:5:\"sizes\";a:3:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:30:\"cropped-logo-esinar-150x80.png\";s:5:\"width\";i:150;s:6:\"height\";i:80;s:9:\"mime-type\";s:9:\"image/png\";}s:16:\"talon-home-small\";a:4:{s:4:\"file\";s:30:\"cropped-logo-esinar-200x80.png\";s:5:\"width\";i:200;s:6:\"height\";i:80;s:9:\"mime-type\";s:9:\"image/png\";}s:14:\"rpwe-thumbnail\";a:4:{s:4:\"file\";s:29:\"cropped-logo-esinar-45x45.png\";s:5:\"width\";i:45;s:6:\"height\";i:45;s:9:\"mime-type\";s:9:\"image/png\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}'),
-(410, 137, '_edit_lock', '1576083778:1'),
 (411, 139, '_edit_lock', '1576161066:1'),
 (420, 139, '_edit_last', '1'),
 (421, 139, 'nama', ''),
@@ -730,312 +574,62 @@ INSERT INTO `wp_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUE
 (519, 164, '_nama', 'field_5df0f13ad9583'),
 (520, 166, 'nama', ''),
 (521, 166, '_nama', 'field_5df0f13ad9583'),
-(524, 168, '_edit_lock', '1588272516:1'),
-(525, 169, '_wp_attached_file', '2019/12/seminar-nasional-fintech.jpeg'),
-(526, 169, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:295;s:6:\"height\";i:600;s:4:\"file\";s:37:\"2019/12/seminar-nasional-fintech.jpeg\";s:5:\"sizes\";a:5:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:37:\"seminar-nasional-fintech-150x150.jpeg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:6:\"medium\";a:4:{s:4:\"file\";s:37:\"seminar-nasional-fintech-148x300.jpeg\";s:5:\"width\";i:148;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:16:\"talon-home-small\";a:4:{s:4:\"file\";s:37:\"seminar-nasional-fintech-200x407.jpeg\";s:5:\"width\";i:200;s:6:\"height\";i:407;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:16:\"talon-home-large\";a:4:{s:4:\"file\";s:37:\"seminar-nasional-fintech-280x280.jpeg\";s:5:\"width\";i:280;s:6:\"height\";i:280;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:14:\"rpwe-thumbnail\";a:4:{s:4:\"file\";s:35:\"seminar-nasional-fintech-45x45.jpeg\";s:5:\"width\";i:45;s:6:\"height\";i:45;s:9:\"mime-type\";s:10:\"image/jpeg\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}'),
-(528, 168, '_thumbnail_id', '169'),
-(529, 168, '_edit_last', '1'),
-(531, 168, 'tempat', 'Jl. Medan merdeka selatan no.11, Jakarta Pusat'),
-(532, 168, '_tempat', 'field_5dd94df5703f6'),
-(533, 168, 'date', '20191203'),
-(534, 168, '_date', 'field_5dd9624ae2349'),
-(535, 168, 'waktu_mulai', '09:00:00'),
-(536, 168, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(537, 168, 'waktu_selesai', '16:00:00'),
-(538, 168, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(539, 171, 'tempat', 'Jl. Medan merdeka selatan no.11, Jakarta Pusat'),
-(540, 171, '_tempat', 'field_5dd94df5703f6'),
-(541, 171, 'date', '20191203'),
-(542, 171, '_date', 'field_5dd9624ae2349'),
-(543, 171, 'waktu_mulai', '09:00:00'),
-(544, 171, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(545, 171, 'waktu_selesai', '16:00:00'),
-(546, 171, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(547, 172, '_edit_lock', '1576204723:1'),
-(548, 176, '_edit_lock', '1584459297:49'),
-(550, 176, '_edit_last', '49'),
-(552, 176, 'nama', ''),
-(553, 176, '_nama', 'field_5df0f13ad9583'),
-(554, 177, 'nama', ''),
-(555, 177, '_nama', 'field_5df0f13ad9583'),
-(558, 168, 'harga', '50000'),
-(559, 168, '_harga', 'field_5e7620ec73bc0'),
-(560, 180, 'tempat', 'Jl. Medan merdeka selatan no.11, Jakarta Pusat'),
-(561, 180, '_tempat', 'field_5dd94df5703f6'),
-(562, 180, 'date', '20191203'),
-(563, 180, '_date', 'field_5dd9624ae2349'),
-(564, 180, 'waktu_mulai', '09:00:00'),
-(565, 180, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(566, 180, 'waktu_selesai', '16:00:00'),
-(567, 180, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(568, 180, 'harga', '50000'),
-(569, 180, '_harga', 'field_5e7620ec73bc0'),
-(572, 61, 'harga', '50000'),
-(573, 61, '_harga', 'field_5e7620ec73bc0'),
-(574, 181, 'tempat', 'Univ Mercu Buana'),
-(575, 181, '_tempat', 'field_5dd94df5703f6'),
-(576, 181, 'date', '20191220'),
-(577, 181, '_date', 'field_5dd9624ae2349'),
-(578, 181, 'waktu_mulai', '09:00:00'),
-(579, 181, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(580, 181, 'waktu_selesai', '12:00:00'),
-(581, 181, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(582, 181, 'harga', '50000'),
-(583, 181, '_harga', 'field_5e7620ec73bc0'),
 (598, 163, '_ca_post_type', '108'),
-(601, 183, 'tempat', 'Univ Mercu Buana'),
-(602, 183, '_tempat', 'field_5dd94df5703f6'),
-(603, 183, 'date', '20190328'),
-(604, 183, '_date', 'field_5dd9624ae2349'),
-(605, 183, 'waktu_mulai', '09:00:00'),
-(606, 183, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(607, 183, 'waktu_selesai', '12:00:00'),
-(608, 183, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(609, 183, 'harga', '50000'),
-(610, 183, '_harga', 'field_5e7620ec73bc0'),
-(613, 184, 'tempat', 'Univ Mercu Buana'),
-(614, 184, '_tempat', 'field_5dd94df5703f6'),
-(615, 184, 'date', '20200328'),
-(616, 184, '_date', 'field_5dd9624ae2349'),
-(617, 184, 'waktu_mulai', '09:00:00'),
-(618, 184, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(619, 184, 'waktu_selesai', '12:00:00'),
-(620, 184, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(621, 184, 'harga', '50000'),
-(622, 184, '_harga', 'field_5e7620ec73bc0'),
-(625, 186, 'tempat', 'Univ Mercu Buana'),
-(626, 186, '_tempat', 'field_5dd94df5703f6'),
-(627, 186, 'date', '20200408'),
-(628, 186, '_date', 'field_5dd9624ae2349'),
-(629, 186, 'waktu_mulai', '09:00:00'),
-(630, 186, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(631, 186, 'waktu_selesai', '12:00:00'),
-(632, 186, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(633, 186, 'harga', '50000'),
-(634, 186, '_harga', 'field_5e7620ec73bc0'),
-(637, 188, 'tempat', 'Univ Mercu Buana'),
-(638, 188, '_tempat', 'field_5dd94df5703f6'),
-(639, 188, 'date', '20200430'),
-(640, 188, '_date', 'field_5dd9624ae2349'),
-(641, 188, 'waktu_mulai', '09:00:00'),
-(642, 188, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(643, 188, 'waktu_selesai', '12:00:00'),
-(644, 188, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(645, 188, 'harga', '50000'),
-(646, 188, '_harga', 'field_5e7620ec73bc0'),
-(666, 199, '_edit_lock', '1587222406:1'),
-(675, 199, '_edit_last', '1'),
-(677, 199, 'nama', ''),
-(678, 199, '_nama', 'field_5df0f13ad9583'),
-(679, 207, 'nama', ''),
-(680, 207, '_nama', 'field_5df0f13ad9583'),
-(693, 222, '_edit_lock', '1587567807:54'),
-(702, 231, '_edit_lock', '1587568235:54'),
-(712, 241, '_edit_lock', '1589569670:54'),
-(713, 242, '_wp_attached_file', '2020/04/a71.jpg'),
-(714, 242, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:220;s:6:\"height\";i:220;s:4:\"file\";s:15:\"2020/04/a71.jpg\";s:5:\"sizes\";a:3:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:15:\"a71-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:16:\"talon-home-small\";a:4:{s:4:\"file\";s:15:\"a71-200x200.jpg\";s:5:\"width\";i:200;s:6:\"height\";i:200;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:14:\"rpwe-thumbnail\";a:4:{s:4:\"file\";s:13:\"a71-45x45.jpg\";s:5:\"width\";i:45;s:6:\"height\";i:45;s:9:\"mime-type\";s:10:\"image/jpeg\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}'),
-(716, 241, '_thumbnail_id', '279'),
-(717, 241, '_edit_last', '54'),
-(719, 241, 'tempat', 'SMAN 67 Jakarta Timur'),
-(720, 241, '_tempat', 'field_5dd94df5703f6'),
-(721, 241, 'date', '20200429'),
-(722, 241, '_date', 'field_5dd9624ae2349'),
-(723, 241, 'waktu_mulai', '10:00:00'),
-(724, 241, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(725, 241, 'waktu_selesai', '13:00:00'),
-(726, 241, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(727, 241, 'harga', '50000'),
-(728, 241, '_harga', 'field_5e7620ec73bc0'),
-(729, 244, 'tempat', 'SMAN 67 Jakarta Timur'),
-(730, 244, '_tempat', 'field_5dd94df5703f6'),
-(731, 244, 'date', '20200503'),
-(732, 244, '_date', 'field_5dd9624ae2349'),
-(733, 244, 'waktu_mulai', '10:00:00'),
-(734, 244, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(735, 244, 'waktu_selesai', '13:00:00'),
-(736, 244, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(737, 244, 'harga', '50000'),
-(738, 244, '_harga', 'field_5e7620ec73bc0'),
-(795, 257, '_edit_lock', '1587806008:1'),
-(797, 257, '_edit_last', '1'),
-(799, 257, 'nama', ''),
-(800, 257, '_nama', 'field_5df0f13ad9583'),
-(801, 258, 'nama', ''),
-(802, 258, '_nama', 'field_5df0f13ad9583'),
-(805, 259, 'tempat', 'SMAN 67 Jakarta Timur'),
-(806, 259, '_tempat', 'field_5dd94df5703f6'),
-(807, 259, 'date', '20200424'),
-(808, 259, '_date', 'field_5dd9624ae2349'),
-(809, 259, 'waktu_mulai', '10:00:00'),
-(810, 259, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(811, 259, 'waktu_selesai', '13:00:00'),
-(812, 259, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(813, 259, 'harga', '50000'),
-(814, 259, '_harga', 'field_5e7620ec73bc0'),
-(817, 260, 'tempat', 'SMAN 67 Jakarta Timur'),
-(818, 260, '_tempat', 'field_5dd94df5703f6'),
-(819, 260, 'date', '20200505'),
-(820, 260, '_date', 'field_5dd9624ae2349'),
-(821, 260, 'waktu_mulai', '10:00:00'),
-(822, 260, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(823, 260, 'waktu_selesai', '13:00:00'),
-(824, 260, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(825, 260, 'harga', '50000'),
-(826, 260, '_harga', 'field_5e7620ec73bc0'),
-(829, 261, 'tempat', 'SMAN 67 Jakarta Timur'),
-(830, 261, '_tempat', 'field_5dd94df5703f6'),
-(831, 261, 'date', '20200424'),
-(832, 261, '_date', 'field_5dd9624ae2349'),
-(833, 261, 'waktu_mulai', '10:00:00'),
-(834, 261, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(835, 261, 'waktu_selesai', '13:00:00'),
-(836, 261, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(837, 261, 'harga', '50000'),
-(838, 261, '_harga', 'field_5e7620ec73bc0'),
-(852, 265, 'tempat', 'SMAN 67 Jakarta Timur'),
-(853, 265, '_tempat', 'field_5dd94df5703f6'),
-(854, 265, 'date', '20200510'),
-(855, 265, '_date', 'field_5dd9624ae2349'),
-(856, 265, 'waktu_mulai', '10:00:00'),
-(857, 265, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(858, 265, 'waktu_selesai', '13:00:00'),
-(859, 265, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(860, 265, 'harga', '50000'),
-(861, 265, '_harga', 'field_5e7620ec73bc0'),
-(864, 266, 'tempat', 'SMAN 67 Jakarta Timur'),
-(865, 266, '_tempat', 'field_5dd94df5703f6'),
-(866, 266, 'date', '20200630'),
-(867, 266, '_date', 'field_5dd9624ae2349'),
-(868, 266, 'waktu_mulai', '10:00:00'),
-(869, 266, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(870, 266, 'waktu_selesai', '13:00:00'),
-(871, 266, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(872, 266, 'harga', '50000'),
-(873, 266, '_harga', 'field_5e7620ec73bc0'),
-(876, 267, 'tempat', 'SMAN 67 Jakarta Timur'),
-(877, 267, '_tempat', 'field_5dd94df5703f6'),
-(878, 267, 'date', '20200629'),
-(879, 267, '_date', 'field_5dd9624ae2349'),
-(880, 267, 'waktu_mulai', '10:00:00'),
-(881, 267, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(882, 267, 'waktu_selesai', '13:00:00'),
-(883, 267, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(884, 267, 'harga', '50000'),
-(885, 267, '_harga', 'field_5e7620ec73bc0'),
-(888, 268, 'tempat', 'SMAN 67 Jakarta Timur'),
-(889, 268, '_tempat', 'field_5dd94df5703f6'),
-(890, 268, 'date', '20200429'),
-(891, 268, '_date', 'field_5dd9624ae2349'),
-(892, 268, 'waktu_mulai', '10:00:00'),
-(893, 268, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(894, 268, 'waktu_selesai', '13:00:00'),
-(895, 268, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(896, 268, 'harga', '50000'),
-(897, 268, '_harga', 'field_5e7620ec73bc0'),
-(898, 270, '_edit_lock', '1589480700:1'),
-(900, 270, '_edit_last', '1'),
-(902, 270, 'tempat', 'ba'),
-(903, 270, '_tempat', 'field_5dd94df5703f6'),
-(904, 270, 'date', '20200517'),
-(905, 270, '_date', 'field_5dd9624ae2349'),
-(906, 270, 'waktu_mulai', '15:00:00'),
-(907, 270, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(908, 270, 'waktu_selesai', '17:00:00'),
-(909, 270, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(910, 270, 'harga', '100000'),
-(911, 270, '_harga', 'field_5e7620ec73bc0'),
-(912, 272, 'tempat', 'ba'),
-(913, 272, '_tempat', 'field_5dd94df5703f6'),
-(914, 272, 'date', '20200517'),
-(915, 272, '_date', 'field_5dd9624ae2349'),
-(916, 272, 'waktu_mulai', '15:00:00'),
-(917, 272, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(918, 272, 'waktu_selesai', '17:00:00'),
-(919, 272, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(920, 272, 'harga', '100000'),
-(921, 272, '_harga', 'field_5e7620ec73bc0'),
-(922, 130, '_wp_trash_meta_status', 'publish'),
-(923, 130, '_wp_trash_meta_time', '1589481333'),
-(924, 130, '_wp_desired_post_slug', 'group_5df0f11f30197'),
-(925, 131, '_wp_trash_meta_status', 'publish'),
-(926, 131, '_wp_trash_meta_time', '1589481334'),
-(927, 131, '_wp_desired_post_slug', 'field_5df0f13ad9583'),
 (928, 273, '_edit_lock', '1589483207:1'),
 (929, 273, '_edit_last', '1'),
-(930, 275, '_edit_lock', '1589483205:1'),
-(932, 275, '_edit_last', '1'),
-(934, 275, 'name', ''),
-(935, 275, '_name', 'field_5ebd8fb175248'),
-(936, 277, 'name', ''),
-(937, 277, '_name', 'field_5ebd8fb175248'),
-(943, 270, '_wp_trash_meta_status', 'publish'),
-(944, 270, '_wp_trash_meta_time', '1589569573'),
-(945, 270, '_wp_desired_post_slug', 'tess'),
-(946, 279, '_wp_attached_file', '2020/04/seminar-invite.jpg'),
-(947, 279, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:197;s:6:\"height\";i:256;s:4:\"file\";s:26:\"2020/04/seminar-invite.jpg\";s:5:\"sizes\";a:2:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:26:\"seminar-invite-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:14:\"rpwe-thumbnail\";a:4:{s:4:\"file\";s:24:\"seminar-invite-45x45.jpg\";s:5:\"width\";i:45;s:6:\"height\";i:45;s:9:\"mime-type\";s:10:\"image/jpeg\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}'),
-(950, 280, '_edit_lock', '1589574130:59'),
-(951, 281, '_wp_attached_file', '2020/05/download.jpg'),
-(952, 281, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:186;s:6:\"height\";i:271;s:4:\"file\";s:20:\"2020/05/download.jpg\";s:5:\"sizes\";a:2:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:20:\"download-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:14:\"rpwe-thumbnail\";a:4:{s:4:\"file\";s:18:\"download-45x45.jpg\";s:5:\"width\";i:45;s:6:\"height\";i:45;s:9:\"mime-type\";s:10:\"image/jpeg\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}'),
-(954, 280, '_thumbnail_id', '281'),
-(955, 280, '_edit_last', '59'),
-(957, 280, 'tempat', 'Universitas Mercubuana Jakarta'),
-(958, 280, '_tempat', 'field_5dd94df5703f6'),
-(959, 280, 'date', '20200515'),
-(960, 280, '_date', 'field_5dd9624ae2349'),
-(961, 280, 'waktu_mulai', '15:00:00'),
-(962, 280, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(963, 280, 'waktu_selesai', '17:00:00'),
-(964, 280, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(965, 280, 'harga', '75000'),
-(966, 280, '_harga', 'field_5e7620ec73bc0'),
-(967, 283, 'tempat', 'Universitas Mercubuana Jakarta'),
-(968, 283, '_tempat', 'field_5dd94df5703f6'),
-(969, 283, 'date', '20200524'),
-(970, 283, '_date', 'field_5dd9624ae2349'),
-(971, 283, 'waktu_mulai', '15:00:00'),
-(972, 283, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(973, 283, 'waktu_selesai', '17:00:00'),
-(974, 283, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(975, 283, 'harga', '75000'),
-(976, 283, '_harga', 'field_5e7620ec73bc0'),
-(979, 284, 'tempat', 'Universitas Mercubuana Jakarta'),
-(980, 284, '_tempat', 'field_5dd94df5703f6'),
-(981, 284, 'date', '20200515'),
-(982, 284, '_date', 'field_5dd9624ae2349'),
-(983, 284, 'waktu_mulai', '15:00:00'),
-(984, 284, '_waktu_mulai', 'field_5dd96280b6cfd'),
-(985, 284, 'waktu_selesai', '17:00:00'),
-(986, 284, '_waktu_selesai', 'field_5dd963c5c48e2'),
-(987, 284, 'harga', '75000'),
-(988, 284, '_harga', 'field_5e7620ec73bc0'),
-(989, 285, '_edit_lock', '1589787316:1'),
-(990, 286, '_menu_item_type', 'post_type'),
-(991, 286, '_menu_item_menu_item_parent', '0'),
-(992, 286, '_menu_item_object_id', '285'),
-(993, 286, '_menu_item_object', 'page'),
-(994, 286, '_menu_item_target', ''),
-(995, 286, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
-(996, 286, '_menu_item_xfn', ''),
-(997, 286, '_menu_item_url', ''),
+(989, 285, '_edit_lock', '1593182576:1'),
 (998, 285, '_edit_last', '1'),
 (999, 285, 'name', 'tess'),
 (1000, 285, '_name', 'field_5ebd8fb175248'),
 (1001, 287, 'name', 'tess'),
 (1002, 287, '_name', 'field_5ebd8fb175248'),
 (1003, 288, 'name', 'tess'),
-(1004, 288, '_name', 'field_5ebd8fb175248');
+(1004, 288, '_name', 'field_5ebd8fb175248'),
+(1005, 292, 'name', 'tess'),
+(1006, 292, '_name', 'field_5ebd8fb175248'),
+(1043, 298, '_edit_lock', '1597832672:65'),
+(1044, 299, '_wp_attached_file', '2020/08/oracle.jpg'),
+(1045, 299, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:1024;s:6:\"height\";i:626;s:4:\"file\";s:18:\"2020/08/oracle.jpg\";s:5:\"sizes\";a:8:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:18:\"oracle-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:6:\"medium\";a:4:{s:4:\"file\";s:18:\"oracle-300x183.jpg\";s:5:\"width\";i:300;s:6:\"height\";i:183;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:12:\"medium_large\";a:4:{s:4:\"file\";s:18:\"oracle-768x470.jpg\";s:5:\"width\";i:768;s:6:\"height\";i:470;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:5:\"large\";a:4:{s:4:\"file\";s:19:\"oracle-1024x626.jpg\";s:5:\"width\";i:1024;s:6:\"height\";i:626;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:16:\"talon-home-small\";a:4:{s:4:\"file\";s:18:\"oracle-200x122.jpg\";s:5:\"width\";i:200;s:6:\"height\";i:122;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:16:\"talon-home-large\";a:4:{s:4:\"file\";s:18:\"oracle-280x280.jpg\";s:5:\"width\";i:280;s:6:\"height\";i:280;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:16:\"talon-blog-image\";a:4:{s:4:\"file\";s:18:\"oracle-690x422.jpg\";s:5:\"width\";i:690;s:6:\"height\";i:422;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:14:\"rpwe-thumbnail\";a:4:{s:4:\"file\";s:16:\"oracle-45x45.jpg\";s:5:\"width\";i:45;s:6:\"height\";i:45;s:9:\"mime-type\";s:10:\"image/jpeg\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"1\";s:8:\"keywords\";a:0:{}}}'),
+(1047, 298, '_thumbnail_id', '299'),
+(1048, 298, '_edit_last', '65'),
+(1050, 298, 'tempat', 'Universitas Mercubuana'),
+(1051, 298, '_tempat', 'field_5dd94df5703f6'),
+(1052, 298, 'date', '20200822'),
+(1053, 298, '_date', 'field_5dd9624ae2349'),
+(1054, 298, 'waktu_mulai', '10:00:00'),
+(1055, 298, '_waktu_mulai', 'field_5dd96280b6cfd'),
+(1056, 298, 'waktu_selesai', '12:00:00'),
+(1057, 298, '_waktu_selesai', 'field_5dd963c5c48e2'),
+(1058, 298, 'harga', '45000'),
+(1059, 298, '_harga', 'field_5e7620ec73bc0'),
+(1060, 301, 'tempat', 'Universitas Mercubuana'),
+(1061, 301, '_tempat', 'field_5dd94df5703f6'),
+(1062, 301, 'date', '20200822'),
+(1063, 301, '_date', 'field_5dd9624ae2349'),
+(1064, 301, 'waktu_mulai', '10:00:00'),
+(1065, 301, '_waktu_mulai', 'field_5dd96280b6cfd'),
+(1066, 301, 'waktu_selesai', '12:00:00'),
+(1067, 301, '_waktu_selesai', 'field_5dd963c5c48e2'),
+(1068, 301, 'harga', '45000'),
+(1069, 301, '_harga', 'field_5e7620ec73bc0'),
+(1070, 302, '_edit_lock', '1597833718:65'),
+(1072, 302, '_edit_last', '65'),
+(1074, 302, 'name', 'tess'),
+(1075, 302, '_name', 'field_5ebd8fb175248'),
+(1076, 303, 'name', 'tess'),
+(1077, 303, '_name', 'field_5ebd8fb175248');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `wp_posts`
+-- Table structure for table `wp_posts`
 --
 
 CREATE TABLE `wp_posts` (
   `ID` bigint(20) UNSIGNED NOT NULL,
-  `post_author` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
-  `post_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `post_date_gmt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `post_author` bigint(20) UNSIGNED NOT NULL,
+  `post_date` datetime DEFAULT NULL,
+  `post_date_gmt` datetime DEFAULT NULL,
   `post_content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `post_title` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `post_excerpt` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1046,8 +640,8 @@ CREATE TABLE `wp_posts` (
   `post_name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `to_ping` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `pinged` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `post_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `post_modified_gmt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `post_modified` datetime DEFAULT NULL,
+  `post_modified_gmt` datetime DEFAULT NULL,
   `post_content_filtered` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `post_parent` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
   `guid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
@@ -1058,7 +652,7 @@ CREATE TABLE `wp_posts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `wp_posts`
+-- Dumping data for table `wp_posts`
 --
 
 INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) VALUES
@@ -1070,39 +664,25 @@ INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post
 (28, 1, '2019-09-27 18:20:18', '2019-09-27 18:20:18', '', 'About Us', '', 'inherit', 'closed', 'closed', '', '27-revision-v1', '', '', '2019-09-27 18:20:18', '2019-09-27 18:20:18', '', 27, 'http://localhost/e_sinar/2019/09/27/27-revision-v1/', 0, 'revision', '', 0),
 (29, 1, '2019-09-27 18:20:30', '2019-09-27 18:20:30', '', 'FAQ', '', 'publish', 'closed', 'closed', '', 'faq', '', '', '2019-12-12 18:31:29', '2019-12-12 18:31:29', '', 0, 'http://localhost/e_sinar/?page_id=29', 0, 'page', '', 0),
 (30, 1, '2019-09-27 18:20:30', '2019-09-27 18:20:30', '', 'FAQ', '', 'inherit', 'closed', 'closed', '', '29-revision-v1', '', '', '2019-09-27 18:20:30', '2019-09-27 18:20:30', '', 29, 'http://localhost/e_sinar/2019/09/27/29-revision-v1/', 0, 'revision', '', 0),
-(33, 1, '2019-09-27 18:21:32', '2019-09-27 18:21:32', ' ', '', '', 'publish', 'closed', 'closed', '', '33', '', '', '2019-09-27 18:21:32', '2019-09-27 18:21:32', '', 0, 'http://localhost/e_sinar/2019/09/27/33/', 2, 'nav_menu_item', '', 0),
-(34, 1, '2019-09-27 18:21:33', '2019-09-27 18:21:33', ' ', '', '', 'publish', 'closed', 'closed', '', '34', '', '', '2019-09-27 18:21:33', '2019-09-27 18:21:33', '', 0, 'http://localhost/e_sinar/2019/09/27/34/', 3, 'nav_menu_item', '', 0),
-(35, 1, '2019-09-27 18:21:34', '2019-09-27 18:21:34', ' ', '', '', 'publish', 'closed', 'closed', '', '35', '', '', '2019-09-27 18:21:34', '2019-09-27 18:21:34', '', 0, 'http://localhost/e_sinar/2019/09/27/35/', 4, 'nav_menu_item', '', 0),
-(37, 1, '2019-09-27 18:23:49', '2019-09-27 18:23:49', '', 'Presentasi Kelompok 6 AUDIT Terlambat', '', 'inherit', 'open', 'closed', '', 'presentasi-kelompok-6-audit-terlambat', '', '', '2019-09-27 18:23:49', '2019-09-27 18:23:49', '', 0, 'http://localhost/e_sinar/wp-content/uploads/2019/09/Presentasi-Kelompok-6-AUDIT-Terlambat.pptx', 0, 'attachment', 'application/vnd.openxmlformats-officedocument.presentationml.presentation', 0),
+(33, 1, '2019-09-27 18:21:32', '2019-09-27 18:21:32', ' ', '', '', 'publish', 'closed', 'closed', '', '33', '', '', '2020-06-26 14:49:31', '2020-06-26 14:49:31', '', 0, 'http://localhost/e_sinar/2019/09/27/33/', 2, 'nav_menu_item', '', 0),
+(34, 1, '2019-09-27 18:21:33', '2019-09-27 18:21:33', ' ', '', '', 'publish', 'closed', 'closed', '', '34', '', '', '2020-06-26 14:49:31', '2020-06-26 14:49:31', '', 0, 'http://localhost/e_sinar/2019/09/27/34/', 3, 'nav_menu_item', '', 0),
+(35, 1, '2019-09-27 18:21:34', '2019-09-27 18:21:34', ' ', '', '', 'publish', 'closed', 'closed', '', '35', '', '', '2020-06-26 14:49:31', '2020-06-26 14:49:31', '', 0, 'http://localhost/e_sinar/2019/09/27/35/', 4, 'nav_menu_item', '', 0),
 (39, 1, '2019-09-27 18:24:11', '2019-09-27 18:24:11', '', 'cropped-download.jpg', '', 'inherit', 'open', 'closed', '', 'cropped-download-jpg', '', '', '2019-09-27 18:24:11', '2019-09-27 18:24:11', '', 0, 'http://localhost/e_sinar/wp-content/uploads/2019/09/cropped-download.jpg', 0, 'attachment', 'image/jpeg', 0),
-(41, 1, '2019-09-27 18:26:12', '2019-09-27 18:26:12', '', 'janEE_16x9', '', 'inherit', 'open', 'closed', '', 'janee_16x9', '', '', '2019-09-27 18:26:12', '2019-09-27 18:26:12', '', 0, 'http://localhost/e_sinar/wp-content/uploads/2019/09/janEE_16x9.jpg', 0, 'attachment', 'image/jpeg', 0),
 (42, 1, '2019-09-27 18:26:18', '2019-09-27 18:26:18', '', 'cropped-janEE_16x9.jpg', '', 'inherit', 'open', 'closed', '', 'cropped-janee_16x9-jpg', '', '', '2019-09-27 18:26:18', '2019-09-27 18:26:18', '', 0, 'http://localhost/e_sinar/wp-content/uploads/2019/09/cropped-janEE_16x9.jpg', 0, 'attachment', 'image/jpeg', 0),
 (50, 1, '2019-10-06 14:42:57', '2019-10-06 14:42:57', '', 'rpwe_home', '', 'publish', 'closed', 'closed', '', 'rpwe_home', '', '', '2019-10-06 14:42:57', '2019-10-06 14:42:57', '', 0, 'http://localhost/e_sinar/?post_type=sidebar_instance&p=50', 0, 'sidebar_instance', '', 0),
 (52, 1, '2019-10-06 14:48:20', '2019-10-06 14:48:20', '', 'beranda', '', 'publish', 'closed', 'closed', '', 'beranda', '', '', '2019-10-06 14:48:20', '2019-10-06 14:48:20', '', 0, 'http://localhost/e_sinar/?page_id=52', 0, 'page', '', 0),
-(53, 1, '2019-10-06 14:48:20', '2019-10-06 14:48:20', ' ', '', '', 'publish', 'closed', 'closed', '', '53', '', '', '2019-10-06 14:53:49', '2019-10-06 14:53:49', '', 0, 'http://localhost/e_sinar/2019/10/06/53/', 1, 'nav_menu_item', '', 0),
+(53, 1, '2019-10-06 14:48:20', '2019-10-06 14:48:20', ' ', '', '', 'publish', 'closed', 'closed', '', '53', '', '', '2020-06-26 14:49:31', '2020-06-26 14:49:31', '', 0, 'http://localhost/e_sinar/2019/10/06/53/', 1, 'nav_menu_item', '', 0),
 (54, 1, '2019-10-06 14:48:20', '2019-10-06 14:48:20', '', 'beranda', '', 'inherit', 'closed', 'closed', '', '52-revision-v1', '', '', '2019-10-06 14:48:20', '2019-10-06 14:48:20', '', 52, 'http://localhost/e_sinar/2019/10/06/52-revision-v1/', 0, 'revision', '', 0),
-(57, 1, '2019-10-06 14:57:05', '2019-10-06 14:57:05', '', 'oracle', '', 'inherit', 'open', 'closed', '', 'oracle', '', '', '2019-10-06 14:57:05', '2019-10-06 14:57:05', '', 0, 'http://localhost/e_sinar/wp-content/uploads/2019/09/oracle.jpg', 0, 'attachment', 'image/jpeg', 0),
-(61, 2, '2019-10-06 15:09:29', '2019-10-06 15:09:29', '', 'seminar-1', '', 'publish', 'open', 'open', '', 'seminar-1', '', '', '2020-04-09 14:37:05', '2020-04-09 14:37:05', '', 0, 'http://localhost/e_sinar/?p=61', 0, 'post', '', 0),
-(62, 2, '2019-10-06 15:08:15', '2019-10-06 15:08:15', '', 'post ke 2', '', 'inherit', 'closed', 'closed', '', '61-revision-v1', '', '', '2019-10-06 15:08:15', '2019-10-06 15:08:15', '', 61, 'http://localhost/e_sinar/2019/10/06/61-revision-v1/', 0, 'revision', '', 0),
-(63, 1, '2019-10-09 15:22:59', '2019-10-09 15:22:59', '', 'oracle2', '', 'inherit', 'open', 'closed', '', 'oracle2', '', '', '2019-10-09 15:22:59', '2019-10-09 15:22:59', '', 61, 'http://localhost/e_sinar/wp-content/uploads/2019/10/oracle2.jpg', 0, 'attachment', 'image/jpeg', 0),
 (66, 1, '2019-11-23 15:20:48', '2019-11-23 15:20:48', 'a:7:{s:8:\"location\";a:1:{i:0;a:2:{i:0;a:3:{s:5:\"param\";s:13:\"post_taxonomy\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:16:\"category:seminar\";}i:1;a:3:{s:5:\"param\";s:13:\"post_category\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:16:\"category:seminar\";}}}s:8:\"position\";s:6:\"normal\";s:5:\"style\";s:7:\"default\";s:15:\"label_placement\";s:3:\"top\";s:21:\"instruction_placement\";s:5:\"label\";s:14:\"hide_on_screen\";s:0:\"\";s:11:\"description\";s:0:\"\";}', 'custom_seminar', 'custom_seminar', 'publish', 'closed', 'closed', '', 'group_5dd94de297d7a', '', '', '2020-04-22 15:18:15', '2020-04-22 15:18:15', '', 0, 'http://localhost/e_sinar/?post_type=acf-field-group&#038;p=66', 0, 'acf-field-group', '', 0),
 (67, 1, '2019-11-23 15:20:48', '2019-11-23 15:20:48', 'a:10:{s:4:\"type\";s:4:\"text\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";i:1;s:17:\"conditional_logic\";i:0;s:7:\"wrapper\";a:3:{s:5:\"width\";s:0:\"\";s:5:\"class\";s:0:\"\";s:2:\"id\";s:0:\"\";}s:13:\"default_value\";s:0:\"\";s:11:\"placeholder\";s:21:\"Tempat Lokasi Seminar\";s:7:\"prepend\";s:0:\"\";s:6:\"append\";s:0:\"\";s:9:\"maxlength\";s:0:\"\";}', 'tempat', 'tempat', 'publish', 'closed', 'closed', '', 'field_5dd94df5703f6', '', '', '2019-11-23 15:35:42', '2019-11-23 15:35:42', '', 66, 'http://localhost/e_sinar/?post_type=acf-field&#038;p=67', 0, 'acf-field', '', 0),
-(69, 1, '2019-11-23 15:21:45', '2019-11-23 15:21:45', '', 'post ke 2', '', 'inherit', 'closed', 'closed', '', '61-revision-v1', '', '', '2019-11-23 15:21:45', '2019-11-23 15:21:45', '', 61, 'http://localhost/e_sinar/2019/11/23/61-revision-v1/', 0, 'revision', '', 0),
 (70, 1, '2019-11-23 16:46:53', '2019-11-23 16:46:53', 'a:8:{s:4:\"type\";s:11:\"date_picker\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";i:1;s:17:\"conditional_logic\";i:0;s:7:\"wrapper\";a:3:{s:5:\"width\";s:0:\"\";s:5:\"class\";s:0:\"\";s:2:\"id\";s:0:\"\";}s:14:\"display_format\";s:5:\"d/m/Y\";s:13:\"return_format\";s:5:\"d/m/Y\";s:9:\"first_day\";i:1;}', 'date', 'date', 'publish', 'closed', 'closed', '', 'field_5dd9624ae2349', '', '', '2019-11-23 16:46:53', '2019-11-23 16:46:53', '', 66, 'http://localhost/e_sinar/?post_type=acf-field&p=70', 1, 'acf-field', '', 0),
 (71, 1, '2019-11-23 16:49:22', '2019-11-23 16:49:22', 'a:7:{s:4:\"type\";s:11:\"time_picker\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";i:1;s:17:\"conditional_logic\";i:0;s:7:\"wrapper\";a:3:{s:5:\"width\";s:0:\"\";s:5:\"class\";s:0:\"\";s:2:\"id\";s:0:\"\";}s:14:\"display_format\";s:3:\"H:i\";s:13:\"return_format\";s:3:\"H:i\";}', 'waktu_mulai', 'waktu_mulai', 'publish', 'closed', 'closed', '', 'field_5dd96280b6cfd', '', '', '2019-11-23 16:49:22', '2019-11-23 16:49:22', '', 66, 'http://localhost/e_sinar/?post_type=acf-field&p=71', 2, 'acf-field', '', 0),
 (74, 1, '2019-11-23 16:53:01', '2019-11-23 16:53:01', 'a:7:{s:4:\"type\";s:11:\"time_picker\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";i:1;s:17:\"conditional_logic\";i:0;s:7:\"wrapper\";a:3:{s:5:\"width\";s:0:\"\";s:5:\"class\";s:0:\"\";s:2:\"id\";s:0:\"\";}s:14:\"display_format\";s:3:\"H:i\";s:13:\"return_format\";s:3:\"H:i\";}', 'waktu_selesai', 'waktu_selesai', 'publish', 'closed', 'closed', '', 'field_5dd963c5c48e2', '', '', '2019-11-23 16:53:01', '2019-11-23 16:53:01', '', 66, 'http://localhost/e_sinar/?post_type=acf-field&p=74', 3, 'acf-field', '', 0),
-(76, 1, '2019-11-23 16:57:55', '2019-11-23 16:57:55', '', 'post ke 2', '', 'inherit', 'closed', 'closed', '', '61-revision-v1', '', '', '2019-11-23 16:57:55', '2019-11-23 16:57:55', '', 61, 'http://localhost/e_sinar/2019/11/23/61-revision-v1/', 0, 'revision', '', 0),
-(77, 1, '2019-11-23 16:58:20', '2019-11-23 16:58:20', '', 'post ke 2', '', 'inherit', 'closed', 'closed', '', '61-revision-v1', '', '', '2019-11-23 16:58:20', '2019-11-23 16:58:20', '', 61, 'http://localhost/e_sinar/2019/11/23/61-revision-v1/', 0, 'revision', '', 0),
-(78, 1, '2019-11-23 16:58:50', '2019-11-23 16:58:50', '', 'post ke 2', '', 'inherit', 'closed', 'closed', '', '61-revision-v1', '', '', '2019-11-23 16:58:50', '2019-11-23 16:58:50', '', 61, 'http://localhost/e_sinar/2019/11/23/61-revision-v1/', 0, 'revision', '', 0),
-(81, 1, '2019-11-23 18:19:03', '2019-11-23 18:19:03', '', 'download', '', 'inherit', 'open', 'closed', '', 'download', '', '', '2019-11-23 18:19:03', '2019-11-23 18:19:03', '', 0, 'http://localhost/e_sinar/wp-content/uploads/2019/09/download.jpg', 0, 'attachment', 'image/jpeg', 0),
-(82, 1, '2019-11-23 18:20:23', '2019-11-23 18:20:23', '', 'download (1)', '', 'inherit', 'open', 'closed', '', 'download-1', '', '', '2019-11-23 18:20:23', '2019-11-23 18:20:23', '', 0, 'http://localhost/e_sinar/wp-content/uploads/2019/09/download-1.jpg', 0, 'attachment', 'image/jpeg', 0),
 (86, 1, '2019-11-29 18:02:06', '2019-11-29 18:02:06', '<!-- wp:paragraph -->\n<p>ini berisi halaman faq</p>\n<!-- /wp:paragraph -->', 'FAQ', '', 'inherit', 'closed', 'closed', '', '29-revision-v1', '', '', '2019-11-29 18:02:06', '2019-11-29 18:02:06', '', 29, 'http://localhost/e_sinar/2019/11/29/29-revision-v1/', 0, 'revision', '', 0),
 (88, 1, '2019-12-04 16:25:03', '2019-12-04 16:25:03', '<!-- wp:shortcode -->\n[custom_form id=31]\n<!-- /wp:shortcode -->', 'About Us', '', 'inherit', 'closed', 'closed', '', '27-revision-v1', '', '', '2019-12-04 16:25:03', '2019-12-04 16:25:03', '', 27, 'http://localhost/e_sinar/2019/12/04/27-revision-v1/', 0, 'revision', '', 0),
 (89, 1, '2019-12-05 15:29:07', '2019-12-05 15:29:07', '<!-- wp:shortcode -->\n[custom_form id=21]\n<!-- /wp:shortcode -->', 'About Us', '', 'inherit', 'closed', 'closed', '', '27-revision-v1', '', '', '2019-12-05 15:29:07', '2019-12-05 15:29:07', '', 27, 'http://localhost/e_sinar/2019/12/05/27-revision-v1/', 0, 'revision', '', 0),
 (90, 1, '2019-12-05 15:56:27', '2019-12-05 15:56:27', '<!-- wp:shortcode /-->\n\n<!-- wp:paragraph -->\n<p></p>\n<!-- /wp:paragraph -->', 'About Us', '', 'inherit', 'closed', 'closed', '', '27-revision-v1', '', '', '2019-12-05 15:56:27', '2019-12-05 15:56:27', '', 27, 'http://localhost/e_sinar/2019/12/05/27-revision-v1/', 0, 'revision', '', 0),
-(94, 1, '2019-12-09 16:47:31', '2019-12-09 16:47:31', '', 'logo-esinar', '', 'inherit', 'open', 'closed', '', 'logo-esinar', '', '', '2019-12-09 16:47:31', '2019-12-09 16:47:31', '', 0, 'http://localhost/e_sinar/wp-content/uploads/2019/12/logo-esinar.jpg', 0, 'attachment', 'image/jpeg', 0),
 (95, 1, '2019-12-09 16:47:45', '2019-12-09 16:47:45', 'http://localhost/e_sinar/wp-content/uploads/2019/12/cropped-logo-esinar.jpg', 'cropped-logo-esinar.jpg', '', 'inherit', 'open', 'closed', '', 'cropped-logo-esinar-jpg', '', '', '2019-12-09 16:47:45', '2019-12-09 16:47:45', '', 0, 'http://localhost/e_sinar/wp-content/uploads/2019/12/cropped-logo-esinar.jpg', 0, 'attachment', 'image/jpeg', 0),
-(98, 1, '2019-12-10 12:57:09', '2019-12-10 12:57:09', '', 'seminar-1', '', 'inherit', 'closed', 'closed', '', '61-revision-v1', '', '', '2019-12-10 12:57:09', '2019-12-10 12:57:09', '', 61, 'http://localhost/e_sinar/61-revision-v1/', 0, 'revision', '', 0),
 (100, 1, '2019-12-10 13:44:27', '2019-12-10 13:44:27', '<!-- wp:shortcode -->\n[custom_form id=22]\n<!-- /wp:shortcode -->', 'history', '', 'publish', 'closed', 'closed', '', 'history', '', '', '2019-12-10 14:12:48', '2019-12-10 14:12:48', '', 0, 'http://localhost/e_sinar/?page_id=100', 0, 'page', '', 0),
 (102, 1, '2019-12-10 13:44:27', '2019-12-10 13:44:27', '', 'history', '', 'inherit', 'closed', 'closed', '', '100-revision-v1', '', '', '2019-12-10 13:44:27', '2019-12-10 13:44:27', '', 100, 'http://localhost/e_sinar/100-revision-v1/', 0, 'revision', '', 0),
 (103, 1, '2019-12-10 13:53:46', '2019-12-10 13:53:46', '<!-- wp:shortcode -->\nhistory\n<!-- /wp:shortcode -->', 'history', '', 'inherit', 'closed', 'closed', '', '100-revision-v1', '', '', '2019-12-10 13:53:46', '2019-12-10 13:53:46', '', 100, 'http://localhost/e_sinar/100-revision-v1/', 0, 'revision', '', 0),
@@ -1116,11 +696,7 @@ INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post
 (124, 1, '2019-12-10 17:25:13', '2019-12-10 17:25:13', '<!-- wp:paragraph -->\n<p>selamat anda telah berhasil mendaftar seminar ini,silahkan tunggu verifikasi dari pihak e-sinar. cek history agar tau pembayaran kamu sudah di verifikasi</p>\n<!-- /wp:paragraph -->', 'sukses_daftar', '', 'inherit', 'closed', 'closed', '', '121-revision-v1', '', '', '2019-12-10 17:25:13', '2019-12-10 17:25:13', '', 121, 'http://localhost/e_sinar/121-revision-v1/', 0, 'revision', '', 0),
 (125, 1, '2019-12-10 19:30:42', '2019-12-10 19:30:42', '<!-- wp:shortcode -->\n[custom_form id=1]\n<!-- /wp:shortcode -->', 'daftar_sm', '', 'publish', 'closed', 'closed', '', 'daftar_sm', '', '', '2019-12-12 14:34:11', '2019-12-12 14:34:11', '', 0, 'http://localhost/e_sinar/?page_id=125', 0, 'page', '', 0),
 (127, 1, '2019-12-10 19:30:42', '2019-12-10 19:30:42', '<!-- wp:shortcode -->\n[custom_form id=21]\n<!-- /wp:shortcode -->', 'daftar_sm', '', 'inherit', 'closed', 'closed', '', '125-revision-v1', '', '', '2019-12-10 19:30:42', '2019-12-10 19:30:42', '', 125, 'http://localhost/e_sinar/125-revision-v1/', 0, 'revision', '', 0),
-(130, 1, '2019-12-11 13:38:36', '2019-12-11 13:38:36', 'a:7:{s:8:\"location\";a:1:{i:0;a:1:{i:0;a:3:{s:5:\"param\";s:13:\"post_category\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:22:\"category:uncategorized\";}}}s:8:\"position\";s:6:\"normal\";s:5:\"style\";s:7:\"default\";s:15:\"label_placement\";s:3:\"top\";s:21:\"instruction_placement\";s:5:\"label\";s:14:\"hide_on_screen\";s:0:\"\";s:11:\"description\";s:0:\"\";}', 'new form', 'new-form', 'trash', 'closed', 'closed', '', 'group_5df0f11f30197__trashed', '', '', '2020-05-14 18:35:33', '2020-05-14 18:35:33', '', 0, 'http://localhost/e_sinar/?post_type=acf-field-group&#038;p=130', 0, 'acf-field-group', '', 0),
-(131, 1, '2019-12-11 13:38:36', '2019-12-11 13:38:36', 'a:10:{s:4:\"type\";s:4:\"text\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";i:0;s:17:\"conditional_logic\";i:0;s:7:\"wrapper\";a:3:{s:5:\"width\";s:0:\"\";s:5:\"class\";s:0:\"\";s:2:\"id\";s:0:\"\";}s:13:\"default_value\";s:0:\"\";s:11:\"placeholder\";s:0:\"\";s:7:\"prepend\";s:0:\"\";s:6:\"append\";s:0:\"\";s:9:\"maxlength\";s:0:\"\";}', 'nama', 'nama', 'trash', 'closed', 'closed', '', 'field_5df0f13ad9583__trashed', '', '', '2020-05-14 18:35:34', '2020-05-14 18:35:34', '', 130, 'http://localhost/e_sinar/?post_type=acf-field&#038;p=131', 0, 'acf-field', '', 0),
-(133, 1, '2019-12-11 14:24:27', '2019-12-11 14:24:27', '', 'logo-esinar', '', 'inherit', 'open', 'closed', '', 'logo-esinar-2', '', '', '2019-12-11 14:24:27', '2019-12-11 14:24:27', '', 0, 'http://localhost/e_sinar/wp-content/uploads/2019/12/logo-esinar.png', 0, 'attachment', 'image/png', 0),
 (134, 1, '2019-12-11 14:24:35', '2019-12-11 14:24:35', 'http://localhost/e_sinar/wp-content/uploads/2019/12/cropped-logo-esinar.png', 'cropped-logo-esinar.png', '', 'inherit', 'open', 'closed', '', 'cropped-logo-esinar-png', '', '', '2019-12-11 14:24:35', '2019-12-11 14:24:35', '', 0, 'http://localhost/e_sinar/wp-content/uploads/2019/12/cropped-logo-esinar.png', 0, 'attachment', 'image/png', 0),
-(137, 1, '2019-12-11 16:50:48', '0000-00-00 00:00:00', '<!-- wp:paragraph -->\n<p>Detail seminar /  isi seminar</p>\n<!-- /wp:paragraph -->', 'Judul', '', 'draft', 'open', 'open', '', '', '', '', '2019-12-11 16:50:48', '2019-12-11 16:50:48', '', 0, 'http://localhost/e_sinar/?p=137', 0, 'post', '', 0),
 (139, 1, '2019-12-12 13:37:14', '2019-12-12 13:37:14', '<!-- wp:shortcode -->\n[custom_form id=24]\n<!-- /wp:shortcode -->', 'editbukti', '', 'publish', 'closed', 'closed', '', 'editbukti', '', '', '2019-12-12 13:55:20', '2019-12-12 13:55:20', '', 0, 'http://localhost/e_sinar/?page_id=139', 0, 'page', '', 0),
 (141, 1, '2019-12-12 13:37:14', '2019-12-12 13:37:14', '', 'editbukti', '', 'inherit', 'closed', 'closed', '', '139-revision-v1', '', '', '2019-12-12 13:37:14', '2019-12-12 13:37:14', '', 139, 'http://localhost/e_sinar/139-revision-v1/', 0, 'revision', '', 0),
 (142, 1, '2019-12-12 13:55:17', '2019-12-12 13:55:17', '<!-- wp:shortcode -->\n[custom_form id=24]\n<!-- /wp:shortcode -->', 'editbukti', '', 'inherit', 'closed', 'closed', '', '139-revision-v1', '', '', '2019-12-12 13:55:17', '2019-12-12 13:55:17', '', 139, 'http://localhost/e_sinar/139-revision-v1/', 0, 'revision', '', 0),
@@ -1138,61 +714,25 @@ INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post
 (163, 1, '2019-12-12 19:10:49', '2019-12-12 19:10:49', '', '', '', 'publish', 'closed', 'closed', '', '163', '', '', '2020-03-21 17:32:47', '2020-03-21 17:32:47', '', 162, 'http://localhost/e_sinar/?post_type=condition_group&#038;p=163', 1, 'condition_group', '', 0),
 (164, 1, '2019-12-12 19:14:34', '2019-12-12 19:14:34', '<!-- wp:paragraph -->\n<p>silahkan login terlebih dahulu</p>\n<!-- /wp:paragraph -->', 'no_login', '', 'publish', 'closed', 'closed', '', 'no_login', '', '', '2019-12-12 19:14:37', '2019-12-12 19:14:37', '', 0, 'http://localhost/e_sinar/?page_id=164', 0, 'page', '', 0),
 (166, 1, '2019-12-12 19:14:34', '2019-12-12 19:14:34', '<!-- wp:paragraph -->\n<p>silahkan login terlebih dahulu</p>\n<!-- /wp:paragraph -->', 'no_login', '', 'inherit', 'closed', 'closed', '', '164-revision-v1', '', '', '2019-12-12 19:14:34', '2019-12-12 19:14:34', '', 164, 'http://localhost/e_sinar/164-revision-v1/', 0, 'revision', '', 0),
-(168, 1, '2019-12-13 01:52:35', '2019-12-13 01:52:35', '<!-- wp:paragraph -->\n<p>HIMPUNAN MAHASISWA SISTEM INFORMASI UNIVERSITAS GUNADARMA&nbsp;</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>🎉🎉proudly present🎉🎉&nbsp;</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>SEMINAR NASIONAL FINTECH</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>💡\"Embracing Cashless Society\"💡</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Keynote Speakers:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>‍🗣 Muhammad Yoza Pratama (Digital Marketing &amp; Social Media Expert)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Subtema :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>🗒fintech secara umum</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>🗣 Fahmi Pangestu S.Kom (Departemen Komunikasi Bank Indonesia)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Subtema :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>🗒cashless</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Save the date :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>📆 Thursday, December 3th 2019</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>⏰ 09.00 WIB - end</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>🏡 Perpustakaan Nasional RI lt.4</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Jl. Medan merdeka selatan no.11, Jakarta Pusat</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>💲Harga tiket presale :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Rp 50.000&nbsp;</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>(Lewat dari tanggal 2 Desember 2019 mendapatkan e-sertifkat)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>💲OTS :&nbsp;</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Rp 70.000</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>❗Info lebih lengkap hubungi CP terkait</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>⚪INCLUDE⚪</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>✔Knowledge</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>✔Souvenir</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>✔Snack</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>✔Doorprize</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>✔Certificate</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Yuk segera daftarkan diri kamu dan dapatkan banyak ilmu!</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>⁉️Information details :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>*intan : 085770769622 (WA)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Line : intaanftr</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>*wynona : 081284351392 (WA)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Line : 27wynona</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>*nevarda : 085711912771 (WA)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Information and Update :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Instagram : @himsi.ug</p>\n<!-- /wp:paragraph -->', 'SEMINAR NASIONAL FINTECH', '', 'publish', 'open', 'open', '', 'seminar-nasional-fintech', '', '', '2020-03-21 14:14:51', '2020-03-21 14:14:51', '', 0, 'http://192.168.43.17/e_sinar/?p=168', 0, 'post', '', 0),
-(169, 1, '2019-12-13 01:48:53', '2019-12-13 01:48:53', '', 'seminar-nasional-fintech', '', 'inherit', 'open', 'closed', '', 'seminar-nasional-fintech', '', '', '2019-12-13 01:48:53', '2019-12-13 01:48:53', '', 168, 'http://192.168.43.17/e_sinar/wp-content/uploads/2019/12/seminar-nasional-fintech.jpeg', 0, 'attachment', 'image/jpeg', 0),
-(170, 1, '2019-12-13 01:52:35', '2019-12-13 01:52:35', '<!-- wp:paragraph -->\n<p>HIMPUNAN MAHASISWA SISTEM INFORMASI UNIVERSITAS GUNADARMA&nbsp;</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>🎉🎉proudly present🎉🎉&nbsp;</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>SEMINAR NASIONAL FINTECH</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>💡\"Embracing Cashless Society\"💡</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Keynote Speakers:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>‍🗣 Muhammad Yoza Pratama (Digital Marketing &amp; Social Media Expert)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Subtema :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>🗒fintech secara umum</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>🗣 Fahmi Pangestu S.Kom (Departemen Komunikasi Bank Indonesia)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Subtema :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>🗒cashless</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Save the date :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>📆 Thursday, December 3th 2019</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>⏰ 09.00 WIB - end</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>🏡 Perpustakaan Nasional RI lt.4</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Jl. Medan merdeka selatan no.11, Jakarta Pusat</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>💲Harga tiket presale :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Rp 50.000&nbsp;</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>(Lewat dari tanggal 2 Desember 2019 mendapatkan e-sertifkat)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>💲OTS :&nbsp;</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Rp 70.000</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>❗Info lebih lengkap hubungi CP terkait</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>⚪INCLUDE⚪</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>✔Knowledge</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>✔Souvenir</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>✔Snack</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>✔Doorprize</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>✔Certificate</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Yuk segera daftarkan diri kamu dan dapatkan banyak ilmu!</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>⁉️Information details :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>*intan : 085770769622 (WA)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Line : intaanftr</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>*wynona : 081284351392 (WA)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Line : 27wynona</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>*nevarda : 085711912771 (WA)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Information and Update :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Instagram : @himsi.ug</p>\n<!-- /wp:paragraph -->', 'SEMINAR NASIONAL FINTECH', '', 'inherit', 'closed', 'closed', '', '168-revision-v1', '', '', '2019-12-13 01:52:35', '2019-12-13 01:52:35', '', 168, 'http://192.168.43.17/e_sinar/168-revision-v1/', 0, 'revision', '', 0),
-(171, 1, '2019-12-13 01:52:39', '2019-12-13 01:52:39', '<!-- wp:paragraph -->\n<p>HIMPUNAN MAHASISWA SISTEM INFORMASI UNIVERSITAS GUNADARMA&nbsp;</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>🎉🎉proudly present🎉🎉&nbsp;</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>SEMINAR NASIONAL FINTECH</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>💡\"Embracing Cashless Society\"💡</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Keynote Speakers:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>‍🗣 Muhammad Yoza Pratama (Digital Marketing &amp; Social Media Expert)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Subtema :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>🗒fintech secara umum</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>🗣 Fahmi Pangestu S.Kom (Departemen Komunikasi Bank Indonesia)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Subtema :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>🗒cashless</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Save the date :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>📆 Thursday, December 3th 2019</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>⏰ 09.00 WIB - end</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>🏡 Perpustakaan Nasional RI lt.4</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Jl. Medan merdeka selatan no.11, Jakarta Pusat</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>💲Harga tiket presale :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Rp 50.000&nbsp;</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>(Lewat dari tanggal 2 Desember 2019 mendapatkan e-sertifkat)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>💲OTS :&nbsp;</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Rp 70.000</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>❗Info lebih lengkap hubungi CP terkait</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>⚪INCLUDE⚪</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>✔Knowledge</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>✔Souvenir</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>✔Snack</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>✔Doorprize</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>✔Certificate</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Yuk segera daftarkan diri kamu dan dapatkan banyak ilmu!</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>⁉️Information details :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>*intan : 085770769622 (WA)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Line : intaanftr</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>*wynona : 081284351392 (WA)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Line : 27wynona</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>*nevarda : 085711912771 (WA)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Information and Update :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Instagram : @himsi.ug</p>\n<!-- /wp:paragraph -->', 'SEMINAR NASIONAL FINTECH', '', 'inherit', 'closed', 'closed', '', '168-revision-v1', '', '', '2019-12-13 01:52:39', '2019-12-13 01:52:39', '', 168, 'http://192.168.43.17/e_sinar/168-revision-v1/', 0, 'revision', '', 0),
-(172, 1, '2019-12-13 02:40:46', '0000-00-00 00:00:00', '<!-- wp:paragraph -->\n<p>detail keterangan</p>\n<!-- /wp:paragraph -->', 'JUDUL', '', 'draft', 'open', 'open', '', '', '', '', '2019-12-13 02:40:46', '2019-12-13 02:40:46', '', 0, 'http://192.168.43.17/e_sinar/?p=172', 0, 'post', '', 0),
-(176, 49, '2020-03-17 15:34:49', '2020-03-17 15:34:49', '<!-- wp:paragraph -->\n<p>dasdasdadasda</p>\n<!-- /wp:paragraph -->', 'pemilik 17032225', '', 'publish', 'open', 'open', '', 'pemilik-17032225', '', '', '2020-03-17 15:34:53', '2020-03-17 15:34:53', '', 0, 'http://192.168.43.17/e_sinar/?p=176', 0, 'post', '', 0),
-(177, 49, '2020-03-17 15:34:49', '2020-03-17 15:34:49', '<!-- wp:paragraph -->\n<p>dasdasdadasda</p>\n<!-- /wp:paragraph -->', 'pemilik 17032225', '', 'inherit', 'closed', 'closed', '', '176-revision-v1', '', '', '2020-03-17 15:34:49', '2020-03-17 15:34:49', '', 176, 'http://192.168.43.17/e_sinar/176-revision-v1/', 0, 'revision', '', 0),
 (179, 1, '2020-03-21 14:13:45', '2020-03-21 14:13:45', 'a:12:{s:4:\"type\";s:6:\"number\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";i:1;s:17:\"conditional_logic\";i:0;s:7:\"wrapper\";a:3:{s:5:\"width\";s:0:\"\";s:5:\"class\";s:0:\"\";s:2:\"id\";s:0:\"\";}s:13:\"default_value\";s:0:\"\";s:11:\"placeholder\";s:0:\"\";s:7:\"prepend\";s:0:\"\";s:6:\"append\";s:0:\"\";s:3:\"min\";s:0:\"\";s:3:\"max\";s:0:\"\";s:4:\"step\";s:0:\"\";}', 'harga', 'harga', 'publish', 'closed', 'closed', '', 'field_5e7620ec73bc0', '', '', '2020-03-21 14:13:45', '2020-03-21 14:13:45', '', 66, 'http://localhost/e_sinar/?post_type=acf-field&p=179', 4, 'acf-field', '', 0),
-(180, 1, '2020-03-21 14:14:51', '2020-03-21 14:14:51', '<!-- wp:paragraph -->\n<p>HIMPUNAN MAHASISWA SISTEM INFORMASI UNIVERSITAS GUNADARMA&nbsp;</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>🎉🎉proudly present🎉🎉&nbsp;</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>SEMINAR NASIONAL FINTECH</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>💡\"Embracing Cashless Society\"💡</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Keynote Speakers:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>‍🗣 Muhammad Yoza Pratama (Digital Marketing &amp; Social Media Expert)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Subtema :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>🗒fintech secara umum</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>🗣 Fahmi Pangestu S.Kom (Departemen Komunikasi Bank Indonesia)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Subtema :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>🗒cashless</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Save the date :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>📆 Thursday, December 3th 2019</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>⏰ 09.00 WIB - end</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>🏡 Perpustakaan Nasional RI lt.4</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Jl. Medan merdeka selatan no.11, Jakarta Pusat</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>💲Harga tiket presale :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Rp 50.000&nbsp;</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>(Lewat dari tanggal 2 Desember 2019 mendapatkan e-sertifkat)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>💲OTS :&nbsp;</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Rp 70.000</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>❗Info lebih lengkap hubungi CP terkait</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>⚪INCLUDE⚪</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>✔Knowledge</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>✔Souvenir</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>✔Snack</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>✔Doorprize</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>✔Certificate</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Yuk segera daftarkan diri kamu dan dapatkan banyak ilmu!</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>⁉️Information details :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>*intan : 085770769622 (WA)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Line : intaanftr</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>*wynona : 081284351392 (WA)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Line : 27wynona</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>*nevarda : 085711912771 (WA)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Information and Update :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Instagram : @himsi.ug</p>\n<!-- /wp:paragraph -->', 'SEMINAR NASIONAL FINTECH', '', 'inherit', 'closed', 'closed', '', '168-revision-v1', '', '', '2020-03-21 14:14:51', '2020-03-21 14:14:51', '', 168, 'http://localhost/e_sinar/168-revision-v1/', 0, 'revision', '', 0),
-(181, 1, '2020-03-21 14:15:41', '2020-03-21 14:15:41', '', 'seminar-1', '', 'inherit', 'closed', 'closed', '', '61-revision-v1', '', '', '2020-03-21 14:15:41', '2020-03-21 14:15:41', '', 61, 'http://localhost/e_sinar/61-revision-v1/', 0, 'revision', '', 0),
-(183, 1, '2020-03-21 17:48:11', '2020-03-21 17:48:11', '', 'seminar-1', '', 'inherit', 'closed', 'closed', '', '61-revision-v1', '', '', '2020-03-21 17:48:11', '2020-03-21 17:48:11', '', 61, 'http://localhost/e_sinar/61-revision-v1/', 0, 'revision', '', 0),
-(184, 1, '2020-03-21 17:48:49', '2020-03-21 17:48:49', '', 'seminar-1', '', 'inherit', 'closed', 'closed', '', '61-revision-v1', '', '', '2020-03-21 17:48:49', '2020-03-21 17:48:49', '', 61, 'http://localhost/e_sinar/61-revision-v1/', 0, 'revision', '', 0),
-(186, 1, '2020-03-31 03:25:24', '2020-03-31 03:25:24', '', 'seminar-1', '', 'inherit', 'closed', 'closed', '', '61-revision-v1', '', '', '2020-03-31 03:25:24', '2020-03-31 03:25:24', '', 61, 'http://localhost/e_sinar/61-revision-v1/', 0, 'revision', '', 0),
-(188, 1, '2020-04-09 14:37:05', '2020-04-09 14:37:05', '', 'seminar-1', '', 'inherit', 'closed', 'closed', '', '61-revision-v1', '', '', '2020-04-09 14:37:05', '2020-04-09 14:37:05', '', 61, 'http://localhost/e_sinar/61-revision-v1/', 0, 'revision', '', 0),
-(199, 1, '2020-04-18 15:06:42', '2020-04-18 15:06:42', '', 'tesss', '', 'publish', 'open', 'open', '', 'tesss', '', '', '2020-04-18 15:06:44', '2020-04-18 15:06:44', '', 0, 'http://localhost/e_sinar/?p=199', 0, 'post', '', 0),
-(207, 1, '2020-04-18 15:06:42', '2020-04-18 15:06:42', '', 'tesss', '', 'inherit', 'closed', 'closed', '', '199-revision-v1', '', '', '2020-04-18 15:06:42', '2020-04-18 15:06:42', '', 199, 'http://localhost/e_sinar/199-revision-v1/', 0, 'revision', '', 0);
-INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) VALUES
-(222, 54, '2020-04-22 15:04:08', '0000-00-00 00:00:00', '<!-- wp:paragraph -->\n<p>dasdasdasd</p>\n<!-- /wp:paragraph -->', 'sadasdas', '', 'draft', 'open', 'open', '', '', '', '', '2020-04-22 15:04:08', '2020-04-22 15:04:08', '', 0, 'http://localhost/e_sinar/?p=222', 0, 'post', '', 0),
-(231, 54, '2020-04-22 15:10:57', '0000-00-00 00:00:00', '<!-- wp:paragraph -->\n<p>teeesss</p>\n<!-- /wp:paragraph -->', 'teee', '', 'draft', 'open', 'open', '', '', '', '', '2020-04-22 15:10:57', '2020-04-22 15:10:57', '', 0, 'http://localhost/e_sinar/?p=231', 0, 'post', '', 0),
-(241, 54, '2020-04-22 15:20:44', '2020-04-22 15:20:44', '', 'Seminar IT', '', 'publish', 'open', 'open', '', 'seminar-it', '', '', '2020-05-15 19:08:32', '2020-05-15 19:08:32', '', 0, 'http://localhost/e_sinar/?p=241', 0, 'post', '', 0),
-(242, 54, '2020-04-22 15:20:35', '2020-04-22 15:20:35', '', 'a71', '', 'inherit', 'open', 'closed', '', 'a71', '', '', '2020-04-22 15:20:35', '2020-04-22 15:20:35', '', 241, 'http://localhost/e_sinar/wp-content/uploads/2020/04/a71.jpg', 0, 'attachment', 'image/jpeg', 0),
-(243, 54, '2020-04-22 15:20:44', '2020-04-22 15:20:44', '', 'Seminar IT', '', 'inherit', 'closed', 'closed', '', '241-revision-v1', '', '', '2020-04-22 15:20:44', '2020-04-22 15:20:44', '', 241, 'http://localhost/e_sinar/241-revision-v1/', 0, 'revision', '', 0),
-(244, 54, '2020-04-22 15:20:49', '2020-04-22 15:20:49', '', 'Seminar IT', '', 'inherit', 'closed', 'closed', '', '241-revision-v1', '', '', '2020-04-22 15:20:49', '2020-04-22 15:20:49', '', 241, 'http://localhost/e_sinar/241-revision-v1/', 0, 'revision', '', 0),
-(257, 1, '2020-04-25 09:13:21', '2020-04-25 09:13:21', '', 'tesss', '', 'publish', 'open', 'open', '', 'tesss-3', '', '', '2020-04-25 09:13:25', '2020-04-25 09:13:25', '', 0, 'http://localhost/e_sinar/?p=257', 0, 'post', '', 0),
-(258, 1, '2020-04-25 09:13:21', '2020-04-25 09:13:21', '', 'tesss', '', 'inherit', 'closed', 'closed', '', '257-revision-v1', '', '', '2020-04-25 09:13:21', '2020-04-25 09:13:21', '', 257, 'http://localhost/e_sinar/257-revision-v1/', 0, 'revision', '', 0),
-(259, 54, '2020-04-25 15:15:17', '2020-04-25 15:15:17', '', 'Seminar IT', '', 'inherit', 'closed', 'closed', '', '241-revision-v1', '', '', '2020-04-25 15:15:17', '2020-04-25 15:15:17', '', 241, 'http://localhost/e_sinar/241-revision-v1/', 0, 'revision', '', 0),
-(260, 54, '2020-04-25 15:25:15', '2020-04-25 15:25:15', '', 'Seminar IT', '', 'inherit', 'closed', 'closed', '', '241-revision-v1', '', '', '2020-04-25 15:25:15', '2020-04-25 15:25:15', '', 241, 'http://localhost/e_sinar/241-revision-v1/', 0, 'revision', '', 0),
-(261, 54, '2020-04-25 17:26:50', '2020-04-25 17:26:50', '', 'Seminar IT', '', 'inherit', 'closed', 'closed', '', '241-revision-v1', '', '', '2020-04-25 17:26:50', '2020-04-25 17:26:50', '', 241, 'http://localhost/e_sinar/241-revision-v1/', 0, 'revision', '', 0),
-(265, 1, '2020-04-30 18:11:36', '2020-04-30 18:11:36', '', 'Seminar IT', '', 'inherit', 'closed', 'closed', '', '241-revision-v1', '', '', '2020-04-30 18:11:36', '2020-04-30 18:11:36', '', 241, 'http://localhost/e_sinar/241-revision-v1/', 0, 'revision', '', 0),
-(266, 1, '2020-04-30 18:44:56', '2020-04-30 18:44:56', '', 'Seminar IT', '', 'inherit', 'closed', 'closed', '', '241-revision-v1', '', '', '2020-04-30 18:44:56', '2020-04-30 18:44:56', '', 241, 'http://localhost/e_sinar/241-revision-v1/', 0, 'revision', '', 0),
-(267, 1, '2020-04-30 18:45:33', '2020-04-30 18:45:33', '', 'Seminar IT', '', 'inherit', 'closed', 'closed', '', '241-revision-v1', '', '', '2020-04-30 18:45:33', '2020-04-30 18:45:33', '', 241, 'http://localhost/e_sinar/241-revision-v1/', 0, 'revision', '', 0),
-(268, 54, '2020-04-30 18:52:42', '2020-04-30 18:52:42', '', 'Seminar IT', '', 'inherit', 'closed', 'closed', '', '241-revision-v1', '', '', '2020-04-30 18:52:42', '2020-04-30 18:52:42', '', 241, 'http://localhost/e_sinar/241-revision-v1/', 0, 'revision', '', 0),
-(270, 1, '2020-05-14 18:04:14', '2020-05-14 18:04:14', '', 'tess', '', 'trash', 'open', 'open', '', 'tess__trashed-2', '', '', '2020-05-15 19:06:13', '2020-05-15 19:06:13', '', 0, 'http://localhost/e_sinar/?p=270', 0, 'post', '', 0),
-(271, 1, '2020-05-14 18:04:14', '2020-05-14 18:04:14', '', 'tess', '', 'inherit', 'closed', 'closed', '', '270-revision-v1', '', '', '2020-05-14 18:04:14', '2020-05-14 18:04:14', '', 270, 'http://localhost/e_sinar/270-revision-v1/', 0, 'revision', '', 0),
-(272, 1, '2020-05-14 18:04:20', '2020-05-14 18:04:20', '', 'tess', '', 'inherit', 'closed', 'closed', '', '270-revision-v1', '', '', '2020-05-14 18:04:20', '2020-05-14 18:04:20', '', 270, 'http://localhost/e_sinar/270-revision-v1/', 0, 'revision', '', 0),
 (273, 1, '2020-05-14 18:37:54', '2020-05-14 18:37:54', 'a:7:{s:8:\"location\";a:1:{i:0;a:1:{i:0;a:3:{s:5:\"param\";s:13:\"post_category\";s:8:\"operator\";s:2:\"==\";s:5:\"value\";s:22:\"category:uncategorized\";}}}s:8:\"position\";s:6:\"normal\";s:5:\"style\";s:7:\"default\";s:15:\"label_placement\";s:3:\"top\";s:21:\"instruction_placement\";s:5:\"label\";s:14:\"hide_on_screen\";s:0:\"\";s:11:\"description\";s:0:\"\";}', 'tess', 'tess', 'publish', 'closed', 'closed', '', 'group_5ebd8f83787aa', '', '', '2020-05-14 18:42:49', '2020-05-14 18:42:49', '', 0, 'http://localhost/e_sinar/?post_type=acf-field-group&#038;p=273', 0, 'acf-field-group', '', 0),
 (274, 1, '2020-05-14 18:37:54', '2020-05-14 18:37:54', 'a:10:{s:4:\"type\";s:4:\"text\";s:12:\"instructions\";s:12:\"isi nama ini\";s:8:\"required\";i:1;s:17:\"conditional_logic\";i:0;s:7:\"wrapper\";a:3:{s:5:\"width\";s:0:\"\";s:5:\"class\";s:0:\"\";s:2:\"id\";s:0:\"\";}s:13:\"default_value\";s:4:\"tess\";s:11:\"placeholder\";s:0:\"\";s:7:\"prepend\";s:0:\"\";s:6:\"append\";s:0:\"\";s:9:\"maxlength\";s:0:\"\";}', 'name', 'name', 'publish', 'closed', 'closed', '', 'field_5ebd8fb175248', '', '', '2020-05-14 18:42:49', '2020-05-14 18:42:49', '', 273, 'http://localhost/e_sinar/?post_type=acf-field&#038;p=274', 0, 'acf-field', '', 0),
-(275, 1, '2020-05-14 18:40:49', '2020-05-14 18:40:49', '', 'seminar SI', '', 'publish', 'open', 'open', '', 'seminar-si', '', '', '2020-05-14 18:51:50', '2020-05-14 18:51:50', '', 0, 'http://localhost/e_sinar/?p=275', 0, 'post', '', 0),
-(276, 1, '2020-05-14 18:40:49', '2020-05-14 18:40:49', '', 'seminar SI', '', 'inherit', 'closed', 'closed', '', '275-revision-v1', '', '', '2020-05-14 18:40:49', '2020-05-14 18:40:49', '', 275, 'http://localhost/e_sinar/275-revision-v1/', 0, 'revision', '', 0),
-(277, 1, '2020-05-14 18:40:53', '2020-05-14 18:40:53', '', 'seminar SI', '', 'inherit', 'closed', 'closed', '', '275-revision-v1', '', '', '2020-05-14 18:40:53', '2020-05-14 18:40:53', '', 275, 'http://localhost/e_sinar/275-revision-v1/', 0, 'revision', '', 0),
-(279, 54, '2020-05-15 19:08:13', '2020-05-15 19:08:13', '', 'seminar-invite', '', 'inherit', 'open', 'closed', '', 'seminar-invite', '', '', '2020-05-15 19:08:13', '2020-05-15 19:08:13', '', 241, 'http://localhost/e_sinar/wp-content/uploads/2020/04/seminar-invite.jpg', 0, 'attachment', 'image/jpeg', 0),
-(280, 59, '2020-05-15 19:12:29', '2020-05-15 19:12:29', '', 'seminar nasional', '', 'publish', 'open', 'open', '', 'seminar-nasional', '', '', '2020-05-15 20:22:06', '2020-05-15 20:22:06', '', 0, 'http://localhost/e_sinar/?p=280', 0, 'post', '', 0),
-(281, 59, '2020-05-15 19:11:45', '2020-05-15 19:11:45', '', 'download', '', 'inherit', 'open', 'closed', '', 'download-2', '', '', '2020-05-15 19:11:45', '2020-05-15 19:11:45', '', 280, 'http://localhost/e_sinar/wp-content/uploads/2020/05/download.jpg', 0, 'attachment', 'image/jpeg', 0),
-(282, 59, '2020-05-15 19:12:29', '2020-05-15 19:12:29', '', 'seminar nasional', '', 'inherit', 'closed', 'closed', '', '280-revision-v1', '', '', '2020-05-15 19:12:29', '2020-05-15 19:12:29', '', 280, 'http://localhost/e_sinar/280-revision-v1/', 0, 'revision', '', 0),
-(283, 59, '2020-05-15 19:12:33', '2020-05-15 19:12:33', '', 'seminar nasional', '', 'inherit', 'closed', 'closed', '', '280-revision-v1', '', '', '2020-05-15 19:12:33', '2020-05-15 19:12:33', '', 280, 'http://localhost/e_sinar/280-revision-v1/', 0, 'revision', '', 0),
-(284, 59, '2020-05-15 20:22:06', '2020-05-15 20:22:06', '', 'seminar nasional', '', 'inherit', 'closed', 'closed', '', '280-revision-v1', '', '', '2020-05-15 20:22:06', '2020-05-15 20:22:06', '', 280, 'http://localhost/e_sinar/280-revision-v1/', 0, 'revision', '', 0),
-(285, 1, '2020-05-18 07:34:08', '2020-05-18 07:34:08', '<!-- wp:shortcode -->\n[wpcrl_login]\n<!-- /wp:shortcode -->', 'login member', '', 'publish', 'closed', 'closed', '', 'login-member', '', '', '2020-05-18 07:35:14', '2020-05-18 07:35:14', '', 0, 'http://localhost/e_sinar/?page_id=285', 0, 'page', '', 0),
-(286, 1, '2020-05-18 07:34:09', '2020-05-18 07:34:09', ' ', '', '', 'publish', 'closed', 'closed', '', '286', '', '', '2020-05-18 07:34:09', '2020-05-18 07:34:09', '', 0, 'http://localhost/e_sinar/286/', 5, 'nav_menu_item', '', 0),
+(285, 1, '2020-05-18 07:34:08', '2020-05-18 07:34:08', '<!-- wp:shortcode -->\n[test_pugin id=1]\n<!-- /wp:shortcode -->', 'login member', '', 'publish', 'closed', 'closed', '', 'login-member', '', '', '2020-06-26 14:42:54', '2020-06-26 14:42:54', '', 0, 'http://localhost/e_sinar/?page_id=285', 0, 'page', '', 0),
 (287, 1, '2020-05-18 07:34:08', '2020-05-18 07:34:08', '<!-- wp:shortcode -->\n[wpcrl_login_form]\n<!-- /wp:shortcode -->', 'login member', '', 'inherit', 'closed', 'closed', '', '285-revision-v1', '', '', '2020-05-18 07:34:08', '2020-05-18 07:34:08', '', 285, 'http://localhost/e_sinar/285-revision-v1/', 0, 'revision', '', 0),
-(288, 1, '2020-05-18 07:35:11', '2020-05-18 07:35:11', '<!-- wp:shortcode -->\n[wpcrl_login]\n<!-- /wp:shortcode -->', 'login member', '', 'inherit', 'closed', 'closed', '', '285-revision-v1', '', '', '2020-05-18 07:35:11', '2020-05-18 07:35:11', '', 285, 'http://localhost/e_sinar/285-revision-v1/', 0, 'revision', '', 0);
+(288, 1, '2020-05-18 07:35:11', '2020-05-18 07:35:11', '<!-- wp:shortcode -->\n[wpcrl_login]\n<!-- /wp:shortcode -->', 'login member', '', 'inherit', 'closed', 'closed', '', '285-revision-v1', '', '', '2020-05-18 07:35:11', '2020-05-18 07:35:11', '', 285, 'http://localhost/e_sinar/285-revision-v1/', 0, 'revision', '', 0),
+(292, 1, '2020-06-26 14:42:52', '2020-06-26 14:42:52', '<!-- wp:shortcode -->\n[test_pugin id=1]\n<!-- /wp:shortcode -->', 'login member', '', 'inherit', 'closed', 'closed', '', '285-revision-v1', '', '', '2020-06-26 14:42:52', '2020-06-26 14:42:52', '', 285, 'http://localhost/e_sinar/285-revision-v1/', 0, 'revision', '', 0),
+(293, 1, '2020-08-17 07:53:58', '0000-00-00 00:00:00', '', 'Auto Draft', '', 'auto-draft', 'open', 'open', '', '', '', '', '2020-08-17 07:53:58', '0000-00-00 00:00:00', '', 0, 'http://localhost/e_sinar/?p=293', 0, 'post', '', 0),
+(298, 65, '2020-08-19 10:21:30', '2020-08-19 10:21:30', '<!-- wp:paragraph -->\n<p>isi detail seminar</p>\n<!-- /wp:paragraph -->', 'seminar nasional IT', '', 'publish', 'open', 'open', '', 'seminar-nasional-it', '', '', '2020-08-19 10:21:36', '2020-08-19 10:21:36', '', 0, 'http://localhost/e_sinar/?p=298', 0, 'post', '', 0),
+(299, 65, '2020-08-19 10:21:03', '2020-08-19 10:21:03', '', 'oracle', '', 'inherit', 'open', 'closed', '', 'oracle', '', '', '2020-08-19 10:21:03', '2020-08-19 10:21:03', '', 298, 'http://localhost/e_sinar/wp-content/uploads/2020/08/oracle.jpg', 0, 'attachment', 'image/jpeg', 0),
+(300, 65, '2020-08-19 10:21:30', '2020-08-19 10:21:30', '<!-- wp:paragraph -->\n<p>isi detail seminar</p>\n<!-- /wp:paragraph -->', 'seminar nasional IT', '', 'inherit', 'closed', 'closed', '', '298-revision-v1', '', '', '2020-08-19 10:21:30', '2020-08-19 10:21:30', '', 298, 'http://localhost/e_sinar/298-revision-v1/', 0, 'revision', '', 0),
+(301, 65, '2020-08-19 10:21:36', '2020-08-19 10:21:36', '<!-- wp:paragraph -->\n<p>isi detail seminar</p>\n<!-- /wp:paragraph -->', 'seminar nasional IT', '', 'inherit', 'closed', 'closed', '', '298-revision-v1', '', '', '2020-08-19 10:21:36', '2020-08-19 10:21:36', '', 298, 'http://localhost/e_sinar/298-revision-v1/', 0, 'revision', '', 0),
+(302, 65, '2020-08-19 10:41:49', '2020-08-19 10:41:49', '', 'seminar un', '', 'publish', 'open', 'open', '', 'seminar-un', '', '', '2020-08-19 10:41:53', '2020-08-19 10:41:53', '', 0, 'http://localhost/e_sinar/?p=302', 0, 'post', '', 0),
+(303, 65, '2020-08-19 10:41:49', '2020-08-19 10:41:49', '', 'seminar un', '', 'inherit', 'closed', 'closed', '', '302-revision-v1', '', '', '2020-08-19 10:41:49', '2020-08-19 10:41:49', '', 302, 'http://localhost/e_sinar/302-revision-v1/', 0, 'revision', '', 0);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `wp_termmeta`
+-- Table structure for table `wp_termmeta`
 --
 
 CREATE TABLE `wp_termmeta` (
@@ -1205,7 +745,7 @@ CREATE TABLE `wp_termmeta` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `wp_terms`
+-- Table structure for table `wp_terms`
 --
 
 CREATE TABLE `wp_terms` (
@@ -1216,7 +756,7 @@ CREATE TABLE `wp_terms` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `wp_terms`
+-- Dumping data for table `wp_terms`
 --
 
 INSERT INTO `wp_terms` (`term_id`, `name`, `slug`, `term_group`) VALUES
@@ -1227,7 +767,7 @@ INSERT INTO `wp_terms` (`term_id`, `name`, `slug`, `term_group`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `wp_term_relationships`
+-- Table structure for table `wp_term_relationships`
 --
 
 CREATE TABLE `wp_term_relationships` (
@@ -1237,7 +777,7 @@ CREATE TABLE `wp_term_relationships` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `wp_term_relationships`
+-- Dumping data for table `wp_term_relationships`
 --
 
 INSERT INTO `wp_term_relationships` (`object_id`, `term_taxonomy_id`, `term_order`) VALUES
@@ -1245,25 +785,13 @@ INSERT INTO `wp_term_relationships` (`object_id`, `term_taxonomy_id`, `term_orde
 (34, 4, 0),
 (35, 4, 0),
 (53, 4, 0),
-(61, 5, 0),
-(137, 1, 0),
-(168, 5, 0),
-(172, 1, 0),
-(176, 1, 0),
-(199, 1, 0),
-(222, 1, 0),
-(231, 1, 0),
-(241, 5, 0),
-(257, 1, 0),
-(270, 5, 0),
-(275, 1, 0),
-(280, 5, 0),
-(286, 4, 0);
+(298, 5, 0),
+(302, 1, 0);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `wp_term_taxonomy`
+-- Table structure for table `wp_term_taxonomy`
 --
 
 CREATE TABLE `wp_term_taxonomy` (
@@ -1276,18 +804,18 @@ CREATE TABLE `wp_term_taxonomy` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `wp_term_taxonomy`
+-- Dumping data for table `wp_term_taxonomy`
 --
 
 INSERT INTO `wp_term_taxonomy` (`term_taxonomy_id`, `term_id`, `taxonomy`, `description`, `parent`, `count`) VALUES
-(1, 1, 'category', '', 0, 4),
-(4, 4, 'nav_menu', '', 0, 5),
-(5, 5, 'category', '', 0, 4);
+(1, 1, 'category', '', 0, 1),
+(4, 4, 'nav_menu', '', 0, 4),
+(5, 5, 'category', '', 0, 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `wp_usermeta`
+-- Table structure for table `wp_usermeta`
 --
 
 CREATE TABLE `wp_usermeta` (
@@ -1298,7 +826,7 @@ CREATE TABLE `wp_usermeta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `wp_usermeta`
+-- Dumping data for table `wp_usermeta`
 --
 
 INSERT INTO `wp_usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALUES
@@ -1317,7 +845,7 @@ INSERT INTO `wp_usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALU
 (13, 1, 'wp_user_level', '10'),
 (14, 1, 'dismissed_wp_pointers', ''),
 (15, 1, 'show_welcome_panel', '1'),
-(17, 1, 'wp_dashboard_quick_press_last_post_id', '269'),
+(17, 1, 'wp_dashboard_quick_press_last_post_id', '293'),
 (18, 1, 'wp_user-settings', 'libraryContent=browse&mfold=o'),
 (19, 1, 'wp_user-settings-time', '1587219974'),
 (20, 2, 'nickname', 'onifebryan'),
@@ -2214,7 +1742,7 @@ INSERT INTO `wp_usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALU
 (923, 59, 'wp_user_level', '2'),
 (924, 59, 'dismissed_wp_pointers', ''),
 (925, 59, 'dismissed_wp_pointers', ''),
-(926, 58, 'session_tokens', 'a:2:{s:64:\"1f1226b7080d3c9d17b7308cb6f8a396e6421ffc805c6a1d39efcfb48bd43e8b\";a:4:{s:10:\"expiration\";i:1587915392;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:77:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:75.0) Gecko/20100101 Firefox/75.0\";s:5:\"login\";i:1587742592;}s:64:\"ae894adb3423f9d62e1478e4f5e582ec6ff06cb2afd9ee1da6b13e3a5931edd6\";a:4:{s:10:\"expiration\";i:1588086977;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:114:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36\";s:5:\"login\";i:1587914177;}}'),
+(926, 58, 'session_tokens', 'a:2:{s:64:\"3ac43b1c2f64340415c18ec261868fbd84264127ed9d399079fb04449f48d096\";a:4:{s:10:\"expiration\";i:1592579601;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:113:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36\";s:5:\"login\";i:1592406801;}s:64:\"ebced5d2d5eff50d56d5e21594ce33c6b41b9208d1149cdfa6611b8cc9af81f1\";a:4:{s:10:\"expiration\";i:1592579601;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:113:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36\";s:5:\"login\";i:1592406801;}}'),
 (927, 60, 'nickname', 'wida1706'),
 (928, 60, 'first_name', 'wida'),
 (929, 60, 'last_name', 'widiati'),
@@ -2265,15 +1793,15 @@ INSERT INTO `wp_usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALU
 (975, 54, 'wp_user-settings', 'mfold=o&libraryContent=browse'),
 (976, 54, 'wp_user-settings-time', '1587568848'),
 (980, 2, 'session_tokens', 'a:1:{s:64:\"3dfa3205ae56eaec8c5586c3986b90fd709d313deac6ee08c78fc546a72d2781\";a:4:{s:10:\"expiration\";i:1587402521;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:114:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36\";s:5:\"login\";i:1587229721;}}'),
-(981, 25, 'session_tokens', 'a:1:{s:64:\"7e84690b3c930b5504d429b9d48ed4fed507ac8cab8d4c37e377d6ff099c08aa\";a:4:{s:10:\"expiration\";i:1589742291;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:114:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36\";s:5:\"login\";i:1589569491;}}'),
+(981, 25, 'session_tokens', 'a:4:{s:64:\"800ad3580a1868a31d99b6c00aefbce71c9a130d7cc44c789ca4741a3934d924\";a:4:{s:10:\"expiration\";i:1593354459;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:114:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36\";s:5:\"login\";i:1593181659;}s:64:\"95301d3806f782bd3b1ef4d49e4cf094ee5c93ee17e8db35916110fe4947cf18\";a:4:{s:10:\"expiration\";i:1593354459;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:114:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36\";s:5:\"login\";i:1593181659;}s:64:\"ad39c8f891f1e46f2f3c68dbaf38f56a6615bd02f09f658589c465bccde454c9\";a:4:{s:10:\"expiration\";i:1593416082;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:114:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36\";s:5:\"login\";i:1593243282;}s:64:\"4c39db48a089302edf5dcab1368a7252309ce181c9d97ec857cd8afe3afea513\";a:4:{s:10:\"expiration\";i:1593416082;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:114:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36\";s:5:\"login\";i:1593243282;}}'),
 (982, 1, 'closedpostboxes_post', 'a:0:{}'),
 (983, 1, 'metaboxhidden_post', 'a:0:{}'),
 (984, 42, 'session_tokens', 'a:2:{s:64:\"64e45eb739c44e4cf08ddd516fbf4749c6d4b52f25d23e17cd44c732ef98666a\";a:4:{s:10:\"expiration\";i:1587929674;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:77:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:75.0) Gecko/20100101 Firefox/75.0\";s:5:\"login\";i:1587756874;}s:64:\"1e7725bdd3c3c7f4da9909f1c49a6bb7af321228d851284c30c0ff069353a863\";a:4:{s:10:\"expiration\";i:1587929674;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:77:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:75.0) Gecko/20100101 Firefox/75.0\";s:5:\"login\";i:1587756874;}}'),
-(987, 1, 'session_tokens', 'a:1:{s:64:\"f16673e060192e0e88950783ff297e8bc6713c79dc08972627f1981adae050d7\";a:4:{s:10:\"expiration\";i:1589959930;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:114:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36\";s:5:\"login\";i:1589787130;}}'),
+(987, 1, 'session_tokens', 'a:3:{s:64:\"cc032e3e19c991d7795d0d60f2969a02f6438c884ae083d527535585d97ca80d\";a:4:{s:10:\"expiration\";i:1597920185;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:77:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:79.0) Gecko/20100101 Firefox/79.0\";s:5:\"login\";i:1597747385;}s:64:\"fb723991449dd1406bc9425bee99915a27603b1311ab2f32673a9cea9687955d\";a:4:{s:10:\"expiration\";i:1598004591;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:77:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:79.0) Gecko/20100101 Firefox/79.0\";s:5:\"login\";i:1597831791;}s:64:\"0cb298d82a3eae5cb28e1c7af55e0caee292fa1a634c72eeb4611179d4bf1aa0\";a:4:{s:10:\"expiration\";i:1598024768;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:77:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:79.0) Gecko/20100101 Firefox/79.0\";s:5:\"login\";i:1597851968;}}'),
 (988, 62, 'session_tokens', 'a:1:{s:64:\"0756de6d1f793f4ac6ccddcc0edf71749054178e89526eebd22f3d0bc6004c4d\";a:4:{s:10:\"expiration\";i:1588085997;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:114:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36\";s:5:\"login\";i:1587913197;}}'),
 (990, 59, 'wp_user-settings', 'libraryContent=browse'),
 (991, 59, 'wp_user-settings-time', '1589569952'),
-(992, 59, 'session_tokens', 'a:2:{s:64:\"70d9ac14c5e1406677f46e15c363924f80284f84f1958c097149965efe2abddc\";a:4:{s:10:\"expiration\";i:1589744849;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:114:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36\";s:5:\"login\";i:1589572049;}s:64:\"bd9bea4fea68987315897d3ff187ddc170fc0cb894eabc8f238f6c5b188b3750\";a:4:{s:10:\"expiration\";i:1589746894;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:77:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0\";s:5:\"login\";i:1589574094;}}'),
+(992, 59, 'session_tokens', 'a:1:{s:64:\"9e25db37be54b69b375df0edbf639be31c9150ce21aa908ac55226381a9ae6a3\";a:4:{s:10:\"expiration\";i:1593502727;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:114:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36\";s:5:\"login\";i:1593329927;}}'),
 (993, 63, 'nickname', 'kahfi0021'),
 (994, 63, 'first_name', 'kahfi'),
 (995, 63, 'last_name', 'nadyne'),
@@ -2289,12 +1817,66 @@ INSERT INTO `wp_usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALU
 (1005, 63, 'wp_user_level', '0'),
 (1006, 63, 'dismissed_wp_pointers', ''),
 (1007, 63, 'dismissed_wp_pointers', ''),
-(1008, 63, 'session_tokens', 'a:1:{s:64:\"b44da7a3d0f5a39e30a488b7d2dfd972e7c1df058d45fdb7ec00173cfe75fd3a\";a:4:{s:10:\"expiration\";i:1590053762;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:114:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36\";s:5:\"login\";i:1589880962;}}');
+(1008, 63, 'session_tokens', 'a:1:{s:64:\"b44da7a3d0f5a39e30a488b7d2dfd972e7c1df058d45fdb7ec00173cfe75fd3a\";a:4:{s:10:\"expiration\";i:1590053762;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:114:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36\";s:5:\"login\";i:1589880962;}}'),
+(1009, 1, 'nav_menu_recently_edited', '4'),
+(1010, 1, 'managenav-menuscolumnshidden', 'a:5:{i:0;s:11:\"link-target\";i:1;s:11:\"css-classes\";i:2;s:3:\"xfn\";i:3;s:11:\"description\";i:4;s:15:\"title-attribute\";}');
+INSERT INTO `wp_usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALUES
+(1011, 1, 'metaboxhidden_nav-menus', 'a:1:{i:0;s:12:\"add-post_tag\";}'),
+(1012, 64, 'nickname', 'rizky21'),
+(1013, 64, 'first_name', 'rizky'),
+(1014, 64, 'last_name', 'febryan'),
+(1015, 64, 'description', ''),
+(1016, 64, 'rich_editing', 'true'),
+(1017, 64, 'syntax_highlighting', 'true'),
+(1018, 64, 'comment_shortcuts', 'false'),
+(1019, 64, 'admin_color', 'fresh'),
+(1020, 64, 'use_ssl', '0'),
+(1021, 64, 'show_admin_bar_front', 'true'),
+(1022, 64, 'locale', ''),
+(1023, 64, 'wp_capabilities', 'a:1:{s:10:\"subscriber\";b:1;}'),
+(1024, 64, 'wp_user_level', '0'),
+(1025, 64, 'dismissed_wp_pointers', ''),
+(1026, 64, 'dismissed_wp_pointers', ''),
+(1027, 64, 'session_tokens', 'a:3:{s:64:\"52908983b2261b7f9bc853413b1d45ecd42a1ba6df2b4476281f216d60dce27c\";a:4:{s:10:\"expiration\";i:1598004961;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:114:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36\";s:5:\"login\";i:1597832161;}s:64:\"12e11893093971e91340dce6d373a506e66b6ba5dd3cb8a5fb8439d38aac742d\";a:4:{s:10:\"expiration\";i:1598004961;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:114:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36\";s:5:\"login\";i:1597832161;}s:64:\"e342cb325233b464f15dbe20d30bab63eb1de6804a394e8a7f4c949ddf83c80e\";a:4:{s:10:\"expiration\";i:1598034339;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:114:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36\";s:5:\"login\";i:1597861539;}}'),
+(1028, 65, 'nickname', 'adrian_mutu'),
+(1029, 65, 'first_name', 'adrian'),
+(1030, 65, 'last_name', 'mutu'),
+(1031, 65, 'description', ''),
+(1032, 65, 'rich_editing', 'true'),
+(1033, 65, 'syntax_highlighting', 'true'),
+(1034, 65, 'comment_shortcuts', 'false'),
+(1035, 65, 'admin_color', 'fresh'),
+(1036, 65, 'use_ssl', '0'),
+(1037, 65, 'show_admin_bar_front', 'true'),
+(1038, 65, 'locale', ''),
+(1039, 65, 'wp_capabilities', 'a:1:{s:6:\"author\";b:1;}'),
+(1040, 65, 'wp_user_level', '2'),
+(1041, 65, 'dismissed_wp_pointers', ''),
+(1042, 65, 'dismissed_wp_pointers', ''),
+(1043, 65, 'session_tokens', 'a:3:{s:64:\"3316d5f3132300d5418df7996b1ebd261512d81dd18ee41e4022654d8768e930\";a:4:{s:10:\"expiration\";i:1598005090;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:130:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36 Edg/84.0.522.61\";s:5:\"login\";i:1597832290;}s:64:\"13eab2d7a22fc4b82e12f18ef230de654af1b2e8f185a13feaff4b71b95f0b89\";a:4:{s:10:\"expiration\";i:1598005090;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:130:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36 Edg/84.0.522.61\";s:5:\"login\";i:1597832290;}s:64:\"770d12b2878f4c0a4d0dad22daf15b6b34fa067a64ac6f25669cc54706d398d5\";a:4:{s:10:\"expiration\";i:1598023352;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:114:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36\";s:5:\"login\";i:1597850552;}}'),
+(1044, 65, 'wp_user-settings', 'libraryContent=browse'),
+(1045, 65, 'wp_user-settings-time', '1597832508'),
+(1046, 66, 'nickname', 'rahayu24'),
+(1047, 66, 'first_name', 'sri'),
+(1048, 66, 'last_name', 'rahayu'),
+(1049, 66, 'description', ''),
+(1050, 66, 'rich_editing', 'true'),
+(1051, 66, 'syntax_highlighting', 'true'),
+(1052, 66, 'comment_shortcuts', 'false'),
+(1053, 66, 'admin_color', 'fresh'),
+(1054, 66, 'use_ssl', '0'),
+(1055, 66, 'show_admin_bar_front', 'true'),
+(1056, 66, 'locale', ''),
+(1057, 66, 'wp_capabilities', 'a:1:{s:10:\"subscriber\";b:1;}'),
+(1058, 66, 'wp_user_level', '0'),
+(1059, 66, 'dismissed_wp_pointers', ''),
+(1060, 66, 'dismissed_wp_pointers', ''),
+(1061, 66, 'session_tokens', 'a:1:{s:64:\"941deed43ad2a8fa94babf10b3c5de73a0bbc3e2bd8e3dd498257009602b4d6c\";a:4:{s:10:\"expiration\";i:1598024493;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:77:\"Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:79.0) Gecko/20100101 Firefox/79.0\";s:5:\"login\";i:1597851693;}}');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `wp_users`
+-- Table structure for table `wp_users`
 --
 
 CREATE TABLE `wp_users` (
@@ -2312,140 +1894,79 @@ CREATE TABLE `wp_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `wp_users`
+-- Dumping data for table `wp_users`
 --
 
 INSERT INTO `wp_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`, `user_activation_key`, `user_status`, `display_name`, `role_user`) VALUES
 (1, 'admin_esinar', '$P$BWSXWu8maHQFCraSBbFZv05iadto6w1', 'admin_esinar', 'rizkyfebryan21@gmail.com', '', '2019-09-27 17:59:16', '', 0, 'admin_esinar', 'super_admin'),
-(2, 'onifebryan', '$P$BuGjR2oeDdkZ2VvfnOQwx1LrDG9fcv.', 'onifebryan', 'rizky@nadyne.com', '', '2019-10-06 15:04:24', '1570374266:$P$BLlAhpuSf.YKsrmFdHAvvW.IZGPICs1', 0, 'oni febryan', 'author'),
-(3, 'rogape', '$P$BvTBQvB3sU.jXH29njHaK3KUZtn3ey0', 'rogape', 'rogape@gmail.com', '', '2019-10-06 15:20:33', '', 0, 'rogape iansen', NULL),
-(4, 'yulia13', '$P$BWUeO0XgR5o2Xol8mncOv919Ut3FJS/', 'yulia13', 'yulia@gmail.com', '', '2019-10-20 14:45:18', '', 0, 'yulia wardaningsih', NULL),
-(5, 'onifebryan21', '$P$Bjlwv75FifVcsrsMk0NxxA66lSdgrK/', 'onifebryan21', 'rizkyfebryan21@yahoo.co.id', '', '2019-10-20 15:07:00', '', 0, 'iky febryan', NULL),
-(6, 'dedidesta', '$P$BlzC2YA.7gfWCIGG2i1E/6MhWraera0', 'dedidesta', 'desta@nadyne.com', '', '2019-10-21 14:55:21', '', 0, 'desta dedi', NULL),
-(7, 'rizka21', '$P$BNVPtfRv7bD3DcPKq3uQaunKRwJEW/1', 'rizka21', 'rizka@nadyne.com', '', '2019-10-21 14:57:19', '', 0, 'ine rizka', NULL),
-(8, 'octa11', '$P$BtC.P5DBnEZBe9eHucdKqbdUDSKU4D.', 'octa11', 'octa@nadyee.com', '', '2019-10-21 14:59:16', '', 0, 'octa pangestu', NULL),
-(9, 'adniadni', '$P$BkLmfx0WApZx8hxb9sxamXZLPac2G80', 'adniadni', 'adni@nadyne.com', '', '2019-10-21 15:01:05', '', 0, 'adni adni', NULL),
-(10, 'ikydedi', '$P$BfJVowsWI/IldxYQcMRk7vbexDqC/u0', 'ikydedi', 'ikydedi@nadyne.com', '', '2019-10-21 15:02:10', '', 0, 'iky dedi', NULL),
-(11, 'wida17', '$P$BJd4GS0SdQE7iKhhY6pOdQrj.YHWPt0', 'wida17', 'wida@nadyne.com', '', '2019-10-21 15:08:02', '', 0, 'wida widi', NULL),
-(12, 'adhi13', '$P$BoiQzstLU87Uibo.nroPsbq9ZAhtcf/', 'adhi13', 'adhi13@gmail.co', '', '2019-10-21 15:12:05', '', 0, 'adhi wiraw', NULL),
-(13, 'pemiliksm', '$P$BZR0/E/DlAFIDfpVOZXyQ3fTCh53uX0', 'pemiliksm', 'pemilik@mercu.com', '', '2019-10-21 15:14:55', '', 0, 'pemilik seminer', NULL),
-(14, 'jajang21', '$P$BLrNJhkeJAHzgxJb8xD.k13JZBCcnV/', 'jajang21', 'jajang@gmail.co', '', '2019-10-22 14:00:19', '', 0, 'jajang jajang', NULL),
-(15, 'sugeng', '$P$BMhwh4C7m2RrMDeeegbwLgtCVcr3lb.', 'sugeng', 'sugeng21@gmail.co', '', '2019-10-22 14:05:01', '', 0, 'sugeng sugeng', NULL),
-(16, 'debby21', '$P$BhC24JDyJKjQ57u07w/s1YJMBLQefh.', 'debby21', 'debby@ndyne.com', '', '2019-10-22 14:18:05', '', 0, 'debby debby', NULL),
-(17, 'dinidini', '$P$BwdPy08BvWHGVLquhhftOuuPLLT4lY.', 'dinidini', 'dini@nadye.com', '', '2019-10-22 14:23:43', '', 0, 'dini dini', NULL),
-(18, 'danadana', '$P$BqDABSSz4KPnY8Mqd6HyNAfG2dG8gT1', 'danadana', 'dana@gmail.co', '', '2019-10-22 14:25:11', '', 0, 'dana dana', NULL),
-(19, 'rompies21', '$P$B4LvClYiScC.h9qB2r.qjXTOUPpLe4.', 'rompies21', 'rompies21@gmail.com', '', '2019-10-22 14:26:54', '', 0, 'rompies vincent', NULL),
-(20, 'sulefebian', '$P$B/MUojY1A8PagdXkzcwk6bRl8.TGKx1', 'sulefebian', 'sule@gmail.com', '', '2019-10-22 14:28:20', '', 0, 'sule febian', NULL),
-(21, 'pemiliksm21', '$P$Bpj6fP/zRSsg5E.ENZUTtP5DhkPZIH1', 'pemiliksm21', 'pemilik222@nafy.co', '', '2019-10-22 14:36:31', '', 0, 'pemilik sm', NULL),
-(22, 'sm2121', '$P$BYDc1Bl51eTfLQGNqZAbEz3b1aPhxa/', 'sm2121', 'sm@gm.co', '', '2019-10-22 14:57:49', '', 0, 'smsm smsms', NULL),
-(23, 'brahmayasa', '$P$B9IcvtzFIbcVxWEqK68zvGEhZZwnHe/', 'brahmayasa', 'brahmayasa@gm.co', '', '2019-10-22 15:00:15', '', 0, 'brahmayasa brah', NULL),
-(24, 'satria12', '$P$B257dIMJD16gb9auAEyyemEUInHA9Q/', 'satria12', 'ast@gm.co', '', '2019-10-22 15:03:10', '', 0, 'satria dwi', NULL),
-(25, 'rogapetamvan', '$P$Bi3/HD88HqkGjaSJFME.Bt.F0ZDALp/', 'rogapetamvan', 'esinar.rry@gmail.com', '', '2019-10-26 08:38:26', '', 0, 'rogape tamvan', NULL),
-(26, 'fitri2102', '$P$BRwt4nQEan2GLLLZdFnf2azTUTjuPv.', 'fitri2102', 'fitri@gmail.com', '', '2019-11-29 15:29:05', '', 0, 'rizka fitri', NULL),
-(27, 'wira1212', '$P$BvkC/ghOz3F9Q2J8HlsZ4x.oc1MztL.', 'wira1212', 'wirra@gmail.com', '', '2019-11-29 15:30:39', '', 0, 'andih wir', NULL),
-(28, 'ddd2121', '$P$BbDktfpsPr2CnUXn6Sj5xGJfoRvy3x0', 'ddd2121', 'ddd21@gmail.com', '', '2019-11-29 15:32:07', '', 0, 'iky dedi', NULL),
-(29, 'sri2121', '$P$BbNSh5Aifpn3dhH.v0Ffc7TvhRgize0', 'sri2121', 'sriptr@gmail.com', '', '2019-11-29 15:35:49', '', 0, 'putri sri rahayu', NULL),
-(30, 'auliafajar', '$P$B6m9c9xnOvpsQncijc/7vb2Nrr6id81', 'auliafajar', 'fajar@gm.com', '', '2019-11-29 15:37:17', '', 0, 'fajar aulia', NULL),
-(31, 'jejeje', '$P$BDph/XVQi8KZwkjNao1A6tfFiI8/Rj1', 'jejeje', 'jeje@gmgm.com', '', '2019-11-29 15:42:23', '', 0, 'jeje jeje', NULL),
-(32, 'imamdd', '$P$Bemyo7QUIKbNV4/K7Z7v6QHo/Birn6/', 'imamdd', 'imama@gm.com', '', '2019-11-29 15:43:20', '', 0, 'imam dedi', NULL),
-(33, 'pemiliksmsm', '$P$BEFg3m46qoBeH.FfhL0f5SvW8d/uUJ.', 'pemiliksmsm', 'desta22@nadyne.com', '', '2019-11-29 15:45:21', '', 0, 'pemilik febryan', NULL),
-(34, 'sotdut', '$P$BcR8M/9gEoDduBA86qrLUqMhc9mKDW1', 'sotdut', 'sotdut@mm.com', '', '2019-11-29 16:31:45', '', 0, 'duta sot', NULL),
-(35, 'andre21', '$P$BH7rCSIEGP0qzLPU6MsFxMLXceeNed.', 'andre21', 'andretau@mm.com', '', '2019-11-29 16:39:20', '', 0, 'Andre Taulanyyy', NULL),
-(36, 'desdesss', '$P$BCSw7oZliKKT07Eoh3KwXrPUrOqyh5.', 'desdesss', 'desta111@nadyne.com', '', '2019-11-29 16:42:41', '', 0, 'desta rizka', NULL),
-(37, 'jamrud', '$P$BzBuOW3Bf3PEYzGPV8K6GpsHZSLZvD.', 'jamrud', 'jamrud@jamrud.com', '', '2019-11-29 16:53:00', '', 0, 'jamrud jamrud', NULL),
-(38, 'pongkibr', '$P$BcQeImpg9XePDAKpZWDbSMXdtKixgt.', 'pongkibr', 'brpogki@gm.com', '', '2019-11-30 00:02:24', '', 0, 'pngki barata', NULL),
-(39, 'testes', '$P$Bx0yFrXmjnwDD/2Bg78yHAyuWhPvGu/', 'testes', 'tes@mm.com', '', '2019-11-30 00:08:33', '', 0, 'tes tes', NULL),
-(40, 'rogape160', '$P$B9de3fQyM8QukpjsgByNgTS/OAhEVN0', 'rogape160', 'rogape_160@yahoo.co.id', '', '2019-11-30 17:04:29', '', 0, 'Rogape Iansen', NULL),
-(41, 'cobacoba', '$P$BMgD3ngekAQh8ho1NlaQus2UmfJdBE.', 'cobacoba', 'coba@yahoo.com', '', '2019-11-30 17:10:07', '', 0, 'coba coba', NULL),
-(42, 'rizkafit21', '$P$BskWvGUuPOD9t6sX6vgJPBtblGS4Ir1', 'rizkafit21', 'rizka@mm.co', '', '2019-12-10 23:08:21', '', 0, 'rizka fitrianty', NULL),
-(43, 'des333', '$P$ByiqsR7ujXS5DdYUXl3vpYMLAeMVhA1', 'des333', 'desta223@nadyne.com', '', '2019-12-10 23:19:09', '', 0, 'desta des', NULL),
-(44, 'blaise14', '$P$BEwwDyLoc8dYderpcdanZiFW5J1O3m0', 'blaise14', 'blaise14@gmail.com', '', '2019-12-13 01:51:36', '', 0, 'blaise matuidi', NULL),
-(45, 'bambang', '$P$B0S02MUVKx/IMLgxjUDVVpeaqJJy/r/', 'bambang', 'bambangfebryan@yahoo.com', '', '2019-12-13 09:03:42', '', 0, 'bambang febryan', NULL),
-(46, 'iky2102', '$P$BLktmJpogzWb/jHPA.HL2eonjXvfLK0', 'iky2102', 'iky@gmail.com', '', '2019-12-13 10:58:26', '', 0, 'iky febryan', NULL),
-(47, 'ridwanto', '$P$BRw4gqXEF96DOQ58C5EaWZgzAuYt7O0', 'ridwanto', 'ridwanto1994@gmail.com', '', '2019-12-14 10:07:25', '', 0, 'ridwan aja', NULL),
-(48, 'psrhyu', '$P$Bz3apBa9hdIvftXX5s9nAA2tIcD3GZ.', 'psrhyu', 'putrisrirahayu17@gmail.com', '', '2019-12-14 10:47:56', '', 0, 'Putri Sri Rahayu', NULL),
-(49, 'pemilik17032225', '$P$B1u5BKYILITDa2Xi7CadL3EuVFGK0z/', 'pemilik17032225', '17032225@gmail.com', '', '2020-03-17 22:25:35', '', 0, 'pemilik 17032225', 'author'),
-(50, 'pm2242', '$P$BZTEFAaloE8D9zhB32h1lH.op05bbz0', 'pm2242', 'pm2242@gm.com', '', '2020-03-17 22:42:33', '', 0, 'pemilik 2242', NULL),
-(51, 'pm2246', '$P$BlmYJV/0pK0MWEcRNxyITLdaofFoEM1', 'pm2246', 'pm2246@gmai.com', '', '2020-03-17 15:46:17', '1584459978:$P$BSFZI2DCf43B2WnlDC77RIaHcCtoda0', 0, 'pm2246', NULL),
-(52, 'pemilik23', '$P$BGd1qs8FIjNKuYYysP7yhOv7PMAeof/', 'pemilik23', 'pemilik23@gm.co', '', '2020-03-17 23:04:10', '', 0, 'pemilik 23', NULL),
-(53, 'onipmpm', '$P$BintRtpUL.ZCqt44RzK6wM8dNpb.2D0', 'onipmpm', 'onipmpm@gm.co', '', '2020-03-17 23:12:49', '', 0, 'oni pm', NULL),
-(54, 'pemilikoni', '$P$Bem6Ak5bDc5CXCycXFKOJnR.PUnxHu0', 'pemilikoni', 'ooni@gm.com', '', '2020-03-17 23:18:41', '', 0, 'pemilik oni', 'author'),
-(55, 'pemilik1803', '$P$BnlICbur18LMbm13fFXuWx3CPkLvPA/', 'pemilik1803', 'pemilik1803@mm.co', '', '2020-03-18 11:45:34', '', 0, 'pemilik', NULL),
-(56, 'pm1330', '$P$BaBjUFrlClZiD1aHe59cQOUYjfpMVO/', 'pm1330', 'pm1330@ndy.co', '', '2020-03-18 13:30:25', '', 0, 'pemilik', NULL),
-(57, 'pemilik1331', '$P$BKUtO3iYoMiY7BjaXQMqlh9opxgCK9/', 'pemilik1331', 'pemilik1331@ndy.co', '', '2020-03-18 13:31:58', '', 0, 'pemilik', 'author'),
-(58, 'tiasambar', '$P$BBes4YcK2BDc51qZNo7m75.D2YoIYg/', 'tiasambar', 'tias@gg.co', '', '2020-03-19 15:06:35', '', 0, 'tias ambarwati', NULL),
-(59, 'pmrogape', '$P$BrSt2/xmmRx7tSNhmY0Kcwu1Kjy6vM.', 'pmrogape', 'pmrogape@gg.co', '', '2020-03-19 15:07:47', '', 0, 'rogape pm', 'author'),
-(60, 'wida1706', '$P$B2SDDz1PKj1a6Rd0dg/WEoXpkO7IIe/', 'wida1706', 'wida.widi@nadyne.com', '', '2020-03-21 21:09:54', '', 0, 'wida widiati', 'subscriber'),
-(61, 'wida17pm', '$P$B.InMtbJL4AVpMAN05bv8dfC81lwCr1', 'wida17pm', 'wida.pm@nadyne.com', '', '2020-03-21 21:11:01', '', 0, 'wida pm', 'author'),
-(62, 'pmadhi', '$P$BHa6HQbFu62SWmJenWuKzWPAwjmAyU.', 'pmadhi', 'pmadhi@gg.co', '', '2020-03-22 18:36:59', '', 0, 'andih pm', 'author'),
-(63, 'kahfi0021', '$P$B4w1e.qa2olEOSLFZ2xTs/o6AEqQFq.', 'kahfi0021', 'kahfi@gg.com', '', '2020-05-19 16:36:01', '', 0, 'kahfi nadyne', 'subscriber');
+(64, 'rizky21', '$P$BzwXCLanIqlsEvhMwjMuM8UgwrLw5y0', 'rizky21', 'rizkyf21@yopmail.com', '', '2020-08-19 17:16:00', '', 0, 'rizky febryan', 'subscriber'),
+(65, 'adrian_mutu', '$P$Bc1/f8rp9spYu3lxt3X1q33BtPCRdv.', 'adrian_mutu', 'adrian_mutu@yopmail.com', '', '2020-08-19 17:18:09', '', 0, 'adrian mutu', 'author'),
+(66, 'rahayu24', '$P$BsjP/8PMh6/SliXIqvrP3MUnJa9HJs0', 'rahayu24', 'rahayu_putri@yopmail.com', '', '2020-08-19 22:41:32', '', 0, 'sri rahayu', 'subscriber');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `coba`
---
-ALTER TABLE `coba`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indeks untuk tabel `daftar_seminar`
+-- Indexes for table `daftar_seminar`
 --
 ALTER TABLE `daftar_seminar`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_post` (`id_post`),
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_author` (`id_author`);
 
 --
--- Indeks untuk tabel `file_verifikasi`
+-- Indexes for table `file_verifikasi`
 --
 ALTER TABLE `file_verifikasi`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `file_verifikasi_ibfk_1` (`id_daftar`);
 
 --
--- Indeks untuk tabel `pdf_verifikasi_daftar`
+-- Indexes for table `pdf_verifikasi_daftar`
 --
 ALTER TABLE `pdf_verifikasi_daftar`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `pdf_verifikasi_daftar_ibfk_1` (`id_verifikasi`);
 
 --
--- Indeks untuk tabel `profile`
+-- Indexes for table `profile`
 --
 ALTER TABLE `profile`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_user` (`id_user`);
 
 --
--- Indeks untuk tabel `rekening_pemilik`
+-- Indexes for table `rekening_pemilik`
 --
 ALTER TABLE `rekening_pemilik`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_user` (`id_user`);
 
 --
--- Indeks untuk tabel `seminar_selesai`
+-- Indexes for table `seminar_selesai`
 --
 ALTER TABLE `seminar_selesai`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_post` (`id_post`);
 
 --
--- Indeks untuk tabel `status_seminar`
+-- Indexes for table `status_seminar`
 --
 ALTER TABLE `status_seminar`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_post` (`id_post`);
 
 --
--- Indeks untuk tabel `upload_bukti_selesai`
+-- Indexes for table `upload_bukti_selesai`
 --
 ALTER TABLE `upload_bukti_selesai`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_posts` (`id_posts`);
 
 --
--- Indeks untuk tabel `user_esinar`
---
-ALTER TABLE `user_esinar`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indeks untuk tabel `wp_commentmeta`
+-- Indexes for table `wp_commentmeta`
 --
 ALTER TABLE `wp_commentmeta`
   ADD PRIMARY KEY (`meta_id`),
@@ -2453,7 +1974,7 @@ ALTER TABLE `wp_commentmeta`
   ADD KEY `meta_key` (`meta_key`(191));
 
 --
--- Indeks untuk tabel `wp_comments`
+-- Indexes for table `wp_comments`
 --
 ALTER TABLE `wp_comments`
   ADD PRIMARY KEY (`comment_ID`),
@@ -2464,21 +1985,21 @@ ALTER TABLE `wp_comments`
   ADD KEY `comment_author_email` (`comment_author_email`(10));
 
 --
--- Indeks untuk tabel `wp_links`
+-- Indexes for table `wp_links`
 --
 ALTER TABLE `wp_links`
   ADD PRIMARY KEY (`link_id`),
   ADD KEY `link_visible` (`link_visible`);
 
 --
--- Indeks untuk tabel `wp_options`
+-- Indexes for table `wp_options`
 --
 ALTER TABLE `wp_options`
   ADD PRIMARY KEY (`option_id`),
   ADD UNIQUE KEY `option_name` (`option_name`);
 
 --
--- Indeks untuk tabel `wp_postmeta`
+-- Indexes for table `wp_postmeta`
 --
 ALTER TABLE `wp_postmeta`
   ADD PRIMARY KEY (`meta_id`),
@@ -2486,7 +2007,7 @@ ALTER TABLE `wp_postmeta`
   ADD KEY `meta_key` (`meta_key`(191));
 
 --
--- Indeks untuk tabel `wp_posts`
+-- Indexes for table `wp_posts`
 --
 ALTER TABLE `wp_posts`
   ADD PRIMARY KEY (`ID`),
@@ -2496,7 +2017,7 @@ ALTER TABLE `wp_posts`
   ADD KEY `post_author` (`post_author`);
 
 --
--- Indeks untuk tabel `wp_termmeta`
+-- Indexes for table `wp_termmeta`
 --
 ALTER TABLE `wp_termmeta`
   ADD PRIMARY KEY (`meta_id`),
@@ -2504,7 +2025,7 @@ ALTER TABLE `wp_termmeta`
   ADD KEY `meta_key` (`meta_key`(191));
 
 --
--- Indeks untuk tabel `wp_terms`
+-- Indexes for table `wp_terms`
 --
 ALTER TABLE `wp_terms`
   ADD PRIMARY KEY (`term_id`),
@@ -2512,14 +2033,14 @@ ALTER TABLE `wp_terms`
   ADD KEY `name` (`name`(191));
 
 --
--- Indeks untuk tabel `wp_term_relationships`
+-- Indexes for table `wp_term_relationships`
 --
 ALTER TABLE `wp_term_relationships`
   ADD PRIMARY KEY (`object_id`,`term_taxonomy_id`),
   ADD KEY `term_taxonomy_id` (`term_taxonomy_id`);
 
 --
--- Indeks untuk tabel `wp_term_taxonomy`
+-- Indexes for table `wp_term_taxonomy`
 --
 ALTER TABLE `wp_term_taxonomy`
   ADD PRIMARY KEY (`term_taxonomy_id`),
@@ -2527,7 +2048,7 @@ ALTER TABLE `wp_term_taxonomy`
   ADD KEY `taxonomy` (`taxonomy`);
 
 --
--- Indeks untuk tabel `wp_usermeta`
+-- Indexes for table `wp_usermeta`
 --
 ALTER TABLE `wp_usermeta`
   ADD PRIMARY KEY (`umeta_id`),
@@ -2535,7 +2056,7 @@ ALTER TABLE `wp_usermeta`
   ADD KEY `meta_key` (`meta_key`(191));
 
 --
--- Indeks untuk tabel `wp_users`
+-- Indexes for table `wp_users`
 --
 ALTER TABLE `wp_users`
   ADD PRIMARY KEY (`ID`),
@@ -2544,134 +2065,188 @@ ALTER TABLE `wp_users`
   ADD KEY `user_email` (`user_email`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `coba`
---
-ALTER TABLE `coba`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT untuk tabel `daftar_seminar`
+-- AUTO_INCREMENT for table `daftar_seminar`
 --
 ALTER TABLE `daftar_seminar`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `file_verifikasi`
+-- AUTO_INCREMENT for table `file_verifikasi`
 --
 ALTER TABLE `file_verifikasi`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `pdf_verifikasi_daftar`
+-- AUTO_INCREMENT for table `pdf_verifikasi_daftar`
 --
 ALTER TABLE `pdf_verifikasi_daftar`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `profile`
+-- AUTO_INCREMENT for table `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `rekening_pemilik`
+-- AUTO_INCREMENT for table `rekening_pemilik`
 --
 ALTER TABLE `rekening_pemilik`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT untuk tabel `seminar_selesai`
---
-ALTER TABLE `seminar_selesai`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT untuk tabel `status_seminar`
---
-ALTER TABLE `status_seminar`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT untuk tabel `upload_bukti_selesai`
---
-ALTER TABLE `upload_bukti_selesai`
   MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `user_esinar`
+-- AUTO_INCREMENT for table `seminar_selesai`
 --
-ALTER TABLE `user_esinar`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+ALTER TABLE `seminar_selesai`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `wp_commentmeta`
+-- AUTO_INCREMENT for table `status_seminar`
+--
+ALTER TABLE `status_seminar`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `upload_bukti_selesai`
+--
+ALTER TABLE `upload_bukti_selesai`
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `wp_commentmeta`
 --
 ALTER TABLE `wp_commentmeta`
   MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `wp_comments`
+-- AUTO_INCREMENT for table `wp_comments`
 --
 ALTER TABLE `wp_comments`
   MODIFY `comment_ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `wp_links`
+-- AUTO_INCREMENT for table `wp_links`
 --
 ALTER TABLE `wp_links`
   MODIFY `link_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `wp_options`
+-- AUTO_INCREMENT for table `wp_options`
 --
 ALTER TABLE `wp_options`
-  MODIFY `option_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1972;
+  MODIFY `option_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2188;
 
 --
--- AUTO_INCREMENT untuk tabel `wp_postmeta`
+-- AUTO_INCREMENT for table `wp_postmeta`
 --
 ALTER TABLE `wp_postmeta`
-  MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1005;
+  MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1078;
 
 --
--- AUTO_INCREMENT untuk tabel `wp_posts`
+-- AUTO_INCREMENT for table `wp_posts`
 --
 ALTER TABLE `wp_posts`
-  MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=289;
+  MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=304;
 
 --
--- AUTO_INCREMENT untuk tabel `wp_termmeta`
+-- AUTO_INCREMENT for table `wp_termmeta`
 --
 ALTER TABLE `wp_termmeta`
   MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `wp_terms`
+-- AUTO_INCREMENT for table `wp_terms`
 --
 ALTER TABLE `wp_terms`
   MODIFY `term_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `wp_term_taxonomy`
+-- AUTO_INCREMENT for table `wp_term_taxonomy`
 --
 ALTER TABLE `wp_term_taxonomy`
   MODIFY `term_taxonomy_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `wp_usermeta`
+-- AUTO_INCREMENT for table `wp_usermeta`
 --
 ALTER TABLE `wp_usermeta`
-  MODIFY `umeta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1009;
+  MODIFY `umeta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1062;
 
 --
--- AUTO_INCREMENT untuk tabel `wp_users`
+-- AUTO_INCREMENT for table `wp_users`
 --
 ALTER TABLE `wp_users`
-  MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `daftar_seminar`
+--
+ALTER TABLE `daftar_seminar`
+  ADD CONSTRAINT `daftar_seminar_ibfk_1` FOREIGN KEY (`id_post`) REFERENCES `wp_posts` (`ID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `daftar_seminar_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `wp_users` (`ID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `daftar_seminar_ibfk_3` FOREIGN KEY (`id_author`) REFERENCES `wp_users` (`ID`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `file_verifikasi`
+--
+ALTER TABLE `file_verifikasi`
+  ADD CONSTRAINT `file_verifikasi_ibfk_1` FOREIGN KEY (`id_daftar`) REFERENCES `daftar_seminar` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `pdf_verifikasi_daftar`
+--
+ALTER TABLE `pdf_verifikasi_daftar`
+  ADD CONSTRAINT `pdf_verifikasi_daftar_ibfk_1` FOREIGN KEY (`id_verifikasi`) REFERENCES `file_verifikasi` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `profile`
+--
+ALTER TABLE `profile`
+  ADD CONSTRAINT `profile_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `wp_users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `rekening_pemilik`
+--
+ALTER TABLE `rekening_pemilik`
+  ADD CONSTRAINT `rekening_pemilik_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `wp_users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `seminar_selesai`
+--
+ALTER TABLE `seminar_selesai`
+  ADD CONSTRAINT `seminar_selesai_ibfk_1` FOREIGN KEY (`id_post`) REFERENCES `wp_posts` (`ID`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `status_seminar`
+--
+ALTER TABLE `status_seminar`
+  ADD CONSTRAINT `status_seminar_ibfk_1` FOREIGN KEY (`id_post`) REFERENCES `wp_posts` (`ID`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `upload_bukti_selesai`
+--
+ALTER TABLE `upload_bukti_selesai`
+  ADD CONSTRAINT `upload_bukti_selesai_ibfk_1` FOREIGN KEY (`id_posts`) REFERENCES `wp_posts` (`ID`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `wp_postmeta`
+--
+ALTER TABLE `wp_postmeta`
+  ADD CONSTRAINT `wp_postmeta_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `wp_posts` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `wp_term_relationships`
+--
+ALTER TABLE `wp_term_relationships`
+  ADD CONSTRAINT `wp_term_relationships_ibfk_1` FOREIGN KEY (`object_id`) REFERENCES `wp_posts` (`ID`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

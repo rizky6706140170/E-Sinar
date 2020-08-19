@@ -248,7 +248,7 @@ function daftarSeminar()
                             $insert_sm = $wpdb->insert('daftar_seminar',  array(
                                 'id_user' => $id_user,
                                 // 'email'=> $email,
-                                'nama_seminar' => $nama_seminar,
+                                // 'nama_seminar' => $nama_seminar,
                                 // 'nama_pendaftar' => $nama_pendaftar,
                                 // 'handphone' => $handphone,
                                 // 'file_foto' => $newfilename,

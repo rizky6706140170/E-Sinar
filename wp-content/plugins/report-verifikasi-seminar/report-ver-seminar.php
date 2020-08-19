@@ -31,7 +31,12 @@ function Verifikasi_list() {
             		<tr>
                         <td class="manage-column ss-list-width text-center"><?php echo $no; ?></td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->display_name; ?></td>
-            			<td class="manage-column ss-list-width text-center"><?php echo $value->nama_seminar; ?></td>
+            			<td class="manage-column ss-list-width text-center">
+                            <?php
+                                $title = $wpdb->get_var("SELECT post_title FROM wp_posts where ID = '$value->post_id'");
+                                echo $title;
+                            ?>         
+                        </td>
                         <td class="manage-column ss-list-width text-center">
                             <?php  $harga_sm=$wpdb->get_var("SELECT meta_value from wp_postmeta where post_id='$value->post_id' and meta_key = 'harga'");
                             echo 'Rp '.number_format($harga_sm,2,',','.');

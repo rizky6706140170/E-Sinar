@@ -1,0 +1,2 @@
+db_foreign_2 itu yang harus di coba dan sudah tidak ada field nama_seminar di daftar seminar
+backup db aman (ada field nama_seminar)

@@ -10,7 +10,7 @@ function User_list() {
     <?php
       global $wpdb;
       // $query_user = $wpdb->get_results("SELECT *,a.user_login as username,b.status as statuses FROM wp_users a left join user_esinar b on a.ID = b.user_id");
-      $query_user = $wpdb->get_results("SELECT * , b.file_foto as foto FROM wp_users a left join profile b on a.ID = b.id_user where a.role_user IS NULL order by a.user_registered desc");
+      $query_user = $wpdb->get_results("SELECT * , b.file_foto as foto FROM wp_users a left join profile b on a.ID = b.id_user where a.role_user = 'subscriber' order by a.user_registered desc");
     ?>
     <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" style="display: inline-block;">
         <table id="table-data" class='wp-list-table widefat fixed striped' style="width: 100%;">

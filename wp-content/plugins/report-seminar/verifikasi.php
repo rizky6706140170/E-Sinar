@@ -18,11 +18,12 @@ function verifikasi_pemby()
         $seminar = $wpdb->get_row($data_seminar);
 		 if($type == "verifikasi")
 		 {
+		 	$seminar_name = $wpdb->get_var("SELECT post_title FROM wp_posts where ID = '$id_post'");
 		 	$dataPdf['id_user'] = $seminar->id_user;
 		 	$dataPdf['id_post'] = $seminar->id_post;
 		 	$dataPdf['nama_pendaftar'] = $seminar->display_name;
 		 	$dataPdf['email'] = $seminar->user_email;
-		 	$dataPdf['nama_seminar'] = $seminar->nama_seminar;
+		 	$dataPdf['nama_seminar'] = $seminar_name;
 		 	// $dataPdf['handphone'] = $seminar->handphone;
 		 	$dataPdf['status'] = $seminar->status;
 		 	$dataPdf['date'] = $seminar->tgl_seminar;

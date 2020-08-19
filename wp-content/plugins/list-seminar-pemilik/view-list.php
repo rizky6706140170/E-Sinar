@@ -17,18 +17,24 @@ function View_ls_sm()
 		$verified = $wpdb->get_var("SELECT count(id) FROM daftar_seminar where id_author = '$cek_session' and id_post ='$id_post' and status = 1");
 		$not_verified = $wpdb->get_var("SELECT count(id) FROM daftar_seminar where id_author = '$cek_session' and id_post ='$id_post' and status = 0");
 
-		$uang_masuk = $harga_seminar * $verified ;
-		if($uang_masuk != 0)
+
+		$query_get_htg = $wpdb->get_row("SELECT * , count(a.id) as jumlah , b.meta_value as harga FROM daftar_seminar a LEFT JOIN wp_postmeta b on a.id_post = b.post_id where a.id_post = '$id_post' and b.meta_key='harga' and id_author = '$cek_session' and a.status = 1");
+		// print_r($query_get_htg);
+		// echo $query_get_htg->jumlah;
+
+		$total_uang_masuk = $query_get_htg->jumlah * $query_get_htg->harga;
+		if($total_uang_masuk != 0)
 		{
-			$htg_uang_pemilik = $uang_masuk * (10 / 100) ;
-			$uang_pemilik = $uang_masuk - $htg_uang_pemilik;
-			$uang_kita = $uang_masuk - $uang_pemilik;
+			$htg_persen = $total_uang_masuk * (10/100);
+			$uang_pemilik = $total_uang_masuk - $htg_persen;
+			$uang_esinar = $total_uang_masuk - $uang_pemilik;
 		}
 		else
 		{
 			$uang_pemilik = 0;
-			$uang_kita = 0;
+			$uang_esinar = 0;
 		}
+
 
 	?>
 	<br>
@@ -37,7 +43,7 @@ function View_ls_sm()
 			<div class="col-md-4">
 				<div class="box-uangmasuk" style="background-color: #82ef82;">
 					<span style="font-size: 20px;">Jumlah Uang Yang Masuk:</span>
-					<p style="font-size: 30px;"><?php echo "Rp. ". number_format($uang_masuk,2,',','.'); ?></p>
+					<p style="font-size: 30px;"><?php echo "Rp. ". number_format($total_uang_masuk,2,',','.'); ?></p>
 				</div>
 			</div>
 
@@ -51,7 +57,7 @@ function View_ls_sm()
 			<div class="col-md-4">
 				<div class="box-uangmasuk" style="background-color: #82ef82;">
 					<span style="font-size: 20px;">Jumlah Uang Yang Diterima E-sinar:</span>
-					<p style="font-size: 30px;"><?php echo "Rp. ". number_format($uang_kita,2,',','.'); ?></p>
+					<p style="font-size: 30px;"><?php echo "Rp. ". number_format($uang_esinar,2,',','.'); ?></p>
 				</div>
 			</div>
 		</div>

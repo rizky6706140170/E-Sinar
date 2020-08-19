@@ -18,11 +18,12 @@ function salah_pemby()
         $harga_sm=$wpdb->get_var("SELECT meta_value from wp_postmeta where post_id='$id_post' and meta_key = 'harga'");
 		 if($type == "salah")
 		 {
+		 	$title = $wpdb->get_var("SELECT post_title FROM wp_posts where ID = '$id_post' ");
 		 	$dataSalah['id_user'] = $salahbayar->id_user;
 		 	$dataSalah['id_post'] = $salahbayar->id_post;
 		 	$dataSalah['nama_pendaftar'] = $salahbayar->display_name;
 		 	$dataSalah['email'] = $salahbayar->user_email;
-		 	$dataSalah['nama_seminar'] = $salahbayar->nama_seminar;
+		 	$dataSalah['nama_seminar'] = $title;
 		 	// $dataSalah['handphone'] = $salahbayar->handphone;
 		 	$dataSalah['status'] = $salahbayar->status;
 		 	$dataSalah['date'] = $salahbayar->tgl_seminar;

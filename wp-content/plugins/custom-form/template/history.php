@@ -9,7 +9,8 @@ $cek_sesion = $_GET['id_user']; //keamanan jika ada yang akses lewat link
 $id_user = $current_user->id;
 // echo $cek_sesion;
 // echo $id_user;
-$query_seminar_h = $wpdb->get_results("SELECT * FROM daftar_seminar where id_user = '$id_user'");
+// $query_seminar_h = $wpdb->get_results("SELECT * FROM daftar_seminar where id_user = '$id_user'");
+$query_seminar_h = $wpdb->get_results("SELECT * , a.id_post as post_id , d.post_title as title FROM daftar_seminar a LEFT JOIN wp_users b on a.id_user = b.ID LEFT JOIN file_verifikasi c on a.id = c.id_daftar LEFT JOIN wp_posts d on a.id_post = d.ID where a.id_user = '$id_user'");
 ?>
 <?php if($cek_sesion && $cek_sesion != $id_user) : ?>
 <div>
@@ -42,39 +43,33 @@ $query_seminar_h = $wpdb->get_results("SELECT * FROM daftar_seminar where id_use
                         <td class="manage-column ss-list-width text-center"><?php echo $no; ?></td>
             			<td class="manage-column ss-list-width text-center">
                             <?php
-                                $nama_pendaftar = $wpdb->get_var("SELECT display_name from wp_users where id ='$value->id_user'");
-                                echo $nama_pendaftar;
+                               echo $value->display_name;
                             ?>         
                         </td>
-            			<td class="manage-column ss-list-width text-center"><?php echo $value->nama_seminar; ?></td>
+            			<td class="manage-column ss-list-width text-center"><?php echo $value->title; ?></td>
             			<td class="manage-column ss-list-width text-center">
-                            <?php
-                                $file_foto = $wpdb->get_var("SELECT file_foto FROM file_verifikasi where id_daftar = '$value->id;'");
-                            ?>
-                            <a href="<?php echo content_url().'/uploads/bukti/'.$file_foto; ?>" target="_blank">bukti bayar</a>
+                            <a href="<?php echo content_url().'/uploads/bukti/'.$value->file_foto; ?>" target="_blank">bukti bayar</a>
                         </td>
             			<td class="manage-column ss-list-width text-center">
-                            <?php
-                                $status_history = $wpdb->get_var("SELECT status FROM daftar_seminar where id_user = '$id_user' and id_post = '$value->id_post'");
-                            ?>
-                            <?php if($status_history == 0) : ?>
+                            <?php if($value->status == 0) : ?>
                                 <span>Belum Diverfikasi</span>
-                            <?php elseif($status_history == 2) : ?>
+                            <?php elseif($value->status == 2) : ?>
                                 <span>Belum di verifikasi ( Upload pembayaran salah)</span>
-                            <?php elseif($status_history == 3) : ?>
+                            <?php elseif($value->status == 3) : ?>
                                 <span>Pembayaran terbaru sudah dikirim (menunggu verifikasi)</span>
                             <?php else : ?>
                                 <span>Terverifikasi</span><br>
-                                 <a href="<?php echo content_url().'/uploads/pdf/'.$value->id_user.$value->id_post.'_verifikasi.pdf'; ?>" target="_blank">Lihat PDF</a>
+                                 <a href="<?php echo content_url().'/uploads/pdf/'.$id_user.$value->post_id.'_verifikasi.pdf'; ?>" target="_blank">Lihat PDF</a>
                              
                             <?php endif; ?>       
                         </td>
                         <td class="manage-column ss-list-width text-center">
-                            <?php if($status_history == 1) : ?>
-                            <?php elseif($status_history == 3) : ?>
+                           
+                            <?php if($value->status == 1) : ?>
+                            <?php elseif($value->status == 3) : ?>
                             <?php else : ?>
-                                <?php $_SESSION['id_post'] = $value->id_post; ?>
-                                 <a href="<?php echo home_url().'/editbukti/?post='.$value->id_post; ?>" class="btn btn-success" style="background: #0733f3;">Edit Bukti Bayar</a>
+                                <?php $_SESSION['id_post'] = $value->post_id; ?>
+                                 <a href="<?php echo home_url().'/editbukti/?post='.$value->post_id; ?>" class="btn btn-success" style="background: #0733f3;">Edit Bukti Bayar</a>
                             <?php endif; ?>
                         </td>
             		</tr>
