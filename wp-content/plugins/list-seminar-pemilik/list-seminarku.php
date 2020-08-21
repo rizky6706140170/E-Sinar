@@ -37,7 +37,15 @@ function Data_seminar_list()
 	            	<?php $no = 0; foreach ($data_seminar as $key => $value): $no++; ?>
 	            	<tr>
 	            		<td class="manage-column ss-list-width text-center"><?php echo $no; ?></td>
-            			<td class="manage-column ss-list-width text-center"><?php echo $value->post_title; ?> <br><a href="<?php echo admin_url('post.php?post='.$value->ID.'&action=edit');?>">edit</a>
+            			<td class="manage-column ss-list-width text-center"><?php echo $value->post_title; ?> <br>
+                            <?php 
+                                  $cek_seminar_selesai = $wpdb->get_results("SELECT * FROM seminar_selesai where id_post = '$value->ID'");
+                            ?>
+                            <?php if(empty($cek_seminar_selesai)): ?>
+                            <a href="<?php echo admin_url('post.php?post='.$value->ID.'&action=edit');?>">edit</a>
+                            <?php else: ?>
+
+                            <?php endif; ?>
                             <?php
                                 $cek_daftar = $wpdb->query("SELECT count(id) FROM daftar_seminar where id_post='$value->ID' and id_author='$current_user->id'");
                             ?>
@@ -45,9 +53,9 @@ function Data_seminar_list()
                             
                             <?php else: ?>
                              |
-                            <a href="<?php echo admin_url('admin.php?page=delete_post&type=delete&id_user=' .$current_user->id.'&id_post='.$value->ID); ?>">delete</a> 
+                            <a href="<?php echo admin_url('admin.php?page=delete_post&type=delete&id_user=' .$current_user->id.'&id_post='.$value->ID); ?>">delete</a> |
                             <?php endif; ?>
-                            | <a href="<?php echo home_url().'/'.$value->post_name?>" target="_blank">view</a></td>
+                            <a href="<?php echo home_url().'/'.$value->post_name?>" target="_blank">view</a></td>
             			<td class="manage-column ss-list-width text-center">
                             <?php
                                 $jml_dftr = $wpdb->get_var("SELECT count(id) FROM daftar_seminar where id_post = '$value->ID' and id_author = '$current_user->id'");
