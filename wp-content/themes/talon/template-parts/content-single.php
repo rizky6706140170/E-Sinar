@@ -110,6 +110,9 @@
 								<div class="daftar-seminar" style="text-align: center;">
 									<a href="<?php echo home_url().'/daftar_sm/?post='.$id_post; ?>" target="_blank" class="btn btn-success" style="background: #0733f3;" name="btn-dft">Daftar Seminar</a>
 								</div>
+								<div class="alert alert-info cara-bayar" style="text-align: center;">
+										<span>Cara Bayar</span>
+								</div>
 								<?php else: ?>
 									<div class="alert alert-danger" style="text-align: center;">
 										<span>Anda Sudah Mendaftar Seminar ini</span>

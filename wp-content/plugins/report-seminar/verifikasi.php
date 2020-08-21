@@ -40,7 +40,7 @@ function verifikasi_pemby()
 		 		$data_update_pdf['id_verifikasi'] = $query; 
 		 		$data_daftar_pdf['file_pdf'] =  $dataPdf['id_user'].$dataPdf['id_post'].'_verifikasi'.'.pdf';
 		 		$update_verifikasi_pdf = $wpdb->update('pdf_verifikasi_daftar', $data_daftar_pdf, $data_update_pdf);
-		 		getPdf($dataPdf);
+		 		// getPdf($dataPdf);
 		 		send_mailDaftarPdf($dataPdf['email'],"Verifikasi Pendaftaran Seminar",$dataPdf,false);
 		 		echo '<br/><div class="container"><div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Verifikasi Success</div></div>';
 	         	echo '<br/><a href="'.home_url().'/wp-admin/admin.php?page=Verifikasi_Pendaftar_list" class="button button-primary">Lihat Data</a>';
