@@ -97,8 +97,6 @@ $query_seminar_h = $wpdb->get_results("SELECT * , a.id_post as post_id , d.post_
                                          window.open( 
                                         '$file', '_blank'); 
                                         </script>";
-                                    
-                                  
                                  }
 
                                  ?>

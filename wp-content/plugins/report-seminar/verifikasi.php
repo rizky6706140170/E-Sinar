@@ -26,7 +26,14 @@ function verifikasi_pemby()
 		 	$dataPdf['nama_seminar'] = $seminar_name;
 		 	// $dataPdf['handphone'] = $seminar->handphone;
 		 	$dataPdf['status'] = $seminar->status;
-		 	$dataPdf['date'] = $seminar->tgl_seminar;
+
+		 	 $tgl_sm_pdf=$wpdb->get_var("SELECT meta_value from wp_postmeta where post_id='id_post' and meta_key = 'date'");
+             $tanggal_pdf = substr($tgl_sm_pdf, 6);
+             $bulan_pdf = substr($tgl_sm_pdf, 4,-2);
+             $tahun_pdf = substr($tgl_sm_pdf, 0,4);
+             $tanggal_seminar_pdf = $tanggal_pdf .'-'. $bulan_pdf .'-'. $tahun_pdf;
+             
+		 	$dataPdf['date'] = $seminar->tanggal_seminar_pdf;
 		 	
 		 	// print_r($dataPdf);
 		 	// // getPdf($dataPdf);
@@ -40,7 +47,7 @@ function verifikasi_pemby()
 		 		$data_update_pdf['id_verifikasi'] = $query; 
 		 		$data_daftar_pdf['file_pdf'] =  $dataPdf['id_user'].$dataPdf['id_post'].'_verifikasi'.'.pdf';
 		 		$update_verifikasi_pdf = $wpdb->update('pdf_verifikasi_daftar', $data_daftar_pdf, $data_update_pdf);
-		 		// getPdf($dataPdf);
+		 		getPdf($dataPdf);
 		 		send_mailDaftarPdf($dataPdf['email'],"Verifikasi Pendaftaran Seminar",$dataPdf,false);
 		 		echo '<br/><div class="container"><div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Verifikasi Success</div></div>';
 	         	echo '<br/><a href="'.home_url().'/wp-admin/admin.php?page=Verifikasi_Pendaftar_list" class="button button-primary">Lihat Data</a>';
