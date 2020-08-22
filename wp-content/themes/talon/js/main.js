@@ -208,3 +208,7 @@ $( "#btn-login" ).click(function() {
 $(".daftar-seminar-nonlogin").click(function(){
 	$('#myModalLogin').modal('show');
 });
+
+$(".cara-bayar").click(function(){
+	$('#myModalCaraBayar').modal('show');
+});

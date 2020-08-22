@@ -739,7 +739,7 @@ function remove_wp_logo( $wp_admin_bar ) {
                             Dear <b>".$dataPdf['nama_pendaftar']."</b> <br><br>
                             
                       		Pembayaran anda pada Seminar ".$dataPdf['nama_seminar']." sudah kami verifikasi<br><br>
-                      		kami lampirkan file pdf tanda anda sudah diverifikasi. <br>
+                      		download file pdf pada menu history anda , file tersebut adalah tanda anda sudah diverifikasi. <br>
                       		silahkan tunjukan file pdf ini ketika datang ke acara seminar <br><br>
                       		jika ada pertanyaan lebih lanjut silahkan hubungi : <br>
                       		email : <a href='mailto:esinar.rry@gmail.com'>esinar.rry@gmail.com</a><br>
@@ -769,13 +769,13 @@ function remove_wp_logo( $wp_admin_bar ) {
            
             //$attach = array();
             //$attach = get_site_url().'/public/pdf/'.$file_name_pdf;
-            $attachments = array();
-            array_push($attachments, WP_CONTENT_DIR .'/uploads/pdf/'.$file_name_pdf );
+            // $attachments = array();
+            // array_push($attachments, WP_CONTENT_DIR .'/uploads/pdf/'.$file_name_pdf );
 
             $phpmailer->SMTPDebug = apply_filters( 'wp_mail_smtp_admin_test_email_smtp_debug', 0 );
             
             // $result = wp_mail($to, $subject, $msg, $headers, $attachments);
-            $result = wp_mail($to, $subject, $msg, $headers,$attachments);
+            $result = wp_mail($to, $subject, $msg, $headers);
         }catch (phpmailerException $e) {
             echo $e->errorMessage(); //Pretty error messages from PHPMailer
         } catch (Exception $e) {

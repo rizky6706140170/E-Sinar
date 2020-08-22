@@ -26,7 +26,14 @@ function verifikasi_pemby()
 		 	$dataPdf['nama_seminar'] = $seminar_name;
 		 	// $dataPdf['handphone'] = $seminar->handphone;
 		 	$dataPdf['status'] = $seminar->status;
-		 	$dataPdf['date'] = $seminar->tgl_seminar;
+
+		 	 $tgl_sm_pdf=$wpdb->get_var("SELECT meta_value from wp_postmeta where post_id='id_post' and meta_key = 'date'");
+             $tanggal_pdf = substr($tgl_sm_pdf, 6);
+             $bulan_pdf = substr($tgl_sm_pdf, 4,-2);
+             $tahun_pdf = substr($tgl_sm_pdf, 0,4);
+             $tanggal_seminar_pdf = $tanggal_pdf .'-'. $bulan_pdf .'-'. $tahun_pdf;
+             
+		 	$dataPdf['date'] = $seminar->tanggal_seminar_pdf;
 		 	
 		 	// print_r($dataPdf);
 		 	// // getPdf($dataPdf);

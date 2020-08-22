@@ -10,7 +10,7 @@ function Verifikasi_list() {
     <?php
       global $wpdb;
       // $query_seminar = $wpdb->get_results("SELECT * FROM daftar_seminar left join ");
-      $query_seminar = $wpdb->get_results("SELECT * , a.id_post as post_id , d.file_pdf as pdf FROM daftar_seminar a LEFT JOIN file_verifikasi b on a.id = b.id_daftar LEFT JOIN wp_users c ON a.id_user = c.ID LEFT JOIN pdf_verifikasi_daftar d on b.id = d.id_verifikasi where a.status = 1");
+      $query_seminar = $wpdb->get_results("SELECT * , a.id_post as post_id , d.file_pdf as pdf FROM daftar_seminar a LEFT JOIN file_verifikasi b on a.id = b.id_daftar LEFT JOIN wp_users c ON a.id_user = c.ID LEFT JOIN pdf_verifikasi_daftar d on b.id = d.id_verifikasi where a.status = 1 ORDER BY a.update_at desc");
     ?>
     <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" style="display: inline-block;">
         <table id="table-data" class='wp-list-table widefat fixed striped' style="width: 100%;">

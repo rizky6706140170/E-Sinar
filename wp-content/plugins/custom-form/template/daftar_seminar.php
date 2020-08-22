@@ -150,7 +150,6 @@ $id_post = $_GET['post'];
 				</div>
 			</div>
 		</form>
-
 	</div>
 </div>
 <?php endif; ?>

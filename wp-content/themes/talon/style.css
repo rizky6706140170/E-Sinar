@@ -2976,7 +2976,7 @@ line-height: 1.5em;
 text-align:left;
 margin-left: 9px;
 padding-bottom: 5px;
-height: 45px;
+height: 85px;
 }
 
 
@@ -3220,6 +3220,15 @@ box-shadow: 10px 13px 8px -5px rgba(173,173,173,1);
 .daftar-seminar-nonlogin
 {
 	cursor: pointer;
+}
+
+.cara-bayar
+{
+	cursor: pointer;
+	width: 40%;
+    margin: 0 auto;
+    margin-top: 2%;
+    border-radius: 5%;
 }
 
 .submit-profile

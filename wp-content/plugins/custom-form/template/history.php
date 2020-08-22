@@ -32,6 +32,7 @@ $query_seminar_h = $wpdb->get_results("SELECT * , a.id_post as post_id , d.post_
                     <th class="manage-column ss-list-width text-center text-bold" style="width: 5%;">No</th>
                     <th class="manage-column ss-list-width text-center text-bold">Nama Pendaftar</th>
                     <th class="manage-column ss-list-width text-center text-bold">Nama Seminar</th>
+                    <th class="manage-column ss-list-width text-center text-bold">Tanggal Seminar</th>
                     <th class="manage-column ss-list-width text-center text-bold">Foto Pembayaran</th>
                     <th class="manage-column ss-list-width text-center text-bold">Status</th>
                     <th class="manage-column ss-list-width text-center text-bold">Action</th>
@@ -47,6 +48,16 @@ $query_seminar_h = $wpdb->get_results("SELECT * , a.id_post as post_id , d.post_
                             ?>         
                         </td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->title; ?></td>
+                        <td class="manage-column ss-list-width text-center">
+                            <?php
+                                 $tgl_sm=$wpdb->get_var("SELECT meta_value from wp_postmeta where post_id='$value->post_id' and meta_key = 'date'");
+                                 $tanggal = substr($tgl_sm, 6);
+                                $bulan = substr($tgl_sm, 4,-2);
+                                $tahun = substr($tgl_sm, 0,4);
+                                $tanggal_seminar = $tanggal .'-'. $bulan .'-'. $tahun;
+                                echo $tanggal_seminar;
+                            ?>
+                        </td>
             			<td class="manage-column ss-list-width text-center">
                             <a href="<?php echo content_url().'/uploads/bukti/'.$value->file_foto; ?>" target="_blank">bukti bayar</a>
                         </td>
@@ -59,8 +70,36 @@ $query_seminar_h = $wpdb->get_results("SELECT * , a.id_post as post_id , d.post_
                                 <span>Pembayaran terbaru sudah dikirim (menunggu verifikasi)</span>
                             <?php else : ?>
                                 <span>Terverifikasi</span><br>
-                                 <a href="<?php echo content_url().'/uploads/pdf/'.$id_user.$value->post_id.'_verifikasi.pdf'; ?>" target="_blank">Lihat PDF</a>
-                             
+                                 <form enctype="multipart/form-data" method="post">
+                                     <input type="submit" name="get_pdf" value="Lihat PDF">
+                                 </form>
+                                 <?php
+                                 if(isset($_POST["get_pdf"]))
+                                 {
+                                    $tgl_sm_pdf=$wpdb->get_var("SELECT meta_value from wp_postmeta where post_id='$value->post_id' and meta_key = 'date'");
+                                    $tanggal_pdf = substr($tgl_sm_pdf, 6);
+                                    $bulan_pdf = substr($tgl_sm_pdf, 4,-2);
+                                    $tahun_pdf = substr($tgl_sm_pdf, 0,4);
+                                    $tanggal_seminar_pdf = $tanggal_pdf .'-'. $bulan_pdf .'-'. $tahun_pdf;
+                                // echo $tanggal_seminar;
+                                    $dataPdf['nama_pendaftar'] =  $value->display_name;
+                                    $dataPdf['email'] = $value->user_email;
+                                    $dataPdf['nama_seminar'] = $value->title;
+                                    $dataPdf['date'] = $tanggal_seminar_pdf;
+                                    $dataPdf['id_user'] = $id_user;
+                                    $dataPdf['id_post'] = $value->post_id;
+                                    // print_r($dataPdf);
+                                    getPdf($dataPdf);
+                                
+                                        $file = content_url().'/uploads/pdf/'.$id_user.$value->post_id.'_verifikasi.pdf';
+                                    
+                                        echo "<script>
+                                         window.open( 
+                                        '$file', '_blank'); 
+                                        </script>";
+                                 }
+
+                                 ?>
                             <?php endif; ?>       
                         </td>
                         <td class="manage-column ss-list-width text-center">
