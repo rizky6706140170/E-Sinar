@@ -141,6 +141,7 @@ function View_ls_sm()
                     {
                         extend: 'excel',
                         title: 'Data Pendaftaran Seminar',
+                        messageTop: 'This print was produced using the Print button for DataTables',
                         exportOptions: {
                             columns: [ 0, 1, 2, 3 , 4]
                         }
@@ -155,6 +156,7 @@ function View_ls_sm()
                     {
                         extend: 'print',
                         title: 'Data Pendaftaran Seminar',
+                        messageTop: 'Uang Masuk : <?php echo "Rp. ". number_format($total_uang_masuk,2,',','.'); ?>',
                         exportOptions: {
                             columns:[ 0, 1, 2, 3 , 4]
                         }
