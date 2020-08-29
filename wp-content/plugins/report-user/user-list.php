@@ -68,13 +68,13 @@ function User_list() {
                             columns: [ 0, 1, 2, 3, 4 ]
                         }
                     },
-                    {
-                        extend: 'pdf',
-                        title: 'Data User E-Sinar',
-                        exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4]
-                        }
-                    },
+                    // {
+                    //     extend: 'pdf',
+                    //     title: 'Data User E-Sinar',
+                    //     exportOptions: {
+                    //         columns: [ 0, 1, 2, 3, 4]
+                    //     }
+                    // },
                     {
                         extend: 'print',
                         title: 'Data User E-Sinar',

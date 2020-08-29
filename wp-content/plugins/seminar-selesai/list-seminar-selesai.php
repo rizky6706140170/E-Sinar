@@ -28,6 +28,7 @@ function Data_seminar_selesai()
 	                    <th class="manage-column ss-list-width text-center text-bold">Bank</th>
 	                    <th class="manage-column ss-list-width text-center text-bold">Rekening</th>
 	                    <th class="manage-column ss-list-width text-center text-bold">Action</th>
+	                    <th class="manage-column ss-list-width text-center text-bold" style="display: none;">Bukti TF</th>
 	                </tr>
 	            </thead>
 	            <tbody>
@@ -75,6 +76,13 @@ function Data_seminar_selesai()
 	            			<a href="<?php echo admin_url('admin.php?page=alert_rekening&type=alert&id_selesai=' . $value->id_selesaii.'&id_author='.$value->id_author); ?>" class="button button-warning">alert rekening</a>
 	            		<?php endif; ?>
 	            		</td>
+	            		<td class="manage-column ss-list-width text-center" style="display: none;">
+	            			<?php if($value->status_tf == 1): ?>
+	            				<?php echo content_url().'/uploads/buktitf/'.$value->file_foto; ?>
+	            			<?php else: ?>
+	            				<?php echo "belum upload"; ?>
+	            			<?php endif; ?>
+	            		</td>
 	            	</tr>
 	            	<?php endforeach; ?>
 	            </tbody>
@@ -94,23 +102,23 @@ function Data_seminar_selesai()
                 buttons: [
                     {
                         extend: 'excel',
-                        title: 'Data Pendaftaran Seminar',
+                        title: 'Data Seminar Selesai',
                         exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4, 5 , 6 ,7 ,8,9]
+                            columns: [ 0, 1, 2, 3, 4, 5 , 6 ,7 ,8,9,11]
                         }
                     },
-                    {
-                        extend: 'pdf',
-                        title: 'Data Pendaftaran Seminar',
-                        exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4, 5 ,6 ,7,8,9]
-                        }
-                    },
+                    // {
+                    //     extend: 'pdf',
+                    //     title: 'Data Seminar Selesai',
+                    //     exportOptions: {
+                    //         columns: [ 0, 1, 2, 3, 4, 5 ,6 ,7,8,9]
+                    //     }
+                    // },
                     {
                         extend: 'print',
-                        title: 'Data Pendaftaran Seminar',
+                        title: 'Data Seminar Selesai',
                         exportOptions: {
-                            columns:[ 0, 1, 2, 3, 4, 5, 6,7,8,9]
+                            columns:[ 0, 1, 2, 3, 4, 5, 6,7,8,9,11]
                         }
                     },
                 ],

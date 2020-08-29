@@ -25,6 +25,7 @@ function Data_bukti_tf()
 	                    <th class="manage-column ss-list-width text-center text-bold">Uang Pemilik</th>
 	                    <th class="manage-column ss-list-width text-center text-bold">Uang E-sinar</th>
 	                    <th class="manage-column ss-list-width text-center text-bold">Bukti TF</th>
+	                    <th class="manage-column ss-list-width text-center text-bold" style="display: none;">Bukti TF</th>
 	                </tr>
 	            </thead>
 	            <tbody>
@@ -61,6 +62,9 @@ function Data_bukti_tf()
 	            				<?php echo "Bukti"; ?>
 	            			</a>
 	            		</td>
+	            		<td class="manage-column ss-list-width text-center" style="display: none;">
+	            			<?php echo content_url().'/uploads/buktitf/'.$value->file_foto; ?>
+	            		</td>
 	            	</tr>
 	            	<?php endforeach; ?>
 	            </tbody>
@@ -80,28 +84,29 @@ function Data_bukti_tf()
                 buttons: [
                     {
                         extend: 'excel',
-                        title: 'Data Pendaftaran Seminar',
+                        title: 'Data Bukti Transfer Seminar',
                         exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4, 5 , 6 ,7]
+                            columns: [ 0, 1, 2, 3, 4, 5 , 6 ,8],
+                             stripHtml: false
                         }
                     },
-                    {
-                        extend: 'pdf',
-                        title: 'Data Pendaftaran Seminar',
-                        exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4, 5 ,6 ,7]
-                        }
-                    },
+                    // {
+                    //     extend: 'pdf',
+                    //     title: 'Data Pendaftaran Seminar',
+                    //     exportOptions: {
+                    //         columns: [ 0, 1, 2, 3, 4, 5 ,6 ,7]
+                    //     }
+                    // },
                     {
                         extend: 'print',
-                        title: 'Data Pendaftaran Seminar',
+                        title: 'Data Bukti Transfer Seminar',
                         exportOptions: {
-                            columns:[ 0, 1, 2, 3, 4, 5, 6,7]
+                            columns:[ 0, 1, 2, 3, 4, 5, 6,8]
                         }
                     },
                 ],
             });
-            $('.dt-buttons').css('display','none');
+            // $('.dt-buttons').css('display','none');
         });
 	</script>
 

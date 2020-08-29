@@ -505,6 +505,10 @@ function getPdf($dataPdf = array())
                     <td width="50%">'.$dataPdf['date'].'</td>
                 </tr>
                 <tr>                    
+                    <td width="50%">Waktu Seminar</td>
+                    <td width="50%">'.$dataPdf['mulai'].' s/d '.$dataPdf['selesai'].'</td>
+                </tr>
+                <tr>                    
                     <td width="50%">Status</td>
                     <td width="50%">Di Verifikasi</td>
                 </tr>

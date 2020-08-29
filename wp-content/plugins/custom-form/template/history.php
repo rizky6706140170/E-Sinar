@@ -1,4 +1,3 @@
-<input type="hidden" name="idForm" id="idForm" value="22">
 <?php
 global $wpdb;
 global $current_user;
@@ -10,7 +9,7 @@ $id_user = $current_user->id;
 // echo $cek_sesion;
 // echo $id_user;
 // $query_seminar_h = $wpdb->get_results("SELECT * FROM daftar_seminar where id_user = '$id_user'");
-$query_seminar_h = $wpdb->get_results("SELECT * , a.id_post as post_id , d.post_title as title FROM daftar_seminar a LEFT JOIN wp_users b on a.id_user = b.ID LEFT JOIN file_verifikasi c on a.id = c.id_daftar LEFT JOIN wp_posts d on a.id_post = d.ID where a.id_user = '$id_user'");
+$query_seminar_h = $wpdb->get_results("SELECT * , a.id_post as post_id , d.post_title as title , e.meta_value as tanggal_sm FROM daftar_seminar a LEFT JOIN wp_users b on a.id_user = b.ID LEFT JOIN file_verifikasi c on a.id = c.id_daftar LEFT JOIN wp_posts d on a.id_post = d.ID LEFT JOIN wp_postmeta e on a.id_post = e.post_id where a.id_user = '$id_user' and e.meta_key = 'date'");
 ?>
 <?php if($cek_sesion && $cek_sesion != $id_user) : ?>
 <div>
@@ -76,10 +75,12 @@ $query_seminar_h = $wpdb->get_results("SELECT * , a.id_post as post_id , d.post_
                                  <?php
                                  if(isset($_POST["get_pdf"]))
                                  {
-                                    $tgl_sm_pdf=$wpdb->get_var("SELECT meta_value from wp_postmeta where post_id='$value->post_id' and meta_key = 'date'");
-                                    $tanggal_pdf = substr($tgl_sm_pdf, 6);
-                                    $bulan_pdf = substr($tgl_sm_pdf, 4,-2);
-                                    $tahun_pdf = substr($tgl_sm_pdf, 0,4);
+                                    $waktu_mulai=$wpdb->get_var("SELECT meta_value from wp_postmeta where post_id='$value->post_id' and meta_key = 'waktu_mulai'");
+                                    $waktu_selesai=$wpdb->get_var("SELECT meta_value from wp_postmeta where post_id='$value->post_id' and meta_key = 'waktu_selesai'");
+
+                                    $tanggal_pdf = substr($value->tanggal_sm, 6);
+                                    $bulan_pdf = substr($value->tanggal_sm, 4,-2);
+                                    $tahun_pdf = substr($value->tanggal_sm, 0,4);
                                     $tanggal_seminar_pdf = $tanggal_pdf .'-'. $bulan_pdf .'-'. $tahun_pdf;
                                 // echo $tanggal_seminar;
                                     $dataPdf['nama_pendaftar'] =  $value->display_name;
@@ -88,6 +89,8 @@ $query_seminar_h = $wpdb->get_results("SELECT * , a.id_post as post_id , d.post_
                                     $dataPdf['date'] = $tanggal_seminar_pdf;
                                     $dataPdf['id_user'] = $id_user;
                                     $dataPdf['id_post'] = $value->post_id;
+                                    $dataPdf['mulai'] = $waktu_mulai;
+                                    $dataPdf['selesai'] = $waktu_selesai;
                                     // print_r($dataPdf);
                                     getPdf($dataPdf);
                                 

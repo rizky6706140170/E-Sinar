@@ -25,7 +25,7 @@ function Pemilik_list() {
                     <th class="manage-column ss-list-width text-center text-bold">No Rekening</th>
                     <th class="manage-column ss-list-width text-center text-bold">Registered</th>
                     <th class="manage-column ss-list-width text-center text-bold">Status Akun</th>
-                    <th class="manage-column ss-list-width text-center text-bold" style="width: 8%;">Action</th>
+                    <th class="manage-column ss-list-width text-center text-bold" style="display: none;">link profile</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,7 +50,7 @@ function Pemilik_list() {
                         <td class="manage-column ss-list-width text-center"><?php echo $value->rekening; ?></td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->user_registered; ?></td>
             			<td class="manage-column ss-list-width text-center"><?php echo $value->role_user; ?></td>
-            			<td class="manage-column ss-list-width text-center"></td>
+            			<td class="manage-column ss-list-width text-center" style="display: none;"><img src="<?php echo content_url().'/uploads/profile/'.$value->foto; ?>" style="width: 40px;height: 40px;"></td>
             		</tr>
             	<?php endforeach; ?>
             </tbody>
@@ -71,23 +71,23 @@ function Pemilik_list() {
                 buttons: [
                     {
                         extend: 'excel',
-                        title: 'Data User E-Sinar',
+                        title: 'List Pemilik E-Sinar',
                         exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4 ,5,6,7]
+                            columns: [ 0, 2, 3, 4 ,5,6,7]
                         }
                     },
-                    {
-                        extend: 'pdf',
-                        title: 'Data User E-Sinar',
-                        exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4]
-                        }
-                    },
+                    // {
+                    //     extend: 'pdf',
+                    //     title: 'Data User E-Sinar',
+                    //     exportOptions: {
+                    //         columns: [ 0, 1, 2, 3, 4]
+                    //     }
+                    // },
                     {
                         extend: 'print',
-                        title: 'Data User E-Sinar',
+                        title: 'List Pemilik E-Sinar',
                         exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4 ]
+                            columns: [ 0, 2, 3, 4 ,5,6,7]
                         }
                     },
                 ],

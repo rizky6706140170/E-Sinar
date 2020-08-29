@@ -24,6 +24,7 @@ function Verifikasi_list() {
                     <th class="manage-column ss-list-width text-center text-bold">Created At</th>
                     <th class="manage-column ss-list-width text-center text-bold">Verification At</th>
                     <th class="manage-column ss-list-width text-center text-bold">File PDF</th>
+                    <th class="manage-column ss-list-width text-center text-bold" style="display: none;">File PDF</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,6 +52,11 @@ function Verifikasi_list() {
                                <a href="<?php echo content_url().'/uploads/pdf/'.$value->pdf.''; ?>" target="_blank">Lihat PDF</a>
                            
                         </td>
+                        <td class="manage-column ss-list-width text-center" style="display: none;">
+                
+                               <?php echo content_url().'/uploads/pdf/'.$value->pdf.''; ?>
+                           
+                        </td>
             		</tr>
             	<?php endforeach; ?>
             </tbody>
@@ -71,23 +77,25 @@ function Verifikasi_list() {
                 buttons: [
                     {
                         extend: 'excel',
-                        title: 'Data Pendaftaran Seminar',
+                        title: 'Data Pendaftaran Seminar (verifikasi)',
                         exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4, 5 , 6]
+                            columns: [ 0, 1, 2, 3, 4, 5 , 6 ,8],
+                             stripHtml: false
                         }
                     },
-                    {
-                        extend: 'pdf',
-                        title: 'Data Pendaftaran Seminar',
-                        exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4, 5 ,6]
-                        }
-                    },
+                    // {
+                    //     extend: 'pdf',
+                    //     title: 'Data Pendaftaran Seminar',
+                    //     exportOptions: {
+                    //         columns: [ 0, 1, 2, 3, 4, 5 ,6]
+                    //     }
+                    // },
                     {
                         extend: 'print',
-                        title: 'Data Pendaftaran Seminar',
+                        title: 'Data Pendaftaran Seminar (verifikasi)',
                         exportOptions: {
-                            columns:[ 0, 1, 2, 3, 4, 5, 6]
+                            columns:[ 0, 1, 2, 3, 4, 5, 6 ,8 ],
+                             stripHtml: false
                         }
                     },
                 ],

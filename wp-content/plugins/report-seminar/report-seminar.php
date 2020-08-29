@@ -22,6 +22,7 @@ function Seminar_list() {
                     <th class="manage-column ss-list-width text-center text-bold">Harga Seminar</th>
                     <th class="manage-column ss-list-width text-center text-bold">Tanggal Seminar</th>
                     <th class="manage-column ss-list-width text-center text-bold">Foto Pembayaran</th>
+                    <th class="manage-column ss-list-width text-center text-bold" style="display: none;">Foto Pembayaran link</th>
                     <th class="manage-column ss-list-width text-center text-bold">Status</th>
                     <th class="manage-column ss-list-width text-center text-bold">Created At</th>
                     <th class="manage-column ss-list-width text-center text-bold">Update At</th>
@@ -41,6 +42,9 @@ function Seminar_list() {
                         </td>
                         <td class="manage-column ss-list-width text-center"><?php echo $value->tgl_seminar; ?></td>
             			<td class="manage-column ss-list-width text-center"><a href="<?php echo content_url().'/uploads/bukti/'.$value->file_foto; ?>" target="_blank"><?php echo $value->file_foto; ?></a></td>
+                        <td class="manage-column ss-list-width text-center" style="display: none;">
+                            <?php echo content_url().'/uploads/bukti/'.$value->file_foto; ?>
+                        </td>
             			<td class="manage-column ss-list-width text-center">
                             <?php if($value->status == 0){
                                 echo "Belum di verifikasi";
@@ -91,21 +95,23 @@ function Seminar_list() {
                         extend: 'excel',
                         title: 'Data Pendaftaran Seminar',
                         exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4, 5 , 6 ,7 ,8,9]
+                            columns: [ 0, 1, 2, 3, 4 , 6 ,7 ,8,9],
+                            stripHtml: false
                         }
                     },
-                    {
-                        extend: 'pdf',
-                        title: 'Data Pendaftaran Seminar',
-                        exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4, 5 ,6 ,7,8,9]
-                        }
-                    },
+                    // {
+                    //     extend: 'pdf',
+                    //     title: 'Data Pendaftaran Seminar',
+                    //     exportOptions: {
+                    //         columns: [ 0, 1, 2, 3, 4, 5 ,6 ,7,8,9]
+                    //     }
+                    // },
                     {
                         extend: 'print',
                         title: 'Data Pendaftaran Seminar',
                         exportOptions: {
-                            columns:[ 0, 1, 2, 3, 4, 5, 6,7,8,9]
+                            columns:[ 0, 1, 2, 3, 4, 6,7,8,9],
+                            stripHtml: false
                         }
                     },
                 ],

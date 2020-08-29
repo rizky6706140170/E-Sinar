@@ -16,6 +16,7 @@ function View_ls_sm()
 		$jumlah_pendaftar = $wpdb->get_var("SELECT count(id) FROM daftar_seminar where id_author = '$cek_session' and id_post ='$id_post'");
 		$verified = $wpdb->get_var("SELECT count(id) FROM daftar_seminar where id_author = '$cek_session' and id_post ='$id_post' and status = 1");
 		$not_verified = $wpdb->get_var("SELECT count(id) FROM daftar_seminar where id_author = '$cek_session' and id_post ='$id_post' and status != 1 ");
+		$nama_seminar = $wpdb->get_var("SELECT post_title from wp_posts where ID = '$id_post' ");
 
 
 		$query_get_htg = $wpdb->get_row("SELECT * , count(a.id) as jumlah , b.meta_value as harga FROM daftar_seminar a LEFT JOIN wp_postmeta b on a.id_post = b.post_id where a.id_post = '$id_post' and b.meta_key='harga' and id_author = '$cek_session' and a.status = 1");
@@ -140,8 +141,8 @@ function View_ls_sm()
                 buttons: [
                     {
                         extend: 'excel',
-                        title: 'Data Pendaftaran Seminar',
-                        messageTop: 'This print was produced using the Print button for DataTables',
+                        title: 'Data Pendaftaran Seminar : <?php echo $nama_seminar; ?>',
+                       messageTop: 'Uang Masuk : <?php echo "Rp. ". number_format($total_uang_masuk,2,',','.'); ?> || Uang Pemilik : <?php echo "Rp. ". number_format($uang_pemilik,2,',','.'); ?> || Uang E-Sinar : <?php echo "Rp. ". number_format($uang_esinar,2,',','.'); ?>',
                         exportOptions: {
                             columns: [ 0, 1, 2, 3 , 4]
                         }
@@ -155,8 +156,8 @@ function View_ls_sm()
                     // },
                     {
                         extend: 'print',
-                        title: 'Data Pendaftaran Seminar',
-                        messageTop: 'Uang Masuk : <?php echo "Rp. ". number_format($total_uang_masuk,2,',','.'); ?>',
+                        title: 'Data Pendaftaran Seminar : <?php echo $nama_seminar; ?> ',
+                        messageTop: 'Uang Masuk : <?php echo "Rp. ". number_format($total_uang_masuk,2,',','.'); ?> || Uang Pemilik : <?php echo "Rp. ". number_format($uang_pemilik,2,',','.'); ?> || Uang E-Sinar : <?php echo "Rp. ". number_format($uang_esinar,2,',','.'); ?>',
                         exportOptions: {
                             columns:[ 0, 1, 2, 3 , 4]
                         }
